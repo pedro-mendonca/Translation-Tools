@@ -1,5 +1,5 @@
-# Translation of Plugins - Translation Stats - Development (trunk) in French (France)
-# This file is distributed under the same license as the Plugins - Translation Stats - Development (trunk) package.
+# Translation of Plugins - Translation Tools - Development (trunk) in French (France)
+# This file is distributed under the same license as the Plugins - Translation Tools - Development (trunk) package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plugins - Translation Tools - Development (trunk)\n"
