@@ -10,7 +10,7 @@
 [![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/translation-tools.svg?label=WordPress%20Tested&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 
 [![Build Status](https://img.shields.io/travis/pedro-mendonca/translation-tools?label=Build&logo=travis)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcd1b44a1d6542e2b75b7b479ce56804)](https://www.codacy.com/app/pedro-mendonca/Translation-Tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pedro-mendonca/Translation-Tools&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7fde010153d842c1a6e10c0f024198f8)](https://www.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pedro-mendonca/Translation-Tools&amp;utm_campaign=Badge_Grade)
 [![RIPS CodeRisk](https://coderisk.com/wp/plugin/translation-tools/badge "RIPS CodeRisk")](https://coderisk.com/wp/plugin/translation-tools)
 [![PHPStan Level](https://img.shields.io/badge/PHPStan%20Level-6-brightgreen)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
 
