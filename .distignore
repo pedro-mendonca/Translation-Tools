@@ -1,0 +1,35 @@
+# OS
+.github/
+assets/
+tests/
+.DS_Store
+Desktop.ini
+Thumbs.db
+*.log
+*.sql
+*.tar.gz
+*.zip
+.git
+.distignore
+.editorconfig
+.gitignore
+README.md
+
+# Lint
+.eslintignore
+.eslintrc
+.remarkrc
+.stylelintrc
+phpcs.xml
+
+# Travis
+.travis.yml
+
+# Composer
+composer.json
+composer.lock
+
+# Node
+node_modules/
+package-lock.json
+package.json

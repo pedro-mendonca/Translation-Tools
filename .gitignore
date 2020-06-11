@@ -1,0 +1,15 @@
+# OS
+tests/
+.DS_Store
+Desktop.ini
+Thumbs.db
+*.log
+*.sql
+*.tar.gz
+*.zip
+
+# Composer
+/vendor/
+
+# Node
+/node_modules/

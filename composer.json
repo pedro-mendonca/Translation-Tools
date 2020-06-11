@@ -1,0 +1,47 @@
+{
+  "name": "pedro-mendonca/translation-tools",
+  "description": "Translation tools for your WordPress install.",
+  "version": "1.0.0",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Pedro Mendonça",
+      "email": "ped.gaspar@gmail.com",
+      "homepage": "https://pedromendonca.pt"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "gettext/gettext": "^4.8.1"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.6.0",
+    "wp-coding-standards/wpcs": "^2.2.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1.0",
+    "szepeviktor/phpstan-wordpress": "^0.6.0",
+    "phpstan/phpstan": "0.12.25"
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "scripts": {
+    "test": [
+      "@lint",
+      "@stan"
+    ],
+    "lint": "phpcs -v --standard=phpcs.xml",
+    "lint-fix": "phpcbf -v --standard=phpcs.xml",
+    "lint-i": "phpcs -i",
+    "stan": "phpstan analyse -c phpstan.neon --memory-limit=2G",
+    "scripts-list": "composer run-script --list"
+  },
+  "scripts-descriptions": {
+    "test": "Runs all available code tests (PHP_CodeSniffer and PHPStan).",
+    "lint": "Runs the PHP code sniffer.",
+    "lint-fix": "Runs the PHP code sniffer a automatically fix errors.",
+    "lint-i": "List the installed coding standards.",
+    "stan": "Runs the PHPStan code static analysis.",
+    "scripts-list": "List all Composer scripts."
+  }
+}

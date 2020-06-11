@@ -1,0 +1,187 @@
+# Translation Tools - Development (trunk) in Swedish
+# This file is distributed under the same license as the Plugins - Translation Tools - Development (trunk) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - Translation Tools - Development (trunk)\n"
+"Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-06-11 02:31+0100\n"
+"Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. translators: %s: File name.
+#: includes/class-ttools-gettext.php:145
+#: includes/class-ttools-update-translations.php:191
+#: includes/class-ttools-update-translations.php:282
+#, php-format
+msgid "Saving file %s…"
+msgstr "Sparar fil %s…"
+
+#: includes/class-ttools-gettext.php:162
+#: includes/class-ttools-update-translations.php:203
+#: includes/class-ttools-update-translations.php:294
+msgid "Could not create file."
+msgstr "Kunde inte skapa fil."
+
+#: includes/class-ttools-options-general.php:143
+msgid "No Language Packs"
+msgstr ""
+
+#. translators: 1: Locale code. 2: Locale native name.
+#: includes/class-ttools-options-general.php:150
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#: includes/class-ttools-options-general.php:163
+msgid "Select a Locale with no Language Packs"
+msgstr ""
+
+#: includes/class-ttools-options-general.php:170
+msgid "Choose one Locale to add to the above available languages."
+msgstr ""
+
+#: includes/class-ttools-options-general.php:178
+#, php-format
+msgid "There is %d Locale that has no language packs"
+msgid_plural "There are %d Locales that has no language packs"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:37
+msgctxt "Subproject name"
+msgid "Development"
+msgstr "Development"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:43
+msgctxt "Subproject name"
+msgid "Administration"
+msgstr "Administration"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:49
+msgctxt "Subproject name"
+msgid "Network Admin"
+msgstr "Network Admin"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:55
+msgctxt "Subproject name"
+msgid "Continents & Cities"
+msgstr "Continents & Cities"
+
+#. translators: 1: WordPress version. 2: Locale name.
+#: includes/class-ttools-update-core.php:143
+#: includes/class-ttools-update-core.php:344
+#, php-format
+msgid "The translation of WordPress %1$s for %2$s is not complete."
+msgstr "Översättningen av WordPress %1$s för %2$s är inte fullständig."
+
+#. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
+#: includes/class-ttools-update-core.php:151
+#: includes/class-ttools-update-core.php:352
+#, php-format
+msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
+msgstr ""
+
+#. translators: %s: Button label.
+#: includes/class-ttools-update-core.php:161
+#: includes/class-ttools-update-core.php:330
+#, php-format
+msgid "Click the %s button to force update the latest approved translations."
+msgstr "Klicka på %s-knappen för att tvinga uppdatering av de senaste godkända översättningarna."
+
+#: includes/class-ttools-update-core.php:162
+#: includes/class-ttools-update-core.php:269
+#: includes/class-ttools-update-core.php:331
+msgid "Update WordPress Translation"
+msgstr "Uppdatera WordPress-översättning"
+
+#. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
+#: includes/class-ttools-update-core.php:321
+#, php-format
+msgid "The translation <em>language pack</em> of WordPress %1$s for %2$s was updated on %3$s."
+msgstr "Översättningens <em>språkpaket</em> av WordPress %1$s för %2$s uppdaterades den %3$s."
+
+#: includes/class-ttools-update-core.php:395
+msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
+msgstr "Uppdateringsprocessen börjar. Denna process kan ta en stund på vissa webbhotell, så ha tålamod."
+
+#. translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated.
+#: includes/class-ttools-update-core.php:433
+#, php-format
+msgid "Updating translations for %1$s (%2$s) (%3$d/%4$d)"
+msgstr "Uppdaterar översättningar för %1$s (%2$s) (%3$d/%4$d)"
+
+#. translators: 1: Title of an update. 2: Error message.
+#: includes/class-ttools-update-core.php:466
+#, php-format
+msgid "An error occurred while updating %1$s: %2$s"
+msgstr "Ett fel uppstod vid uppdatering av %1$s: %2$s"
+
+#. translators: %s: Project name.
+#: includes/class-ttools-update-core.php:481
+#, php-format
+msgid "%s updated successfully."
+msgstr "%s har uppdaterats utan problem."
+
+#: includes/class-ttools-update-core.php:485
+msgid "Show details."
+msgstr "Visa detaljer."
+
+#: includes/class-ttools-update-core.php:496
+msgid "All updates have been completed."
+msgstr "Alla uppdateringar har slutförts."
+
+#: includes/class-ttools-update-translations.php:116
+msgid "Translation updated successfully."
+msgstr "Översättning uppdaterad utan problem."
+
+#. translators: %s: URL.
+#: includes/class-ttools-update-translations.php:141
+#, php-format
+msgid "Downloading translation from %s…"
+msgstr "Laddar ner översättning från %s…"
+
+#: includes/class-ttools-update-translations.php:155
+msgid "Download failed."
+msgstr "Nerladdning misslyckades."
+
+#: includes/class-ttools-update-translations.php:156
+msgid "A valid URL was not provided."
+msgstr "En giltig URL har inte angivits."
+
+#. translators: %s: File name.
+#: includes/class-ttools-update-translations.php:236
+#, php-format
+msgid "Extracting translations from file %s…"
+msgstr "Extraherar översättningar från fil %s…"
+
+#: includes/class-ttools-update-translations.php:247
+msgid "Could not extract translations from file."
+msgstr "Kunde inte extrahera översättningar från fil."
+
+#. Plugin Name of the plugin/theme
+msgid "Translation Tools"
+msgstr "Translation Tools"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/pedro-mendonca/Translation-Tools"
+msgstr "https://github.com/pedro-mendonca/Translation-Tools"
+
+#. Description of the plugin/theme
+msgid "Translation tools for your WordPress install."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pedro Mendonça"
+msgstr "Pedro Mendonça"

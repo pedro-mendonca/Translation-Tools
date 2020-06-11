@@ -1,0 +1,70 @@
+os: linux
+dist: trusty
+
+# Declare project language.
+# @link http://about.travis-ci.org/docs/user/languages/php/
+language: php
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+branches:
+  only:
+    - master
+    - dev
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.4
+  - 7.3
+  - 7.2
+  - 7.1
+  - 7.0
+  - 5.6
+
+env:
+  - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=latest WP_MULTISITE=1
+
+jobs:
+  include:
+  - php: nightly
+    env: WP_VERSION=nightly WP_MULTISITE=0
+  - php: nightly
+    env: WP_VERSION=nightly WP_MULTISITE=1
+  - php: "5.6"
+    env: WP_VERSION=4.9 WP_MULTISITE=0
+  - php: "5.6"
+    env: WP_VERSION=4.9 WP_MULTISITE=1
+  allow_failures:
+  - php: nightly
+    env: WP_VERSION=nightly WP_MULTISITE=0
+  - php: nightly
+    env: WP_VERSION=nightly WP_MULTISITE=1
+
+before_install:
+  # Speed up build time by disabling Xdebug.
+  # https://johnblackbourn.com/reducing-travis-ci-build-times-for-wordpress-projects/
+  - phpenv config-rm xdebug.ini || echo "xdebug not available for PHP $TRAVIS_PHP_VERSION"
+
+install:
+  # Remove PHPStan WordPress for PHP less than 7.1.
+  - if [[ $TRAVIS_PHP_VERSION = "5.6" || $TRAVIS_PHP_VERSION = "7.0" ]]; then composer remove --dev szepeviktor/phpstan-wordpress; fi
+  # Composer install.
+  - composer install
+
+script:
+  # Search for PHP syntax errors.
+  - find -L . -path ./vendor -prune -o -name \*.php -print0 | xargs -0 -n 1 -P 4 php -l
+  # Show a list of installed coding standards.
+  - composer lint-i
+  # Run against installed coding standards.
+  - composer lint
+  # Run PHPStan only for PHP greater or equal to 7.1.
+  # Suppress temporarily from travis.
+  - if [[ $TRAVIS_PHP_VERSION != "5.6" && $TRAVIS_PHP_VERSION != "7.0" ]]; then composer stan; fi

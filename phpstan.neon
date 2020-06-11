@@ -1,0 +1,28 @@
+#$ composer update --optimize-autoloader
+#$ vendor/bin/phpstan analyze
+
+includes:
+	# @see https://github.com/phpstan/phpstan-src/blob/master/conf/bleedingEdge.neon
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+	# Include this extension
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+	level: 6
+	inferPrivatePropertyTypeFromConstructor: true
+	paths:
+		# Plugin root
+		- %currentWorkingDirectory%/
+	excludes_analyse:
+		# Dependencies
+		- %currentWorkingDirectory%/node_modules/*
+		- %currentWorkingDirectory%/vendor/*
+		# Temporarily exlusions:
+		- %currentWorkingDirectory%/uninstall.php
+	autoload_files:
+		# Plugin main file
+		- %currentWorkingDirectory%/translation-tools.php
+	ignoreErrors:
+		# Temporarily ignore:
+		- "#Parameter \\#1 \\$autoload_function of function spl_autoload_register expects callable\\(string\\): void, 'ttools_class…' given.#"
+	# Temporarily disable test.
+	checkMissingIterableValueType: false

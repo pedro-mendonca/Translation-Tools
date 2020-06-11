@@ -1,0 +1,192 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Translation Tools\n"
+"Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: translation-tools.php\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#. translators: %s: File name.
+#: includes/class-ttools-gettext.php:145
+#: includes/class-ttools-update-translations.php:191
+#: includes/class-ttools-update-translations.php:282
+#, php-format
+msgid "Saving file %s…"
+msgstr ""
+
+#: includes/class-ttools-gettext.php:162
+#: includes/class-ttools-update-translations.php:203
+#: includes/class-ttools-update-translations.php:294
+msgid "Could not create file."
+msgstr ""
+
+#: includes/class-ttools-options-general.php:143
+msgid "No Language Packs"
+msgstr ""
+
+#. translators: 1: Locale code. 2: Locale native name.
+#: includes/class-ttools-options-general.php:150
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: includes/class-ttools-options-general.php:163
+msgid "Select a Locale with no Language Packs"
+msgstr ""
+
+#: includes/class-ttools-options-general.php:170
+msgid "Choose one Locale to add to the above available languages."
+msgstr ""
+
+#: includes/class-ttools-options-general.php:178
+#, php-format
+msgid "There is %d Locale that has no language packs"
+msgid_plural "There are %d Locales that has no language packs"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:37
+msgctxt "Subproject name"
+msgid "Development"
+msgstr ""
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:43
+msgctxt "Subproject name"
+msgid "Administration"
+msgstr ""
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:49
+msgctxt "Subproject name"
+msgid "Network Admin"
+msgstr ""
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-ttools-translations-api.php:55
+msgctxt "Subproject name"
+msgid "Continents & Cities"
+msgstr ""
+
+#. translators: 1: WordPress version. 2: Locale name.
+#: includes/class-ttools-update-core.php:143
+#: includes/class-ttools-update-core.php:344
+#, php-format
+msgid "The translation of WordPress %1$s for %2$s is not complete."
+msgstr ""
+
+#. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
+#: includes/class-ttools-update-core.php:151
+#: includes/class-ttools-update-core.php:352
+#, php-format
+msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
+msgstr ""
+
+#. translators: %s: Button label.
+#: includes/class-ttools-update-core.php:161
+#: includes/class-ttools-update-core.php:330
+#, php-format
+msgid "Click the %s button to force update the latest approved translations."
+msgstr ""
+
+#: includes/class-ttools-update-core.php:162
+#: includes/class-ttools-update-core.php:269
+#: includes/class-ttools-update-core.php:331
+msgid "Update WordPress Translation"
+msgstr ""
+
+#. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
+#: includes/class-ttools-update-core.php:321
+#, php-format
+msgid "The translation <em>language pack</em> of WordPress %1$s for %2$s was updated on %3$s."
+msgstr ""
+
+#: includes/class-ttools-update-core.php:395
+msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated.
+#: includes/class-ttools-update-core.php:433
+#, php-format
+msgid "Updating translations for %1$s (%2$s) (%3$d/%4$d)"
+msgstr ""
+
+#. translators: 1: Title of an update. 2: Error message.
+#: includes/class-ttools-update-core.php:466
+#, php-format
+msgid "An error occurred while updating %1$s: %2$s"
+msgstr ""
+
+#. translators: %s: Project name.
+#: includes/class-ttools-update-core.php:481
+#, php-format
+msgid "%s updated successfully."
+msgstr ""
+
+#: includes/class-ttools-update-core.php:485
+msgid "Show details."
+msgstr ""
+
+#: includes/class-ttools-update-core.php:496
+msgid "All updates have been completed."
+msgstr ""
+
+#: includes/class-ttools-update-translations.php:116
+msgid "Translation updated successfully."
+msgstr ""
+
+#. translators: %s: URL.
+#: includes/class-ttools-update-translations.php:141
+#, php-format
+msgid "Downloading translation from %s…"
+msgstr ""
+
+#: includes/class-ttools-update-translations.php:155
+msgid "Download failed."
+msgstr ""
+
+#: includes/class-ttools-update-translations.php:156
+msgid "A valid URL was not provided."
+msgstr ""
+
+#. translators: %s: File name.
+#: includes/class-ttools-update-translations.php:236
+#, php-format
+msgid "Extracting translations from file %s…"
+msgstr ""
+
+#: includes/class-ttools-update-translations.php:247
+msgid "Could not extract translations from file."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Translation Tools"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/pedro-mendonca/Translation-Tools"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Translation tools for your WordPress install."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pedro Mendonça"
+msgstr ""
