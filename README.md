@@ -1,5 +1,6 @@
 # Translation Tools #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/534909194f4446c3a865f66536ac4e03)](https://app.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&utm_medium=referral&utm_content=pedro-mendonca/Translation-Tools&utm_campaign=Badge_Grade_Settings)
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/translation-tools?label=Plugin%20Version&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 [![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/translation-tools?label=Plugin%20Rating&logo=wordpress)](https://wordpress.org/support/plugin/translation-tools/reviews/)
 [![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/translation-tools.svg?label=Downloads&logo=wordpress)](https://wordpress.org/plugins/translation-tools/advanced/)
