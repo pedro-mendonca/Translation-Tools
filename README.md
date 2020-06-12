@@ -28,19 +28,29 @@ Translation tools for your WordPress install.
 
 ## Description ##
 
+### Use any Locale, with or without Language Packs ###
+
 With core Language Packs you can easily change the language of your WordPress install.  
 Unfortunately core language packs are only provided for 100% translated locales.  
 
-If you need to update your WordPress translation and your locale isn't completely translated, this tool will help you to update all the needed translation files in a few seconds.
+If you need a specific Locale that has no Language Packs yet, this tool will help you to add it to the available languages list.  
 
-Every core sub-projects:
+Go to Settings > General > Site Language and select the needed Locale to add it to the main list.  
+
+### Update your WordPress core translation, on demand ###
+
+If you need to update your WordPress core translation on demand without waiting for a language pack to be generated, this tool allows you to manually update all the needed files for the installed version, with one click, in a few seconds.  
+
+Go to Updates > Translations and click the "Update WordPress Translation" button.  
+
+#### All WordPress core sub-projects ####
 
 *   Development
 *   Continents & Cities
 *   Administration
 *   Network Admin
 
-Every translation files:
+#### All translation files ####
 
 *   .po (editable translation files)
 *   .mo (binary translation files)
@@ -57,7 +67,7 @@ Here is a list of the [Locales WITH NO language packs](https://make.wordpress.or
 
 ### My locale has language packs but the translation isn't complete ###
 You can force update the WordPress translation right from your Dashboard > Updates page.  
-Click on the "Update WordPress Translation" and you're done.
+Click on the "Update WordPress Translation" and you're done.  
 In a few seconds all the needed translation files (.po, .mo and .json) will be generated.  
 
 ### My locale has no language packs and I can't select it as the Site Language for core, plugins and themes ###
