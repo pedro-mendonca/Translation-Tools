@@ -88,6 +88,9 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 			// All locales available from Translate API.
 			$all_locales = $this->translations_api->get_locales();
+			if ( ! $all_locales ) {
+				$all_locales = array();
+			}
 
 			// Locales with language packs.
 			$locales_with_lang_packs = get_site_transient( 'available_translations' );
