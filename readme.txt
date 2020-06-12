@@ -5,7 +5,7 @@ Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Yes you can! If you want to translate this plugin to your language, please [clic
 Sure! You are welcome to report any issues or add feature suggestions on the [GitHub repository](https://github.com/pedro-mendonca/Translation-Tools).
 
 == Changelog ==
+
+= 1.0.1 =
+*   Improve shown info when there are no settings yet
+*   Improve shown info when there are no Locales missing Language Packs
+*   Improve shown info when the translate.wp.org API is unreachable
+*   Minor code improvements
 
 = 1.0.0 =
 *   Initial release.
