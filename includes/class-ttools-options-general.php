@@ -88,6 +88,9 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 			// All locales available from Translate API.
 			$all_locales = $this->translations_api->get_locales();
+			if ( ! $all_locales ) {
+				$all_locales = array();
+			}
 
 			// Locales with language packs.
 			$locales_with_lang_packs = get_site_transient( 'available_translations' );
@@ -134,16 +137,21 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * @return void
 		 */
 		public function settings_render() {
+
+			// Get Locales with no Language Packs.
+			$missing_locales = $this->get_locales_with_no_lang_packs();
+
+			// Get Translation Tools settings.
 			$options = get_option( TTOOLS_WP_OPTION );
-			$value   = $options['additional_language'];
+
+			// Check if the 'additional_language' is set.
+			$value = isset( $options['additional_language'] ) ? $options['additional_language'] : '';
 			?>
 			<label>
-				<select name="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" id="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>">
+				<select name="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" id="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" <?php disabled( empty( $missing_locales ), true, true ); ?>>
 					<option value=""></option>
 					<optgroup label="<?php esc_attr_e( 'No Language Packs', 'translation-tools' ); ?>">
 						<?php
-						$missing_locales = $this->get_locales_with_no_lang_packs();
-
 						foreach ( $missing_locales as $key => $locale ) {
 							$option = sprintf(
 								/* translators: 1: Locale code. 2: Locale native name. */
@@ -165,27 +173,39 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			</label>
 			<p class="description" id="TTools_Aditional_Language-description">
 				<?php
-				printf(
-					'%s %s',
-					esc_html__( 'Choose one Locale to add to the above available languages.', 'translation-tools' ),
-					sprintf(
-						'%s%s%s',
+				// If there are no aditional Locales to show.
+				if ( empty( $missing_locales ) ) {
+					printf(
+						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
+						esc_html__( 'There are no %1$smissing Locales%2$s, or the %3$stranslate.wp.org API%4$s is unreachable.', 'translation-tools' ),
 						'<a href="https://make.wordpress.org/polyglots/teams/#no-language-pack" target="_blank">',
-						esc_html(
-							sprintf(
-								/* translators: %d: Locales count. */
-								_n(
-									'There is %d Locale that has no language packs',
-									'There are %d Locales that has no language packs',
-									count( $missing_locales ),
-									'translation-tools'
-								),
-								count( $missing_locales )
-							)
-						),
+						'</a>',
+						'<a href="' . esc_url( $this->translations_api->translations_api_url( 'languages' ) ) . '" target="_blank">',
 						'</a>'
-					)
-				);
+					);
+				} else {
+					printf(
+						'%s %s',
+						esc_html__( 'Choose one Locale to add to the above available languages.', 'translation-tools' ),
+						sprintf(
+							'%s%s%s',
+							'<a href="https://make.wordpress.org/polyglots/teams/#no-language-pack" target="_blank">',
+							esc_html(
+								sprintf(
+									/* translators: %d: Locales count. */
+									_n(
+										'There is %d Locale that has no language packs',
+										'There are %d Locales that has no language packs',
+										count( $missing_locales ),
+										'translation-tools'
+									),
+									count( $missing_locales )
+								)
+							),
+							'</a>'
+						)
+					);
+				}
 				?>
 			</p>
 

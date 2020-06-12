@@ -158,6 +158,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * Set the path to get the translation file.
 		 *
 		 * @since 1.0.0
+		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 *
 		 * @param array $project   Project array.
 		 * @param array $locale    Locale array.
@@ -195,7 +196,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @return array  Returns all the locales with 'wp_locale' available in translate.WordPress.org.
+		 * @return array|false  Returns all the locales with 'wp_locale' available in translate.WordPress.org, or false if the APi is unreachable.
 		 */
 		public function get_locales() {
 			// Translate API languages URL.
@@ -209,8 +210,8 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 			if ( empty( $locales ) ) {
 
-				// Increase remote request timeout from default 5 to 15 seconds.
-				$args['timeout'] = 15;
+				// Increase remote request timeout from default 5 to 20 seconds.
+				$args['timeout'] = 20;
 
 				$json = wp_remote_get( $url, $args );
 
