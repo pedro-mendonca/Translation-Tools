@@ -19,12 +19,14 @@ Unfortunately core language packs are only provided for 100% translated locales.
 If you need to update your WordPress translation and your locale isn't completely translated, this tool will help you to update all the needed translation files in a few seconds.
 
 Every core sub-projects:
+
 *   Development
 *   Continents & Cities
 *   Administration
 *   Network Admin
 
 Every translation files:
+
 *   .po (editable translation files)
 *   .mo (binary files)
 *   .json (for core JavaScript translation)
