@@ -135,7 +135,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function settings_render() {
 			$options = get_option( TTOOLS_WP_OPTION );
-			$value   = $options['additional_language'];
+			$value   = isset( $options['additional_language'] ) ? $options['additional_language'] : '';
 			?>
 			<label>
 				<select name="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" id="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>">
