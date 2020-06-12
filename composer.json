@@ -1,7 +1,7 @@
 {
   "name": "pedro-mendonca/translation-tools",
   "description": "Translation tools for your WordPress install.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [
@@ -19,8 +19,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.6.0",
     "wp-coding-standards/wpcs": "^2.2.0",
     "phpcompatibility/phpcompatibility-wp": "^2.1.0",
-    "szepeviktor/phpstan-wordpress": "^0.6.0",
-    "phpstan/phpstan": "0.12.25"
+    "szepeviktor/phpstan-wordpress": "^0.6.0"
   },
   "config": {
     "optimize-autoloader": true
