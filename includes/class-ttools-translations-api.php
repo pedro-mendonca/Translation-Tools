@@ -196,7 +196,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @return array  Returns all the locales with 'wp_locale' available in translate.WordPress.org.
+		 * @return array|false  Returns all the locales with 'wp_locale' available in translate.WordPress.org, or false if the APi is unreachable.
 		 */
 		public function get_locales() {
 			// Translate API languages URL.
