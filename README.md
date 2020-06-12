@@ -51,7 +51,7 @@ Every translation files:
 ### Where can I find the full list of WordPress Locales? ###
 Here is the complete list of [all WordPress Locales](https://make.wordpress.org/polyglots/teams/).  
 
-### Does my Locale has language packs? ###
+### Does my Locale have language packs? ###
 Here is a list of the [Locales WITH language packs](https://make.wordpress.org/polyglots/teams/#has-language-pack).  
 Here is a list of the [Locales WITH NO language packs](https://make.wordpress.org/polyglots/teams/#no-language-pack).  
 
