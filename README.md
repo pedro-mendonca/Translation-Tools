@@ -1,5 +1,6 @@
 # Translation Tools #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/534909194f4446c3a865f66536ac4e03)](https://app.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&utm_medium=referral&utm_content=pedro-mendonca/Translation-Tools&utm_campaign=Badge_Grade_Settings)
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/translation-tools?label=Plugin%20Version&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 [![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/translation-tools?label=Plugin%20Rating&logo=wordpress)](https://wordpress.org/support/plugin/translation-tools/reviews/)
 [![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/translation-tools.svg?label=Downloads&logo=wordpress)](https://wordpress.org/plugins/translation-tools/advanced/)
@@ -10,7 +11,7 @@
 [![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/translation-tools.svg?label=WordPress%20Tested&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 
 [![Build Status](https://img.shields.io/travis/pedro-mendonca/translation-tools?label=Build&logo=travis)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcd1b44a1d6542e2b75b7b479ce56804)](https://www.codacy.com/app/pedro-mendonca/Translation-Tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pedro-mendonca/Translation-Tools&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7fde010153d842c1a6e10c0f024198f8)](https://www.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pedro-mendonca/Translation-Tools&amp;utm_campaign=Badge_Grade)
 [![RIPS CodeRisk](https://coderisk.com/wp/plugin/translation-tools/badge "RIPS CodeRisk")](https://coderisk.com/wp/plugin/translation-tools)
 [![PHPStan Level](https://img.shields.io/badge/PHPStan%20Level-6-brightgreen)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
 
@@ -51,23 +52,23 @@ Here is the complete list of WordPress Locales:
 https://make.wordpress.org/polyglots/teams/
 
 ### Does my Locale has language packs? ###
-Here is a list of the locales WITH language packs:
-https://make.wordpress.org/polyglots/teams/#has-language-pack
-Here is a list of the locales WITH NO language packs:
-https://make.wordpress.org/polyglots/teams/#no-language-pack
+Here is a list of the locales WITH language packs:  
+https://make.wordpress.org/polyglots/teams/#has-language-pack  
+Here is a list of the locales WITH NO language packs:  
+https://make.wordpress.org/polyglots/teams/#no-language-pack  
 
 ### My locale has language packs but the translation isn't complete ###
-You can force update the WordPress translation right from your Dashboard > Updates page.
+You can force update the WordPress translation right from your Dashboard > Updates page.  
 Click on the "Update WordPress Translation" and you're done.
-In a few seconds all the needed translation files (.po, .mo and .json) will be generated.
+In a few seconds all the needed translation files (.po, .mo and .json) will be generated.  
 
 ### My locale has no language packs and I can't select it as the Site Language for core, plugins and themes ###
 1.  Go to Settings > General > Site Language, select your desired Locale from the list of languages with No Language Packs and save your settings to add it to the available languages list.
 2.  Go to Settings > General > Site Language, choose your newly added Locale and save your settings again.
 
 ### My desired Locale doesn't exist in the list ###
-If your Locale doesn't exist and you would like to request it, please read this:
-https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/
+If your Locale doesn't exist and you would like to request it, please read this:  
+https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/  
 
 ### Can I help translating this plugin to my own language? ###
 Yes you can! If you want to translate this plugin to your language, please [click here](https://translate.wordpress.org/projects/wp-plugins/translation-tools).
