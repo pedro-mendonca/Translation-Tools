@@ -44,21 +44,15 @@ if ( ! class_exists( 'TTools_Notices' ) ) {
 		 *
 		 * WordPress core notice types ( 'error', 'warning', 'warning-spin', 'success' and 'info' ).
 		 * The child type 'warning-spin' is the spinning variation of main 'warning' icon (if 'update-icon' is set to 'true'). The css class will be kept the parent 'warning'.
-		 * Use 'force_show' => true to ignore the 'show_warnings' setting.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.0  Removed the use of 'force_show' => true to ignore the 'show_warnings' setting.
 		 *
 		 * @param array $args  Array of message data.
 		 *
 		 * @return void
 		 */
 		public function notice_message( $args ) {
-
-			// Check if 'show_warnings' is true.
-			$wp_option = get_option( TTOOLS_WP_OPTION );
-			if ( empty( $wp_option['settings']['show_warnings'] ) && empty( $args['force_show'] ) ) {
-				return;
-			}
 
 			// Use defaults if properties not set.
 			$notice = array(
