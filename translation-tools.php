@@ -35,19 +35,16 @@ define( 'TTOOLS_VERSION', '1.0.1' );
 define( 'TTOOLS_REQUIRED_PHP', '5.6' );
 
 // Set Translation Tools settings database version.
-define( 'TTOOLS_SETTINGS_VERSION', '1.0' );
+// define( 'TTOOLS_SETTINGS_VERSION', '1.1' ); // phpcs:ignore.
 
 // Set the WordPress option to store Translation Tools settings.
-define( 'TTOOLS_WP_OPTION', 'ttools_settings' );
+// define( 'TTOOLS_WP_OPTION', 'ttools_settings' ); // phpcs:ignore.
 
 // Set Translation Tools settings page slug.
-define( 'TTOOLS_SETTINGS_PAGE', 'translation-tools' );
+// define( 'TTOOLS_SETTINGS_PAGE', 'translation-tools' ); // phpcs:ignore.
 
 // Set Translation Tools transients prefix.
 define( 'TTOOLS_TRANSIENTS_PREFIX', 'translation_tools_' );
-
-// Set Translation Tools transients default 24h expiration for Translations data.
-define( 'TTOOLS_TRANSIENTS_TRANSLATIONS_EXPIRATION', DAY_IN_SECONDS );
 
 // Set Translation Tools transients 1 week expiration for Locales data.
 define( 'TTOOLS_TRANSIENTS_LOCALES_EXPIRATION', WEEK_IN_SECONDS );
