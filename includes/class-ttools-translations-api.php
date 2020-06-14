@@ -193,12 +193,17 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		/**
 		 * Get available translations locales data from translate.WordPress.org API.
 		 * Store the available translation locales in transient.
+		 * Eg.: get_locale( array( 'english_name', 'native_name', 'wp_locale' ) ).
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.0  Added $keys array parameter to choose the properties to return.
+		 *
+		 * @param array $keys   Array of keys to return.
 		 *
 		 * @return array|false  Returns all the locales with 'wp_locale' available in translate.WordPress.org, or false if the APi is unreachable.
 		 */
-		public function get_locales() {
+		public function get_locales( array $keys = array() ) {
+
 			// Translate API languages URL.
 			$url = $this->translations_api_url( 'languages' );
 
@@ -243,6 +248,14 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 						// Only set transient if $locales remote request is succesfull.
 						set_transient( TTOOLS_TRANSIENTS_PREFIX . $transient_name, $locales, TTOOLS_TRANSIENTS_LOCALES_EXPIRATION );
 					}
+				}
+			}
+
+			// Check if was requested a specific array of keys.
+			if ( ! empty( $keys ) ) {
+				// Keep just the allowed keys to remove unnecessary data.
+				foreach ( $locales as $key => $locale ) {
+					$locales[ $key ] = array_intersect_key( $locale, array_flip( $keys ) );
 				}
 			}
 
@@ -393,6 +406,34 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 			return $wporg_subdomain;
 
+		}
+
+
+		/**
+		 * Get Locales with no Language Pack support.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @return array  Array of languages with no language packs.
+		 */
+		public function get_locales_with_no_lang_packs() {
+
+			// All locales available from Translate API.
+			$all_locales = $this->get_locales( array( 'english_name', 'native_name', 'wp_locale' ) );
+			if ( ! $all_locales ) {
+				$all_locales = array();
+			}
+
+			// Locales with language packs.
+			$locales_with_lang_packs = get_site_transient( 'available_translations' );
+
+			// Locales with no language packs.
+			$locales_with_no_lang_packs = array_diff_key( $all_locales, $locales_with_lang_packs );
+
+			// Remove 'en_US' Locale.
+			unset( $locales_with_no_lang_packs['en_US'] );
+
+			return $locales_with_no_lang_packs;
 		}
 
 	}
