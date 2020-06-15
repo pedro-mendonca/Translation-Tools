@@ -21,6 +21,21 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 
 		/**
+		 * Translations API.
+		 *
+		 * @var object
+		 */
+		protected $translations_api;
+
+		/**
+		 * General Options.
+		 *
+		 * @var object
+		 */
+		protected $options_general;
+
+
+		/**
 		 * Constructor.
 		 */
 		public function __construct() {
@@ -31,8 +46,11 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 			// Initialize the Update Core page metadata view.
 			new TTools_Update_Core();
 
-			// Initialize the General Options class.
-			new TTools_Options_General();
+			// Instantiate Translation Tools Options General.
+			$this->options_general = new TTools_Options_General();
+
+			// Instantiate Translation Tools Translations API.
+			$this->translations_api = new TTools_Translations_API();
 
 		}
 
@@ -52,6 +70,7 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 				return;
 			}
 
+			// Variables to send to JavaScript.
 			$vars = array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			);
@@ -82,8 +101,8 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 			}
 
-			// Check for general settings page.
-			if ( 'options-general.php' === $hook ) {
+			// Check for General Settings page and Profile page.
+			if ( 'options-general.php' === $hook || 'profile.php' === $hook ) {
 
 				// Provide minified version if SCRIPT_DEBUG is not set to true.
 				$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -99,6 +118,22 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 				);
 
 				wp_enqueue_script( 'translation-tools-options-general' );
+
+				// Get Locales with no Language Packs.
+				$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+
+				// Get the desired available Locales list.
+				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+				$available_languages = $this->options_general->available_languages();
+				add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+
+				// Variables to send to JavaScript.
+				$vars = array(
+					'available_languages'          => $available_languages,
+					'optgroup_lang_packs_title'    => esc_html_x( 'Available (Language Packs)', 'Languages group label', 'translation-tools' ),
+					'optgroup_no_lang_packs_title' => esc_html_x( 'Available (No Language Packs)', 'Languages group label', 'translation-tools' ),
+					'locales_no_lang_packs'        => $locales_no_lang_packs,
+				);
 
 				wp_localize_script(
 					'translation-tools-options-general',
@@ -122,8 +157,8 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 		 */
 		public function allowed_pages( $hook ) {
 
-			// Check for Updates page and General Options page.
-			if ( 'update-core.php' === $hook || 'options-general.php' === $hook ) {
+			// Check for Updates page, General Options page and Profile page.
+			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook ) {
 				return true;
 			}
 

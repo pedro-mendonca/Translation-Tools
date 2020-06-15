@@ -33,38 +33,37 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function __construct() {
 
-			// Add custom languages.
-			add_filter( 'get_available_languages', array( $this, 'available_languages' ) );
-
-			// Register settings fields.
-			add_action( 'admin_init', array( $this, 'settings_register' ) );
-
 			// Instantiate Translation Tools Translations API.
 			$this->translations_api = new TTools_Translations_API();
+
+			// Add Locales with no Language Packs to the available languages.
+			add_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
+
+			// Add Site Language description.
+			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
+
+			// Add User Language description.
+			add_action( 'load-profile.php', array( $this, 'settings_site_language' ) );
 
 		}
 
 
 		/**
-		 * Add custom languages.
+		 * Get the available languages to populate the Installed group.
 		 *
-		 * @since 1.0.0
+		 * @since 1.1.0
 		 *
-		 * @param array $languages  Languages array.
-		 *
-		 * @return array            Filtered languages array.
+		 * @return array  Array of the available languages.
 		 */
-		public function available_languages( $languages ) {
+		public function available_languages() {
 
-			// Get custom language option.
-			$options = get_option( TTOOLS_WP_OPTION );
+			// Get list of installed languages.
+			$languages = get_available_languages();
 
-			if ( empty( $options['additional_language'] ) ) {
-				return $languages;
+			// If the current locale has no files installed, keep it anyway in the available languages.
+			if ( ! in_array( get_locale(), $languages, true ) && 'en_US' !== get_locale() ) {
+				$languages[] = get_locale();
 			}
-
-			// Add custom language to languages array.
-			$languages[] = $options['additional_language'];
 
 			// Sort ascending.
 			sort( $languages );
@@ -78,140 +77,87 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 
 		/**
-		 * Get Locales with no language pack support.
+		 * Add Locales with no Language Packs to the available languages.
 		 *
-		 * @since 1.0.0
+		 * @since 1.1.0
 		 *
-		 * @return array  Array of languages with no language packs.
+		 * @param array $languages  Languages array.
+		 *
+		 * @return array            Filtered languages array.
 		 */
-		public function get_locales_with_no_lang_packs() {
+		public function update_available_languages( $languages ) {
 
-			// All locales available from Translate API.
-			$all_locales = $this->translations_api->get_locales();
-			if ( ! $all_locales ) {
-				$all_locales = array();
+			$additional_locales = $this->translations_api->get_locales_with_no_lang_packs();
+
+			foreach ( $additional_locales as $key => $additional_locale ) {
+				$languages[] = $key;
 			}
 
-			// Locales with language packs.
-			$locales_with_lang_packs = get_site_transient( 'available_translations' );
+			// Remove duplicate locales, from WPLANG, installed and custom locales.
+			$languages = array_unique( $languages );
 
-			// Locales with no language packs.
-			$locales_with_no_lang_packs = array_diff_key( $all_locales, $locales_with_lang_packs );
+			// Sort ascending.
+			sort( $languages );
 
-			// Remove 'en_US' locale.
-			unset( $locales_with_no_lang_packs['en_US'] );
-
-			return $locales_with_no_lang_packs;
-		}
-
-
-		/**
-		 * Register settings.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @return void
-		 */
-		public function settings_register() {
-
-			register_setting(
-				'general',
-				TTOOLS_WP_OPTION
-			);
-
-			add_settings_field(
-				'additional_language',
-				'<label for="TTools_Aditional_Language"></label>',
-				array( $this, 'settings_render' ),
-				'general'
-			);
+			return $languages;
 
 		}
 
 
 		/**
-		 * Render Translation Tools settings.
+		 * Render description for Site Language and User Language settings.
 		 *
-		 * @since 1.0.0
+		 * @since 1.1.0
 		 *
 		 * @return void
 		 */
-		public function settings_render() {
+		public function settings_site_language() {
 
-			// Get Locales with no Language Packs.
-			$missing_locales = $this->get_locales_with_no_lang_packs();
+			$locale = get_user_locale();
 
-			// Get Translation Tools settings.
-			$options = get_option( TTOOLS_WP_OPTION );
-
-			// Check if the 'additional_language' is set.
-			$value = isset( $options['additional_language'] ) ? $options['additional_language'] : '';
+			// Check if current Locale is 'en_US'.
+			if ( 'en_US' === $locale ) {
+				return;
+			}
 			?>
-			<label>
-				<select name="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" id="<?php echo esc_attr( TTOOLS_WP_OPTION ) . '[additional_language]'; ?>" <?php disabled( empty( $missing_locales ), true, true ); ?>>
-					<option value=""></option>
-					<optgroup label="<?php esc_attr_e( 'No Language Packs', 'translation-tools' ); ?>">
-						<?php
-						foreach ( $missing_locales as $key => $locale ) {
-							$option = sprintf(
-								/* translators: 1: Locale code. 2: Locale native name. */
-								esc_html__( '%1$s (%2$s)', 'translation-tools' ),
-								$locale['wp_locale'],
-								$locale['native_name']
-							);
-							?>
-							<option value="<?php echo esc_attr( $locale['wp_locale'] ); ?>" <?php selected( $value, $key, true ); ?>><?php echo esc_html( $option ); ?></option>
-							<?php
-						}
-						?>
-					</optgroup>
 
-				</select>
-				<?php
-				esc_html_e( 'Select a Locale with no Language Packs', 'translation-tools' );
-				?>
-			</label>
-			<p class="description" id="TTools_Aditional_Language-description">
-				<?php
-				// If there are no aditional Locales to show.
-				if ( empty( $missing_locales ) ) {
+			<div id="ttools_language_select_description" style="display: none;">
+				<p class="description" id="ttools_current_locale_description">
+					<?php
+					// Get Locales with no Language Packs.
+					$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+					$locale_has_langpacks  = array_key_exists( $locale, $locales_no_lang_packs ) ? false : true;
+
+					if ( $locale_has_langpacks ) {
+						$locale_info = sprintf(
+							/* translators: %s: Locale name. */
+							__( 'The Locale %s has Language Packs.', 'translation-tools' ),
+							'<code>' . $locale . '</code>'
+						);
+					} else {
+						$locale_info = sprintf(
+							/* translators: %s: Locale name. */
+							__( 'The Locale %s has no Language Packs.', 'translation-tools' ),
+							'<code>' . $locale . '</code>'
+						);
+					}
 					printf(
-						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
-						esc_html__( 'There are no %1$smissing Locales%2$s, or the %3$stranslate.wp.org API%4$s is unreachable.', 'translation-tools' ),
-						'<a href="https://make.wordpress.org/polyglots/teams/#no-language-pack" target="_blank">',
-						'</a>',
-						'<a href="' . esc_url( $this->translations_api->translations_api_url( 'languages' ) ) . '" target="_blank">',
-						'</a>'
-					);
-				} else {
-					printf(
-						'%s %s',
-						esc_html__( 'Choose one Locale to add to the above available languages.', 'translation-tools' ),
+						'%s %s<br>%s',
+						wp_kses_post( $locale_info ),
 						sprintf(
-							'%s%s%s',
-							'<a href="https://make.wordpress.org/polyglots/teams/#no-language-pack" target="_blank">',
-							esc_html(
-								sprintf(
-									/* translators: %d: Locales count. */
-									_n(
-										'There is %d Locale that has no language packs',
-										'There are %d Locales that has no language packs',
-										count( $missing_locales ),
-										'translation-tools'
-									),
-									count( $missing_locales )
-								)
-							),
+							/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+							esc_html__( 'To update the WordPress translation, please %1$sclick here%2$s.', 'translation-tools' ),
+							'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
 							'</a>'
-						)
+						),
+						'<a href="' . esc_url( 'https://make.wordpress.org/polyglots/teams/' ) . '" target="_blank">' . esc_html__( 'Learn more about Language Packs', 'translation-tools' ) . '</a>'
 					);
-				}
-				?>
-			</p>
+					?>
+				</p>
+			</div>
 
 			<?php
 		}
-
 
 	}
 

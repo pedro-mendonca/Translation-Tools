@@ -166,7 +166,6 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 				'type'        => 'warning',
 				'inline'      => false,
 				'dismissible' => true,
-				'force_show'  => true,
 				'message'     => sprintf(
 					'%s</p><p>%s',
 					$notice_message_status,
@@ -364,7 +363,6 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 				'type'        => $notice_type,
 				'inline'      => isset( $notice_args['inline'] ) ? $notice_args['inline'] : null,
 				'dismissible' => isset( $notice_args['dismissible'] ) ? $notice_args['dismissible'] : null,
-				'force_show'  => true,
 				'message'     => sprintf(
 					'%s</p><p>%s',
 					$notice_message_status,
@@ -390,7 +388,6 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 				'notice-alt'  => false,
 				'inline'      => false,
 				'update-icon' => true,
-				'force_show'  => true,
 				'css-class'   => 'translation-tools-loading update-core',
 				'message'     => esc_html__( 'The update process is starting. This process may take a while on some hosts, so please be patient.', 'translation-tools' ),
 			);
