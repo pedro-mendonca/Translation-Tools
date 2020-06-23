@@ -45,6 +45,9 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Add User Language description.
 			add_action( 'load-profile.php', array( $this, 'settings_site_language' ) );
 
+			// Add User Edit Language description.
+			add_action( 'load-user-edit.php', array( $this, 'settings_site_language' ) );
+
 		}
 
 
