@@ -43,6 +43,9 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			add_filter( 'plugins_update_check_locales', array( $this, 'reset_available_languages' ) );
 			add_filter( 'themes_update_check_locales', array( $this, 'reset_available_languages' ) );
 
+			// Fallback for Core Locale if it has no Language Packs.
+			add_filter( 'core_version_check_locale', array( $this, 'core_version_check_locale' ) );
+
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
 
@@ -129,6 +132,30 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			$languages = $this->available_languages();
 
 			return $languages;
+
+		}
+
+
+		/**
+		 * Set Core Update Locale to default 'en_US' if it has no Language Packs.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $locale  Core Locale.
+		 *
+		 * @return string         Core Locale.
+		 */
+		public function core_version_check_locale( $locale ) {
+
+			// Get Locales with no Language Packs.
+			$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+
+			// If the current locale has no Language Packs, set the core update to default 'en_US'.
+			if ( array_key_exists( $locale, $locales_no_lang_packs ) ) {
+				$locale = 'en_US';
+			}
+
+			return $locale;
 
 		}
 
