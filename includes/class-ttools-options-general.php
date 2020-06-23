@@ -39,11 +39,21 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Add Locales with no Language Packs to the available languages.
 			add_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
 
+			// Remove Locales with no Language Packs from the Themes and Plugins available update languages.
+			add_filter( 'plugins_update_check_locales', array( $this, 'reset_available_languages' ) );
+			add_filter( 'themes_update_check_locales', array( $this, 'reset_available_languages' ) );
+
+			// Fallback for Core Locale if it has no Language Packs.
+			add_filter( 'core_version_check_locale', array( $this, 'core_version_check_locale' ) );
+
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
 
 			// Add User Language description.
 			add_action( 'load-profile.php', array( $this, 'settings_site_language' ) );
+
+			// Add User Edit Language description.
+			add_action( 'load-user-edit.php', array( $this, 'settings_site_language' ) );
 
 		}
 
@@ -105,7 +115,53 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 
 		/**
-		 * Render description for Site Language and User Language settings.
+		 * Remove additional languages from the themes and plugins languages updates.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param array $languages  Languages array.
+		 *
+		 * @return array            Filtered languages array.
+		 */
+		public function reset_available_languages( $languages ) {
+
+			// Remove update_available_languages filter.
+			remove_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
+
+			// Get the standard available languages.
+			$languages = $this->available_languages();
+
+			return $languages;
+
+		}
+
+
+		/**
+		 * Set Core Update Locale to default 'en_US' if it has no Language Packs.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $locale  Core Locale.
+		 *
+		 * @return string         Core Locale.
+		 */
+		public function core_version_check_locale( $locale ) {
+
+			// Get Locales with no Language Packs.
+			$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+
+			// If the current locale has no Language Packs, set the core update to default 'en_US'.
+			if ( array_key_exists( $locale, $locales_no_lang_packs ) ) {
+				$locale = 'en_US';
+			}
+
+			return $locale;
+
+		}
+
+
+		/**
+		 * Render description for settings Language select field.
 		 *
 		 * @since 1.1.0
 		 *

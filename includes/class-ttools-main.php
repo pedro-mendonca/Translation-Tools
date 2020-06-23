@@ -101,8 +101,8 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 			}
 
-			// Check for General Settings page and Profile page.
-			if ( 'options-general.php' === $hook || 'profile.php' === $hook ) {
+			// Check for General Settings page, Profile page and User Edit page.
+			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook ) {
 
 				// Provide minified version if SCRIPT_DEBUG is not set to true.
 				$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -122,7 +122,7 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 				// Get Locales with no Language Packs.
 				$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
 
-				// Get the desired available Locales list.
+				// Get the standard available Locales list.
 				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 				$available_languages = $this->options_general->available_languages();
 				add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
@@ -158,7 +158,7 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 		public function allowed_pages( $hook ) {
 
 			// Check for Updates page, General Options page and Profile page.
-			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook ) {
+			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook ) {
 				return true;
 			}
 

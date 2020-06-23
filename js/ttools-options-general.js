@@ -1,11 +1,14 @@
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded ttools-options-general.js' );
 
-	// Relocate Site Language descriprion data on General Settings page..
+	// Relocate Site Language description data on General Settings page.
 	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.options-general-php select#WPLANG' );
 
-	// Relocate Site Language descriprion data on Profile page..
+	// Relocate Site Language description data on Profile page.
 	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.profile-php select#locale' );
+
+	// Relocate Site Language description data on User Edit page.
+	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.user-edit-php select#locale' );
 
 	// Rename group of 'Available' languages.
 	$( '#WPLANG > optgroup:eq(1)' ).attr( 'label', ttools.optgroup_lang_packs_title );
@@ -30,11 +33,28 @@ jQuery( document ).ready( function( $ ) {
 		}
 	} );
 
-	// Check each option of installed languages on Edit Profile language select.
+	// Check each option of installed languages on Profile language select.
 	$( '#locale > option' ).each( function() {
 		var value = $( this ).prop( 'value' );
 		var text = $( this ).prop( 'text' );
 		var selectID = '.profile-php select#locale';
+
+		// Check if the Locale should be on the Installed languages group.
+		if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+			// Remove Locales that are not installed.
+			ttoolsRemoveLocaleOption( selectID, value );
+		// Check if Locale don't have Native name.
+		} else if ( value === text ) {
+			// Rename Locales that have only the value as name.
+			ttoolsRenameLocaleOption( selectID, value );
+		}
+	} );
+
+	// Check each option of installed languages on User Edit language select.
+	$( '#locale > option' ).each( function() {
+		var value = $( this ).prop( 'value' );
+		var text = $( this ).prop( 'text' );
+		var selectID = '.user-edit-php select#locale';
 
 		// Check if the Locale should be on the Installed languages group.
 		if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
@@ -106,9 +126,11 @@ jQuery( document ).ready( function( $ ) {
 	 * Relocate description data and show.
 	 *
 	 * @since 1.1.0
+	 *
+	 * @param {string} origin - ID of the source to relocate.
+	 * @param {string} target - ID of the target where to relocate after.
 	 */
 	function ttoolsRelocateAfterTarget( origin, target ) {
-
 		// Translation Tools relocate after target ID.
 		$( origin ).insertAfter( $( target ) );
 
@@ -116,10 +138,5 @@ jQuery( document ).ready( function( $ ) {
 		$( origin ).show();
 
 		console.log( 'Translation Tools Site Language description relocated.' );
-
 	}
-
-
-
-
 } );

@@ -427,6 +427,10 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			// Locales with language packs.
 			$locales_with_lang_packs = get_site_transient( 'available_translations' );
 
+			if ( ! is_array( $locales_with_lang_packs ) ) {
+				return array();
+			}
+
 			// Locales with no language packs.
 			$locales_with_no_lang_packs = array_diff_key( $all_locales, $locales_with_lang_packs );
 

@@ -35,30 +35,37 @@ msgstr ""
 msgid "Could not create file."
 msgstr ""
 
-#: includes/class-ttools-options-general.php:143
-msgid "No Language Packs"
+#: includes/class-ttools-main.php:133
+msgctxt "Languages group label"
+msgid "Available (Language Packs)"
 msgstr ""
 
-#. translators: 1: Locale code. 2: Locale native name.
-#: includes/class-ttools-options-general.php:150
+#: includes/class-ttools-main.php:134
+msgctxt "Languages group label"
+msgid "Available (No Language Packs)"
+msgstr ""
+
+#. translators: %s: Locale name.
+#: includes/class-ttools-options-general.php:134
 #, php-format
-msgid "%1$s (%2$s)"
+msgid "The Locale %s has Language Packs."
 msgstr ""
 
-#: includes/class-ttools-options-general.php:163
-msgid "Select a Locale with no Language Packs"
-msgstr ""
-
-#: includes/class-ttools-options-general.php:170
-msgid "Choose one Locale to add to the above available languages."
-msgstr ""
-
-#: includes/class-ttools-options-general.php:178
+#. translators: %s: Locale name.
+#: includes/class-ttools-options-general.php:140
 #, php-format
-msgid "There is %d Locale that has no language packs"
-msgid_plural "There are %d Locales that has no language packs"
-msgstr[0] ""
-msgstr[1] ""
+msgid "The Locale %s has no Language Packs."
+msgstr ""
+
+#. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
+#: includes/class-ttools-options-general.php:149
+#, php-format
+msgid "To update the WordPress translation, please %1$sclick here%2$s."
+msgstr ""
+
+#: includes/class-ttools-options-general.php:153
+msgid "Learn more about Language Packs"
+msgstr ""
 
 #. translators: Subproject name in translate.wordpress.org, do not translate!
 #: includes/class-ttools-translations-api.php:37
@@ -86,64 +93,64 @@ msgstr ""
 
 #. translators: 1: WordPress version. 2: Locale name.
 #: includes/class-ttools-update-core.php:143
-#: includes/class-ttools-update-core.php:344
+#: includes/class-ttools-update-core.php:343
 #, php-format
 msgid "The translation of WordPress %1$s for %2$s is not complete."
 msgstr ""
 
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
 #: includes/class-ttools-update-core.php:151
-#: includes/class-ttools-update-core.php:352
+#: includes/class-ttools-update-core.php:351
 #, php-format
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr ""
 
 #. translators: %s: Button label.
 #: includes/class-ttools-update-core.php:161
-#: includes/class-ttools-update-core.php:330
+#: includes/class-ttools-update-core.php:329
 #, php-format
 msgid "Click the %s button to force update the latest approved translations."
 msgstr ""
 
 #: includes/class-ttools-update-core.php:162
-#: includes/class-ttools-update-core.php:269
-#: includes/class-ttools-update-core.php:331
+#: includes/class-ttools-update-core.php:268
+#: includes/class-ttools-update-core.php:330
 msgid "Update WordPress Translation"
 msgstr ""
 
 #. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
-#: includes/class-ttools-update-core.php:321
+#: includes/class-ttools-update-core.php:320
 #, php-format
 msgid "The translation <em>language pack</em> of WordPress %1$s for %2$s was updated on %3$s."
 msgstr ""
 
-#: includes/class-ttools-update-core.php:395
+#: includes/class-ttools-update-core.php:392
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
 msgstr ""
 
 #. translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated.
-#: includes/class-ttools-update-core.php:433
+#: includes/class-ttools-update-core.php:430
 #, php-format
 msgid "Updating translations for %1$s (%2$s) (%3$d/%4$d)"
 msgstr ""
 
 #. translators: 1: Title of an update. 2: Error message.
-#: includes/class-ttools-update-core.php:466
+#: includes/class-ttools-update-core.php:463
 #, php-format
 msgid "An error occurred while updating %1$s: %2$s"
 msgstr ""
 
 #. translators: %s: Project name.
-#: includes/class-ttools-update-core.php:481
+#: includes/class-ttools-update-core.php:478
 #, php-format
 msgid "%s updated successfully."
 msgstr ""
 
-#: includes/class-ttools-update-core.php:485
+#: includes/class-ttools-update-core.php:482
 msgid "Show details."
 msgstr ""
 
-#: includes/class-ttools-update-core.php:496
+#: includes/class-ttools-update-core.php:493
 msgid "All updates have been completed."
 msgstr ""
 
@@ -180,7 +187,7 @@ msgid "Translation Tools"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://github.com/pedro-mendonca/Translation-Tools"
+msgid "https://wordpress.org/plugins/translation-tools/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -189,4 +196,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Pedro Mendonça"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://profiles.wordpress.org/pedromendonca/"
 msgstr ""
