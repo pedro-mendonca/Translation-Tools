@@ -39,6 +39,10 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Add Locales with no Language Packs to the available languages.
 			add_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
 
+			// Remove Locales with no Language Packs from the Themes and Plugins available update languages.
+			add_filter( 'plugins_update_check_locales', array( $this, 'reset_available_languages' ) );
+			add_filter( 'themes_update_check_locales', array( $this, 'reset_available_languages' ) );
+
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
 
@@ -108,7 +112,29 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 
 		/**
-		 * Render description for Site Language and User Language settings.
+		 * Remove additional languages from the themes and plugins languages updates.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param array $languages  Languages array.
+		 *
+		 * @return array            Filtered languages array.
+		 */
+		public function reset_available_languages( $languages ) {
+
+			// Remove update_available_languages filter.
+			remove_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
+
+			// Get the standard available languages.
+			$languages = $this->available_languages();
+
+			return $languages;
+
+		}
+
+
+		/**
+		 * Render description for settings Language select field.
 		 *
 		 * @since 1.1.0
 		 *
