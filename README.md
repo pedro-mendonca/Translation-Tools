@@ -20,7 +20,7 @@
 **Requires at least:** 4.9  
 **Tested up to:** 5.4  
 **Requires PHP:** 5.6  
-**Stable tag:** 1.0.1  
+**Stable tag:** 1.1.0  
 **License:** GPLv2  
 **License URI:** [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)  
 
@@ -31,17 +31,16 @@ Translation tools for your WordPress install.
 ### Use any Locale, with or without Language Packs ###
 
 With core Language Packs you can easily change the language of your WordPress install.  
-Unfortunately core language packs are only provided for 100% translated locales.  
 
-If you need a specific Locale that has no Language Packs yet, this tool will help you to add it to the available languages list.  
+The Language Packs are only provided for 100% translated Locales.  
 
-Go to Settings > General > Site Language and select the needed Locale to add it to the main list.  
+If you need a Locale that has no Language Packs yet, this tool helps you by enabling ALL Locales on the list of the available languages.  
 
-### Update your WordPress core translation, on demand ###
+### Update your WordPress translation, on demand ###
 
 If you need to update your WordPress core translation on demand without waiting for a language pack to be generated, this tool allows you to manually update all the needed files for the installed version, with one click, in a few seconds.  
 
-Go to Updates > Translations and click the "Update WordPress Translation" button.  
+Go to "Update WordPress Translation" on the Updates screen.  
 
 #### All WordPress core sub-projects ####
 
@@ -66,13 +65,12 @@ Here is a list of the [Locales WITH language packs](https://make.wordpress.org/p
 Here is a list of the [Locales WITH NO language packs](https://make.wordpress.org/polyglots/teams/#no-language-pack).  
 
 ### My locale has language packs but the translation isn't complete ###
-You can force update the WordPress translation right from your Dashboard > Updates page.  
+You can force update the WordPress translation right from your Dashboard > Updates screen.  
 Click on the "Update WordPress Translation" and you're done.  
 In a few seconds all the needed translation files (.po, .mo and .json) will be generated.  
 
-### My locale has no language packs and I can't select it as the Site Language for core, plugins and themes ###
-1.  Go to Settings > General > Site Language, select your desired Locale from the list of languages with No Language Packs and save your settings to add it to the available languages list.
-2.  Go to Settings > General > Site Language, choose your newly added Locale and save your settings again.
+### I can't use my language in WordPress, themes and plugins because the Locale has no Language Packs ###
+Now you can! Just install and activate this plugin to enable every possible Locales and translations.
 
 ### My desired Locale doesn't exist in the list ###
 If your Locale doesn't exist and you would like to request it, please [click here](https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/).
@@ -84,6 +82,15 @@ Yes you can! If you want to translate this plugin to your language, please [clic
 Sure! You are welcome to report any issues or add feature suggestions on the [GitHub repository](https://github.com/pedro-mendonca/Translation-Tools).
 
 ## Changelog ##
+
+### 1.1.0 ###
+*   Improve usability, remove extra steps to add Locales with no Language Packs
+*   Remove plugin setting to pre-add a Locale to the main list, all existent languages are now available immediately
+*   Language settings now include all Locales, grouped by Language Packs status
+*   Language settings are now available for site (General Settings screen) and for users (Profile and User Edit screens)
+*   Rename additional available languages to "Native name [wp_locale]" format, instead of just the "wp_locale"
+*   Link to update WordPress translation on the Site, Profile and User language setting description
+*   Localized core update fallback to en_US for Locales with no Language Packs
 
 ### 1.0.1 ###
 *   Improve shown info when there are no settings yet
