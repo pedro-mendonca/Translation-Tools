@@ -88,9 +88,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 *   Remove plugin setting to pre-add a Locale to the main list, all existent languages are now available immediately
 *   Language settings now include all Locales, grouped by Language Packs status
 *   Language settings are now available for site (General Settings screen) and for users (Profile and User Edit screens)
-*   Rename additional available languages to "Native name [wp_locale]" format, instead of just the "wp_locale"
+*   Rename additional available languages to "Native name \[wp_locale\]" format, instead of just the "wp_locale"
 *   Link to update WordPress translation on the Site, Profile and User language setting description
 *   Localized core update fallback to en_US for Locales with no Language Packs
+*   Minor code improvements
 
 ### 1.0.1 ###
 *   Improve shown info when there are no settings yet
