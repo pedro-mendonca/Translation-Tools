@@ -81,6 +81,26 @@ Yes you can! If you want to translate this plugin to your language, please [clic
 ### Can I contribute to this plugin? ###
 Sure! You are welcome to report any issues or add feature suggestions on the [GitHub repository](https://github.com/pedro-mendonca/Translation-Tools).
 
+## Screenshots ##
+
+1.  Language settings include Locales with NO Language Packs
+![screenshot-1](./assets/screenshot-1.png)
+
+2.  Button to Update WordPress Translation on demand
+![screenshot-2](./assets/screenshot-2.png)
+
+3.  Translations of all core sub-projects
+![screenshot-3](./assets/screenshot-3.png)
+
+4.  Sub-project details and files
+![screenshot-4](./assets/screenshot-4.png)
+
+5.  Notification of themes and plugins translations updates for Locales with no Language Packs
+![screenshot-4](./assets/screenshot-5.png)
+
+6.  Automatic theme translation update for Locale with no Language Packs
+![screenshot-4](./assets/screenshot-6.png)
+
 ## Changelog ##
 
 ### 1.1.0 ###
