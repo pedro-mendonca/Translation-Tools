@@ -182,9 +182,9 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 					<?php
 					// Get Locales with no Language Packs.
 					$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
-					$locale_has_langpacks  = array_key_exists( $locale, $locales_no_lang_packs ) ? false : true;
+					$locale_has_lang_packs = array_key_exists( $locale, $locales_no_lang_packs ) ? false : true;
 
-					if ( $locale_has_langpacks ) {
+					if ( $locale_has_lang_packs ) {
 						$locale_info = sprintf(
 							/* translators: %s: Locale name. */
 							__( 'The Locale %s has Language Packs.', 'translation-tools' ),
