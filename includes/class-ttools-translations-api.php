@@ -252,7 +252,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			}
 
 			// Check if was requested a specific array of keys.
-			if ( ! empty( $keys ) ) {
+			if ( ! empty( $keys ) && is_array( $locales ) ) {
 				// Keep just the allowed keys to remove unnecessary data.
 				foreach ( $locales as $key => $locale ) {
 					$locales[ $key ] = array_intersect_key( $locale, array_flip( $keys ) );
