@@ -241,7 +241,19 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 							// List locales based on existent 'wp_locale'.
 							if ( $locale['wp_locale'] ) {
 								unset( $key );
+
+								// Set an array for 'slug' to separate 'locale' and 'variant' slugs.
+								$locale['slug'] = $this->locale_slug( $locale );
+
+								// Add 'wporg_subdomain' property.
+								$locale['wporg_subdomain'] = $this->wporg_subdomain( $locale );
+
+								// Add 'has_language_packs' property.
+								$locale['has_language_packs'] = $this->has_language_packs( $locale );
+
+								// Set the Locale with key 'wp_locale'.
 								$locales[ $locale['wp_locale'] ] = $locale;
+
 							}
 						}
 
@@ -292,13 +304,22 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 					$locale = $value;
 
 					// Set an array for 'slug' to separate 'locale' and 'variant' slugs.
-					$locale['slug'] = $this->locale_slug( $locale );
+					if ( ! $locale['slug'] ) {
+						$locale['slug'] = $this->locale_slug( $locale );
+					}
 
-					// Add 'wporg_subdomain'.
-					$locale['wporg_subdomain'] = $this->wporg_subdomain( $locale );
+					// Add 'wporg_subdomain' property.
+					if ( ! $locale['wporg_subdomain'] ) {
+						$locale['wporg_subdomain'] = $this->wporg_subdomain( $locale );
+					}
 
+					// Add 'has_language_packs' property.
+					if ( ! $locale['has_language_packs'] ) {
+						$locale['has_language_packs'] = $this->has_language_packs( $locale );
+					}
 				}
 			}
+
 			return $locale;
 
 		}
@@ -341,6 +362,32 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			}
 
 			return $locale_slug;
+
+		}
+
+
+		/**
+		 * Add Language Packs status for Locale.
+		 *
+		 * @since 1.2.0
+		 *
+		 * @param array $locale   Locale array.
+		 *
+		 * @return string $locale  Returns locale array with slug separated in array.
+		 */
+		public function has_language_packs( $locale ) {
+
+			// Locales with language packs.
+			$locales_with_lang_packs = get_site_transient( 'available_translations' );
+
+			$has_language_packs = false;
+
+			// Check if 'wp_locale' exist in the Locales with Language Packs.
+			if ( array_key_exists( $locale['wp_locale'], $locales_with_lang_packs ) ) {
+				$has_language_packs = true;
+			}
+
+			return $has_language_packs;
 
 		}
 
