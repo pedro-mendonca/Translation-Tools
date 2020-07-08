@@ -80,7 +80,7 @@ jQuery( document ).ready( function( $ ) {
 			value = ttools.locales_no_lang_packs[ item ].wp_locale;
 			name = ttools.locales_no_lang_packs[ item ].native_name;
 			if ( ! ttools.available_languages.includes( value ) ) {
-				optgroup += '<option value="' + value + '">' + name + ' [' + value + ']' + '</option>';
+				optgroup += '<option value="' + value + '" data-has-lang-packs="false">' + name + ' [' + value + ']' + '</option>';
 			}
 		} );
 
