@@ -466,20 +466,18 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		public function get_locales_with_no_lang_packs() {
 
 			// All locales available from Translate API.
-			$all_locales = $this->get_locales( array( 'english_name', 'native_name', 'wp_locale' ) );
-			if ( ! $all_locales ) {
-				$all_locales = array();
-			}
-
-			// Locales with language packs.
-			$locales_with_lang_packs = get_site_transient( 'available_translations' );
-
-			if ( ! is_array( $locales_with_lang_packs ) ) {
+			$locales = $this->get_locales();
+			if ( ! $locales ) {
 				return array();
 			}
 
-			// Locales with no language packs.
-			$locales_with_no_lang_packs = array_diff_key( $all_locales, $locales_with_lang_packs );
+			$locales_with_no_lang_packs = array();
+
+			foreach ( $locales as $locale ) {
+				if ( ! $locale['has_language_packs'] ) {
+					$locales_with_no_lang_packs[ $locale['wp_locale'] ] = $locale;
+				}
+			}
 
 			// Remove 'en_US' Locale.
 			unset( $locales_with_no_lang_packs['en_US'] );
