@@ -191,52 +191,32 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 
 		/**
-		 * Get locale data.
+		 * Get locale data from wordpress.org and Translation Tools.
 		 *
 		 * Example:
 		 * $locale = $this->translations_api->locale( 'pt_PT' );
-		 * $locale_english_name = $locale['english_name'].
+		 * $locale_english_name = $locale->english_name.
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $wp_locale   WordPress Locale ( e.g. 'pt_PT' ).
+		 * @param string $wp_locale  Locale ( e.g. 'pt_PT' ).
 		 *
-		 * @return false|array        Returns false if translate API is unreachable, or locale array from GlotPress (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
+		 * @return object            Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
 		 */
 		public function locale( $wp_locale ) {
 
-			$locales = $this->get_locales();
+			// Get wordpress.org Locales.
+			$locales = TTools_Locales::locales();
 
-			$locale = null;
+			foreach ( $locales as $key => $locale ) {
 
-			if ( empty( $locales ) ) {
-				return false;
-			}
+				if ( $locale->wp_locale === $wp_locale ) {
 
-			foreach ( $locales as $key => $value ) {
-				if ( $value['wp_locale'] === $wp_locale ) {
-					unset( $key );
-					$locale = $value;
+					return $locale;
 
-					// Set an array for 'slug' to separate 'locale' and 'variant' slugs.
-					if ( ! $locale['slug'] ) {
-						$locale['slug'] = $this->locale_slug( $locale );
-					}
-
-					// Add 'wporg_subdomain' property.
-					if ( ! $locale['wporg_subdomain'] ) {
-						$locale['wporg_subdomain'] = $this->wporg_subdomain( $locale );
-					}
-
-					// Add 'has_language_packs' property.
-					if ( ! $locale['has_language_packs'] ) {
-						$locale['has_language_packs'] = $this->has_language_packs( $locale );
-					}
 				}
 			}
-
-			return $locale;
-
 		}
 
 
