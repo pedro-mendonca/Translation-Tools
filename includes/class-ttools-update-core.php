@@ -126,7 +126,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			}
 
 			// Check if the current translation exist, and if the current translation version is different from the WordPress installed version.
-			if ( isset( $available_translations[ $locale['wp_locale'] ] ) && substr( $available_translations[ $locale['wp_locale'] ]['version'], 0, 3 ) === substr( $wp_version['number'], 0, 3 ) ) {
+			if ( isset( $available_translations[ $locale->wp_locale ] ) && substr( $available_translations[ $locale->wp_locale ]['version'], 0, 3 ) === substr( $wp_version['number'], 0, 3 ) ) {
 				return;
 			}
 
@@ -143,17 +143,17 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 						__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 					),
 					'<strong>' . esc_html( $wp_version['name'] ) . '</strong>',
-					'<strong>' . esc_html( $locale['native_name'] ) . '</strong>'
+					'<strong>' . esc_html( $locale->native_name ) . '</strong>'
 				),
 				sprintf(
 					wp_kses_post(
 						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
 						__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
 					),
-					'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale['slug']['locale'] ) . '/' . $locale['slug']['variant'] . '/wp/' . esc_html( $wp_version['slug'] ) . '/" target="_blank">',
+					'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/wp/' . esc_html( $wp_version['slug'] ) . '/" target="_blank">',
 					'</a>',
-					'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale['wp_locale'] ) . '" target="_blank">',
-					'<strong>' . esc_html( $locale['native_name'] ) . '</strong>'
+					'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
+					'<strong>' . esc_html( $locale->native_name ) . '</strong>'
 				)
 			);
 			$notice_message_forceupdate = sprintf(
@@ -308,9 +308,9 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			$translations_date = '';
 
 			// Check for translations update in core update data.
-			if ( isset( $available_translations[ $locale['wp_locale'] ]['updated'] ) ) {
+			if ( isset( $available_translations[ $locale->wp_locale ]['updated'] ) ) {
 				// Get language pack creation date.
-				$translations_date = $available_translations[ $locale['wp_locale'] ]['updated'];
+				$translations_date = $available_translations[ $locale->wp_locale ]['updated'];
 			}
 
 			$notice_type           = 'info';
@@ -320,7 +320,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 					__( 'The translation <em>language pack</em> of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
 				),
 				'<strong>' . esc_html( $wp_version['name'] ) . '</strong>',
-				'<strong>' . esc_html( $locale['native_name'] ) . '</strong>',
+				'<strong>' . esc_html( $locale->native_name ) . '</strong>',
 				'<code>' . esc_html( $translations_date ) . '</code>'
 			);
 
@@ -332,7 +332,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 
 			// TODO: Check the logic for when there is an update of WordPress and a language with no language pack, and project version link.
 			// Check if the current translation exist, if the current translation version is different from the WordPress installed version and is not beta.
-			if ( ! isset( $available_translations[ $locale['wp_locale'] ] ) || ( substr( $available_translations[ $locale['wp_locale'] ]['version'], 0, 3 ) !== substr( $wp_version['number'], 0, 3 ) && false === strpos( $wp_version['number'], 'beta' ) ) ) {
+			if ( ! isset( $available_translations[ $locale->wp_locale ] ) || ( substr( $available_translations[ $locale->wp_locale ]['version'], 0, 3 ) !== substr( $wp_version['number'], 0, 3 ) && false === strpos( $wp_version['number'], 'beta' ) ) ) {
 
 				$notice_type           = 'warning';
 				$notice_message_status = sprintf(
@@ -343,17 +343,17 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 							__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 						),
 						'<strong>' . esc_html( $wp_version['name'] ) . '</strong>',
-						'<strong>' . esc_html( $locale['native_name'] ) . '</strong>'
+						'<strong>' . esc_html( $locale->native_name ) . '</strong>'
 					),
 					sprintf(
 						wp_kses_post(
 							/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
 							__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
 						),
-						'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale['slug']['locale'] ) . '/' . $locale['slug']['variant'] . '/wp/' . esc_html( $wp_version['slug'] ) . '/" target="_blank">',
+						'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/wp/' . esc_html( $wp_version['slug'] ) . '/" target="_blank">',
 						'</a>',
-						'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale['wp_locale'] ) . '" target="_blank">',
-						'<strong>' . esc_html( $locale['native_name'] ) . '</strong>'
+						'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
+						'<strong>' . esc_html( $locale->native_name ) . '</strong>'
 					)
 				);
 

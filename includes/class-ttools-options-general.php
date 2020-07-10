@@ -140,22 +140,23 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Set Core Update Locale to default 'en_US' if it has no Language Packs.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $locale  Core Locale.
+		 * @param string $wp_locale  Core WP Locale.
 		 *
-		 * @return string         Core Locale.
+		 * @return string            Core WP Locale, defaults to 'en_US' if no localized version available.
 		 */
-		public function core_version_check_locale( $locale ) {
+		public function core_version_check_locale( $wp_locale ) {
 
-			// Get Locales with no Language Packs.
-			$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+			// Get Translation Tools Locale data.
+			$locale = $this->translations_api->locale( $wp_locale );
 
 			// If the current locale has no Language Packs, set the core update to default 'en_US'.
-			if ( array_key_exists( $locale, $locales_no_lang_packs ) ) {
-				$locale = 'en_US';
+			if ( ! isset( $locale->translations ) ) {
+				$wp_locale = 'en_US';
 			}
 
-			return $locale;
+			return $wp_locale;
 
 		}
 
