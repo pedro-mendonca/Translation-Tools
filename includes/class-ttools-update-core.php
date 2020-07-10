@@ -409,7 +409,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 
 			$projects = $this->translations_api->get_wordpress_subprojects();
 
-			$locale = get_locale();
+			$wp_locale = get_locale();
 
 			$project_count = 0;
 
@@ -429,7 +429,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 						/* translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated. */
 						esc_html__( 'Updating translations for %1$s (%2$s) (%3$d/%4$d)', 'translation-tools' ),
 						'<em>' . esc_html( $project['name'] ) . '</em>',
-						esc_html( $locale ),
+						esc_html( $wp_locale ),
 						intval( $project_count ),
 						intval( count( $projects ) )
 					);
@@ -437,7 +437,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 				</h4>
 
 				<?php
-				$result = $this->update_translations->update_translation( $destination, $project, $locale );
+				$result = $this->update_translations->update_translation( $destination, $project, $wp_locale );
 
 				$log_display = is_wp_error( $result['data'] ) ? 'block' : 'none';
 				?>
