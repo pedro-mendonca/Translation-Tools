@@ -67,14 +67,6 @@ define( 'TTOOLS_FILE', plugin_basename( __FILE__ ) );
  */
 require_once 'lib/wp.org/locales.php';
 
-/**
- * Require core 'translation-install.php'.
- *
- * Necessary to access the functions below:
- *  - wp_get_available_translations()
- */
-require_once ABSPATH . 'wp-admin/includes/translation-install.php';
-
 
 /**
  * Register classes autoloader function.

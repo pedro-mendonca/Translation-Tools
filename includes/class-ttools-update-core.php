@@ -118,6 +118,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			$wp_version = $this->translations_api->get_wordpress_version();
 
 			// Get available translations transient data.
+			require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 			$available_translations = wp_get_available_translations();
 
 			// Check if the current translation exist, and if the current translation version is different from the WordPress installed version.
@@ -292,6 +293,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			$wp_version = $this->translations_api->get_wordpress_version();
 
 			// Get available translations transient data.
+			require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 			$available_translations = wp_get_available_translations();
 
 			// Initialize variable.
