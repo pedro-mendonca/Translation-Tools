@@ -24,11 +24,11 @@ if ( ! class_exists( 'TTools_Locales' ) ) {
 
 
 		/**
-		 * The status of Language Packs for this locale.
+		 * Locales from WordPress.org extended with Transaltion Tools data.
 		 *
 		 * @since 1.2.0
 		 *
-		 * @var string
+		 * @return array  Array of Locales objects.
 		 */
 		public static function locales() {
 
@@ -77,9 +77,9 @@ if ( ! class_exists( 'TTools_Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @param array $locale  Locale object.
+		 * @param object $locale  Locale object.
 		 *
-		 * @return string        Returns WordPress Locale Subdomain.
+		 * @return string         Returns WordPress Locale Subdomain.
 		 */
 		public static function wporg_subdomain( $locale ) {
 
@@ -147,14 +147,17 @@ if ( ! class_exists( 'TTools_Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @param array $locale   Locale array.
+		 * @param object $locale  Locale object.
 		 *
-		 * @return array $locale  Returns locale array with slug separated in array.
+		 * @return string         Returns locale complete slug.
 		 */
 		public static function locale_slug( $locale ) {
 
-			// Defaults to 'slug', or 'root_slug' if is variant.
-			$locale_slug = isset( $locale->root_slug ) ? $locale->slug : $locale->slug . '/default';
+			// Defaults to 'slug/default' if is a Root Locale, 'slug/variant' if is variant.
+			$locale_slug = $locale->slug;
+			if ( ! isset( $locale->root_slug ) ) {
+				$locale_slug .= '/default';
+			}
 
 			return $locale_slug;
 

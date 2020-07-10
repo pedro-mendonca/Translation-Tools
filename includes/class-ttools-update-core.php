@@ -497,9 +497,9 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param object $transient    The 'update_core' transient object.
+		 * @param object $transient  The 'update_core' transient object.
 		 *
-		 * @return object $transient   The same or a modified version of the transient.
+		 * @return object            The same or a modified version of the transient.
 		 */
 		public function remove_previous_wp_translation( $transient ) {
 

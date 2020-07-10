@@ -161,8 +161,8 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param array $project   Project array.
-		 * @param array $locale    Locale array.
+		 * @param array  $project   Project array.
+		 * @param object $locale    Locale object.
 		 *
 		 * @return string|null     File path to get source.
 		 */
@@ -210,14 +210,19 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			// Get wordpress.org Locales.
 			$locales = TTools_Locales::locales();
 
+			$current_locale = null;
+
 			foreach ( $locales as $key => $locale ) {
 
 				if ( $locale->wp_locale === $wp_locale ) {
 
-					return $locale;
+					$current_locale = $locale;
+					break;
 
 				}
 			}
+
+			return $current_locale;
 		}
 
 
