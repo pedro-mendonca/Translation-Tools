@@ -224,22 +224,20 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * Get Locales with no Language Pack support.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Use Locales object.
 		 *
-		 * @return array  Array of languages with no language packs.
+		 * @return array  Array of Locale objects with no language packs.
 		 */
 		public function get_locales_with_no_lang_packs() {
 
-			// All locales available from Translate API.
-			$locales = $this->get_locales();
-			if ( ! $locales ) {
-				return array();
-			}
+			// Get wordpress.org Locales.
+			$locales = TTools_Locales::locales();
 
 			$locales_with_no_lang_packs = array();
 
 			foreach ( $locales as $locale ) {
-				if ( ! $locale['has_language_packs'] ) {
-					$locales_with_no_lang_packs[ $locale['wp_locale'] ] = $locale;
+				if ( ! isset( $locale->translations ) ) {
+					$locales_with_no_lang_packs[ $locale->wp_locale ] = $locale;
 				}
 			}
 
