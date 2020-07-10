@@ -118,12 +118,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			$wp_version = $this->translations_api->get_wordpress_version();
 
 			// Get available translations transient data.
-			$available_translations = get_site_transient( 'available_translations' );
-			if ( empty( $available_translations ) ) {
-				require_once ABSPATH . 'wp-admin/includes/translation-install.php';
-				wp_get_available_translations();
-				$available_translations = get_site_transient( 'available_translations' );
-			}
+			$available_translations = wp_get_available_translations();
 
 			// Check if the current translation exist, and if the current translation version is different from the WordPress installed version.
 			if ( isset( $available_translations[ $locale->wp_locale ] ) && substr( $available_translations[ $locale->wp_locale ]['version'], 0, 3 ) === substr( $wp_version['number'], 0, 3 ) ) {
@@ -297,12 +292,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			$wp_version = $this->translations_api->get_wordpress_version();
 
 			// Get available translations transient data.
-			$available_translations = get_site_transient( 'available_translations' );
-			if ( empty( $available_translations ) ) {
-				require_once ABSPATH . 'wp-admin/includes/translation-install.php';
-				wp_get_available_translations();
-				$available_translations = get_site_transient( 'available_translations' );
-			}
+			$available_translations = wp_get_available_translations();
 
 			// Initialize variable.
 			$translations_date = '';
