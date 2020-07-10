@@ -48,10 +48,11 @@ if ( ! class_exists( 'TTools_Gettext' ) ) {
 		 * https://developer.wordpress.org/block-editor/developers/internationalization/#create-translation-file
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @param string $destination      Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project          Project array.
-		 * @param array  $locale           Locale array.
+		 * @param object $locale           Locale object.
 		 * @param object $translations     Extracted translations to export.
 		 * @param bool   $include_domain   Include the ${domain} in the file name. Set to true or false. Defaults to true.
 		 *
@@ -65,7 +66,7 @@ if ( ! class_exists( 'TTools_Gettext' ) ) {
 			// Set the file naming convention. ( e.g.: {domain}-{locale}-{hash}.json ).
 			// If $include_domain is set to false, use file name convention ${locale}-${md5}.json.
 			$domain         = $project['domain'] && $include_domain ? $project['domain'] . '-' : '';
-			$base_file_name = $domain . $locale['wp_locale'];
+			$base_file_name = $domain . $locale->wp_locale;
 
 			foreach ( $translations as $translation ) {
 

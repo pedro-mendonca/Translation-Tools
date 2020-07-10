@@ -159,6 +159,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @param array $project   Project array.
 		 * @param array $locale    Locale array.
@@ -184,7 +185,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			$format  = '&format=po';
 			$args    = $filters . $format;
 
-			$translation_path = esc_url_raw( $this->translations_url( 'wp' ) . $wp_version['slug'] . '/' . $project['slug'] . $locale['slug']['locale'] . '/' . $locale['slug']['variant'] . '/export-translations' . $args );
+			$translation_path = esc_url_raw( $this->translations_url( 'wp' ) . $wp_version['slug'] . '/' . $project['slug'] . $locale->locale_slug . '/export-translations' . $args );
 
 			return $translation_path;
 		}
@@ -224,7 +225,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * Get Locales with no Language Pack support.
 		 *
 		 * @since 1.1.0
-		 * @since 1.2.0  Use Locales object.
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @return array  Array of Locale objects with no language packs.
 		 */
