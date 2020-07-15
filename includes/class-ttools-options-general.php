@@ -97,10 +97,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function update_available_languages( $languages ) {
 
-			$additional_locales = $this->translations_api->get_locales_with_no_lang_packs();
 
-			foreach ( $additional_locales as $key => $additional_locale ) {
-				$languages[] = $key;
 			}
 
 			// Remove duplicate locales, from WPLANG, installed and custom locales.
@@ -181,11 +178,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			<div id="ttools_language_select_description" style="display: none;">
 				<p class="description" id="ttools_current_locale_description">
 					<?php
-					// Get Locales with no Language Packs.
-					$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
-					$locale_has_lang_packs = array_key_exists( $locale, $locales_no_lang_packs ) ? false : true;
 
-					if ( $locale_has_lang_packs ) {
 						$locale_info = sprintf(
 							/* translators: %s: Locale name. */
 							__( 'The Locale %s has Language Packs.', 'translation-tools' ),

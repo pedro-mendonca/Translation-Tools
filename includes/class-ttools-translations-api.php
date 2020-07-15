@@ -225,34 +225,6 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			return $current_locale;
 		}
 
-
-		/**
-		 * Get Locales with no Language Pack support.
-		 *
-		 * @since 1.1.0
-		 * @since 1.2.0  Use Locale object.
-		 *
-		 * @return array  Array of Locale objects with no language packs.
-		 */
-		public function get_locales_with_no_lang_packs() {
-
-			// Get wordpress.org Locales.
-			$locales = TTools_Locales::locales();
-
-			$locales_with_no_lang_packs = array();
-
-			foreach ( $locales as $locale ) {
-				if ( ! isset( $locale->translations ) ) {
-					$locales_with_no_lang_packs[ $locale->wp_locale ] = $locale;
-				}
-			}
-
-			// Remove 'en_US' Locale.
-			unset( $locales_with_no_lang_packs['en_US'] );
-
-			return $locales_with_no_lang_packs;
-		}
-
 	}
 
 }

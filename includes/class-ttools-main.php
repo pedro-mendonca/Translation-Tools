@@ -21,13 +21,6 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 
 		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
-
-		/**
 		 * General Options.
 		 *
 		 * @var object
@@ -48,10 +41,6 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 			// Instantiate Translation Tools Options General.
 			$this->options_general = new TTools_Options_General();
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new TTools_Translations_API();
-
 		}
 
 
@@ -119,9 +108,6 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 				wp_enqueue_script( 'translation-tools-options-general' );
 
-				// Get Locales with no Language Packs.
-				$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
-
 				// Get the standard available Locales list.
 				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 				$available_languages = $this->options_general->available_languages();
@@ -130,9 +116,6 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 				// Variables to send to JavaScript.
 				$vars = array(
 					'available_languages'          => $available_languages,
-					'optgroup_lang_packs_title'    => esc_html_x( 'Available (Language Packs)', 'Languages group label', 'translation-tools' ),
-					'optgroup_no_lang_packs_title' => esc_html_x( 'Available (No Language Packs)', 'Languages group label', 'translation-tools' ),
-					'locales_no_lang_packs'        => $locales_no_lang_packs,
 				);
 
 				wp_localize_script(
