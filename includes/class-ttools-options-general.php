@@ -209,6 +209,50 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			<?php
 		}
 
+
+		/**
+		 * Get the available languages to populate the languages dropdown.
+		 * Use 'wp_locale' as key as used in the 'available_translations' data.
+		 *
+		 * @since 1.2.0
+		 *
+		 * @return array  Array of the available languages.
+		 */
+		public static function all_languages() {
+
+			// Get Locales.
+			$locales = TTools_Locales::locales();
+
+			$languages = array();
+
+			foreach ( $locales as $key => $locale ) {
+				// Set 'lang' option attrib to the first Locale 'lang_code_iso_639' code, empty if none.
+				$lang = isset( $locale->translations ) ? array_values( $locale->translations['iso'] )[0] : '';
+
+				// Check if Language Packs are available.
+				$lang_packs = isset( $locale->translations ) ? true : false;
+
+				// Language name is 'native_name', append 'wp_locale' if WP_DEBUG is set. Example: 'Português [pt_PT]'.
+				$name = $locale->native_name;
+				if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+					$name .= ' [' . $locale->wp_locale . ']';
+				}
+
+				$language = array(
+					'value'      => $locale->wp_locale, // Option 'value'.
+					'lang'       => $lang,              // Option 'lang' attrib.
+					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
+					'name'       => $name,              // Option text.
+				);
+				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
+				$languages[ $locale->wp_locale ] = $language;
+
+			}
+
+			return $languages;
+
+		}
+
 	}
 
 }

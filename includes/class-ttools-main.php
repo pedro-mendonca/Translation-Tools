@@ -115,7 +115,8 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 				// Variables to send to JavaScript.
 				$vars = array(
-					'available_languages'          => $available_languages,
+					'available_languages' => $available_languages,
+					'all_languages'       => TTools_Options_General::all_languages(), // Get all languages.
 				);
 
 				wp_localize_script(
