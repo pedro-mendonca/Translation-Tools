@@ -90,6 +90,8 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Add Locales with no Language Packs to the available languages.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Get Locales from library.
+		 *               Use Locale 'wp_locale' as array key.
 		 *
 		 * @param array $languages  Languages array.
 		 *
@@ -97,7 +99,12 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function update_available_languages( $languages ) {
 
+			$locales = TTools_Locales::locales();
 
+			foreach ( $locales as $locale ) {
+				if ( ! isset( $locale->translations ) ) {
+					$languages[] = $locale->wp_locale;
+				}
 			}
 
 			// Remove duplicate locales, from WPLANG, installed and custom locales.
@@ -167,30 +174,51 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function settings_site_language() {
 
-			$locale = get_user_locale();
+			$wp_locale = get_user_locale();
 
 			// Check if current Locale is 'en_US'.
-			if ( 'en_US' === $locale ) {
+			if ( 'en_US' === $wp_locale ) {
 				return;
 			}
+
+			// Get Locale data.
+			$locale = $this->translations_api->locale( $wp_locale );
+
+			// Set class.
+			$lang_packs_class = isset( $locale->translations ) ? 'has-lang-packs' : 'has-no-lang-packs';
 			?>
 
 			<div id="ttools_language_select_description" style="display: none;">
-				<p class="description" id="ttools_current_locale_description">
+				<p class="description <?php echo esc_attr( $lang_packs_class ); ?>" id="ttools_current_locale_description">
 					<?php
+					if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+						?>
+						<style>
+							option[data-has-lang-packs="false"],
+							#ttools_language_select_description .has-no-lang-packs code {
+								background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+							}
+						</style>
+						<?php
+					}
 
+					$name = $locale->native_name;
+
+					// Check if Locale have Language Packs (available translations).
+					if ( isset( $locale->translations ) ) {
 						$locale_info = sprintf(
 							/* translators: %s: Locale name. */
 							__( 'The Locale %s has Language Packs.', 'translation-tools' ),
-							'<code>' . $locale . '</code>'
+							'<code>' . $name . ' [' . $wp_locale . ']</code>'
 						);
 					} else {
 						$locale_info = sprintf(
 							/* translators: %s: Locale name. */
 							__( 'The Locale %s has no Language Packs.', 'translation-tools' ),
-							'<code>' . $locale . '</code>'
+							'<code>' . $name . ' [' . $wp_locale . ']</code>'
 						);
 					}
+
 					printf(
 						'%s %s<br>%s',
 						wp_kses_post( $locale_info ),
@@ -202,7 +230,8 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 						),
 						'<a href="' . esc_url( 'https://make.wordpress.org/polyglots/teams/' ) . '" target="_blank">' . esc_html__( 'Learn more about Language Packs', 'translation-tools' ) . '</a>'
 					);
-					?>
+			?>
+
 				</p>
 			</div>
 
