@@ -49,11 +49,8 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
 
-			// Add User Language description.
-			add_action( 'load-profile.php', array( $this, 'settings_site_language' ) );
-
-			// Add User Edit Language description.
-			add_action( 'load-user-edit.php', array( $this, 'settings_site_language' ) );
+			// Add Profile and User Edit Language description.
+			add_action( 'personal_options', array( $this, 'settings_site_language' ) );
 
 		}
 
@@ -169,12 +166,32 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Render description for settings Language select field.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Use user object to get user Locale.
+		 *               Loaded on 'personal_options' hook to allow use of $user.
+		 *
+		 * @param object $user  User object.
 		 *
 		 * @return void
 		 */
-		public function settings_site_language() {
+		public function settings_site_language( $user ) {
 
-			$wp_locale = get_user_locale();
+			// Show formated Locale if DEBUG is true.
+			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+				?>
+				<style>
+					option[data-has-lang-packs="false"],
+					#ttools_language_select_description .has-no-lang-packs code {
+						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+					}
+				</style>
+				<?php
+			}
+
+			// Get user ID.
+			$user_id = ! empty( $user ) ? $user->ID : null;
+
+			// Get user Locale, fallsback to site Locale.
+			$wp_locale = get_user_locale( $user_id );
 
 			// Check if current Locale is 'en_US'.
 			if ( 'en_US' === $wp_locale ) {
@@ -186,24 +203,14 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 			// Set class.
 			$lang_packs_class = isset( $locale->translations ) ? 'has-lang-packs' : 'has-no-lang-packs';
+
+			$name = $locale->native_name;
 			?>
 
 			<div id="ttools_language_select_description" style="display: none;">
 				<p class="description <?php echo esc_attr( $lang_packs_class ); ?>" id="ttools_current_locale_description">
+
 					<?php
-					if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
-						?>
-						<style>
-							option[data-has-lang-packs="false"],
-							#ttools_language_select_description .has-no-lang-packs code {
-								background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
-							}
-						</style>
-						<?php
-					}
-
-					$name = $locale->native_name;
-
 					// Check if Locale have Language Packs (available translations).
 					if ( isset( $locale->translations ) ) {
 						$locale_info = sprintf(
@@ -230,7 +237,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 						),
 						'<a href="' . esc_url( 'https://make.wordpress.org/polyglots/teams/' ) . '" target="_blank">' . esc_html__( 'Learn more about Language Packs', 'translation-tools' ) . '</a>'
 					);
-			?>
+					?>
 
 				</p>
 			</div>
