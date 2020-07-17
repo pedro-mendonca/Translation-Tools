@@ -41,6 +41,10 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 			// Instantiate Translation Tools Options General.
 			$this->options_general = new TTools_Options_General();
+
+			// Initialize Class file for the Translation Tools compatibility with Preferred Languages plugin.
+			new TTools_Compatible_Preferred_Languages();
+
 		}
 
 
