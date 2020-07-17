@@ -119,8 +119,10 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 				// Variables to send to JavaScript.
 				$vars = array(
-					'available_languages' => $available_languages,
-					'all_languages'       => TTools_Options_General::all_languages(), // Get all languages.
+					'available_languages' => $available_languages,                                // Get installed languages.
+					'all_languages'       => TTools_Options_General::all_languages(),             // Get all languages.
+					'current_screen'      => get_current_screen()->id,                            // Get current screen.
+					'compatible_plugins'  => TTools_Compatible::get_compatible_plugins(), // Get compatible plugins data.
 				);
 
 				wp_localize_script(
