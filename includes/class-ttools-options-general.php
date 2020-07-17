@@ -49,11 +49,8 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
 
-			// Add User Language description.
-			add_action( 'load-profile.php', array( $this, 'settings_site_language' ) );
-
-			// Add User Edit Language description.
-			add_action( 'load-user-edit.php', array( $this, 'settings_site_language' ) );
+			// Add Profile and User Edit Language description.
+			add_action( 'personal_options', array( $this, 'settings_site_language' ) );
 
 		}
 
@@ -70,7 +67,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			// Get list of installed languages.
 			$languages = get_available_languages();
 
-			// If the current locale has no files installed, keep it anyway in the available languages.
+			// If the current Locale has no files installed, keep it anyway in the available languages.
 			if ( ! in_array( get_locale(), $languages, true ) && 'en_US' !== get_locale() ) {
 				$languages[] = get_locale();
 			}
@@ -90,6 +87,8 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Add Locales with no Language Packs to the available languages.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Get Locales from library.
+		 *               Use Locale 'wp_locale' as array key.
 		 *
 		 * @param array $languages  Languages array.
 		 *
@@ -97,10 +96,12 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function update_available_languages( $languages ) {
 
-			$additional_locales = $this->translations_api->get_locales_with_no_lang_packs();
+			$locales = TTools_Locales::locales();
 
-			foreach ( $additional_locales as $key => $additional_locale ) {
-				$languages[] = $key;
+			foreach ( $locales as $locale ) {
+				if ( ! isset( $locale->translations ) ) {
+					$languages[] = $locale->wp_locale;
+				}
 			}
 
 			// Remove duplicate locales, from WPLANG, installed and custom locales.
@@ -140,22 +141,23 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Set Core Update Locale to default 'en_US' if it has no Language Packs.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $locale  Core Locale.
+		 * @param string $wp_locale  Core WP Locale.
 		 *
-		 * @return string         Core Locale.
+		 * @return string            Core WP Locale, defaults to 'en_US' if no localized version available.
 		 */
-		public function core_version_check_locale( $locale ) {
+		public function core_version_check_locale( $wp_locale ) {
 
-			// Get Locales with no Language Packs.
-			$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
+			// Get Translation Tools Locale data.
+			$locale = $this->translations_api->locale( $wp_locale );
 
 			// If the current locale has no Language Packs, set the core update to default 'en_US'.
-			if ( array_key_exists( $locale, $locales_no_lang_packs ) ) {
-				$locale = 'en_US';
+			if ( ! isset( $locale->translations ) ) {
+				$wp_locale = 'en_US';
 			}
 
-			return $locale;
+			return $wp_locale;
 
 		}
 
@@ -164,55 +166,167 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * Render description for settings Language select field.
 		 *
 		 * @since 1.1.0
+		 * @since 1.2.0  Use user object to get user Locale.
+		 *               Loaded on 'personal_options' hook to allow use of $user.
+		 *
+		 * @param object $user  User object.
 		 *
 		 * @return void
 		 */
-		public function settings_site_language() {
+		public function settings_site_language( $user ) {
 
-			$locale = get_user_locale();
+			// Show formated Locale if DEBUG is true.
+			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+				?>
+				<style>
+					option[data-has-lang-packs="false"],
+					li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+					#ttools_language_select_description .has-no-lang-packs strong {
+						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+					}
+				</style>
+				<?php
+			}
 
-			// Check if current Locale is 'en_US'.
-			if ( 'en_US' === $locale ) {
+			// Get site and user core update Locales.
+			$wp_locales = TTools_Update_Core::core_update_locales();
+
+			// If Locales array is empty, do nothing.
+			if ( empty( $wp_locales ) ) {
 				return;
+			}
+
+			foreach ( $wp_locales as $wp_locale ) {
+
+				// Get Locale data.
+				$locale = $this->translations_api->locale( $wp_locale );
+
+				$native_name = $locale->native_name;
+
+				if ( isset( $locale->translations ) ) {
+
+					// Format Locale name.
+					$locales_with_lang_packs[] = $native_name . ' [' . $wp_locale . ']';
+				} else {
+					// Format Locale name.
+					$locales_with_no_lang_packs[] = $native_name . ' [' . $wp_locale . ']';
+				}
 			}
 			?>
 
 			<div id="ttools_language_select_description" style="display: none;">
-				<p class="description" id="ttools_current_locale_description">
-					<?php
-					// Get Locales with no Language Packs.
-					$locales_no_lang_packs = $this->translations_api->get_locales_with_no_lang_packs();
-					$locale_has_langpacks  = array_key_exists( $locale, $locales_no_lang_packs ) ? false : true;
 
-					if ( $locale_has_langpacks ) {
-						$locale_info = sprintf(
-							/* translators: %s: Locale name. */
-							__( 'The Locale %s has Language Packs.', 'translation-tools' ),
-							'<code>' . $locale . '</code>'
-						);
-					} else {
-						$locale_info = sprintf(
-							/* translators: %s: Locale name. */
-							__( 'The Locale %s has no Language Packs.', 'translation-tools' ),
-							'<code>' . $locale . '</code>'
-						);
-					}
-					printf(
-						'%s %s<br>%s',
-						wp_kses_post( $locale_info ),
-						sprintf(
-							/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
-							esc_html__( 'To update the WordPress translation, please %1$sclick here%2$s.', 'translation-tools' ),
-							'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
-							'</a>'
-						),
-						'<a href="' . esc_url( 'https://make.wordpress.org/polyglots/teams/' ) . '" target="_blank">' . esc_html__( 'Learn more about Language Packs', 'translation-tools' ) . '</a>'
-					);
+				<?php
+				// Check for Locales with Language Packs (available translations).
+				if ( ! empty( $locales_with_lang_packs ) ) {
 					?>
-				</p>
+					<p class="description has-lang-packs">
+						<?php
+						echo wp_kses_post(
+							wp_sprintf(
+								/* translators: %l: Coma separated list of Locales. */
+								_n(
+									'<strong>%l</strong> has Language Packs.',
+									'<strong>%l</strong> have Language Packs.',
+									count( $locales_with_lang_packs ),
+									'translation-tools'
+								),
+								$locales_with_lang_packs
+							)
+						);
+						?>
+
+					</p>
+					<?php
+				}
+				// Check for Locales with no Language Packs (available translations).
+				if ( ! empty( $locales_with_no_lang_packs ) ) {
+					?>
+					<p class="description has-no-lang-packs">
+						<?php
+						echo wp_kses_post(
+							wp_sprintf(
+								/* translators: %l: Coma separated list of Locales. */
+								_n(
+									'<strong>%l</strong> has no Language Packs.',
+									'<strong>%l</strong> have no Language Packs.',
+									count( $locales_with_no_lang_packs ),
+									'translation-tools'
+								),
+								$locales_with_no_lang_packs
+							)
+						);
+						?>
+
+					</p>
+					<?php
+
+				}
+
+				printf(
+					'<p>%s<br>%s</p>',
+					sprintf(
+						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+						esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
+						'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
+						'</a>'
+					),
+					sprintf(
+						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+						esc_html__( 'Learn more about %1$sLanguage Packs%2$s.', 'translation-tools' ),
+						'<a href="' . esc_url( 'https://make.wordpress.org/polyglots/teams/' ) . '" target="_blank">',
+						'</a>'
+					)
+				);
+			?>
+
 			</div>
 
 			<?php
+		}
+
+
+		/**
+		 * Get the available languages to populate the languages dropdown.
+		 * Use 'wp_locale' as key as used in the 'available_translations' data.
+		 *
+		 * @since 1.2.0
+		 *
+		 * @return array  Array of the available languages.
+		 */
+		public static function all_languages() {
+
+			// Get Locales.
+			$locales = TTools_Locales::locales();
+
+			$languages = array();
+
+			foreach ( $locales as $key => $locale ) {
+				// Set 'lang' option attrib to the first Locale 'lang_code_iso_639' code, empty if none.
+				$lang = isset( $locale->translations ) ? array_values( $locale->translations['iso'] )[0] : '';
+
+				// Check if Language Packs are available.
+				$lang_packs = isset( $locale->translations ) ? true : false;
+
+				// Language name is 'native_name', append 'wp_locale' if WP_DEBUG is set. Example: 'Português [pt_PT]'.
+				$name = $locale->native_name;
+				if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+					$name .= ' [' . $locale->wp_locale . ']';
+				}
+
+				$language = array(
+					'value'      => $locale->wp_locale, // Option 'value'.
+					'lang'       => $lang,              // Option 'lang' attrib.
+					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
+					'name'       => $name,              // Option text.
+				);
+				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
+				$languages[ $locale->wp_locale ] = $language;
+
+			}
+
+			return $languages;
+
 		}
 
 	}
