@@ -21,27 +21,6 @@ if ( ! class_exists( 'TTools_Globals' ) ) {
 
 
 		/**
-		 * Check if site locale is 'en_US'.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @return bool  True if site locale is 'en_US', false otherwise.
-		 */
-		public function locale_is_english() {
-
-			// Get Translation Tools language.
-			$language = get_locale();
-
-			// Check if user locale is 'en_US'.
-			if ( 'en_US' === $language ) {
-				return true;
-			}
-
-			return false;
-		}
-
-
-		/**
 		 * Returns array of allowed HTML elements for use in wp_kses().
 		 *
 		 * @since 1.0.0

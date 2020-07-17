@@ -171,10 +171,11 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 		 * Generate .po from WordPress.org response.
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
-		 * @param array  $locale        Locale array.
+		 * @param object $locale        Locale object.
 		 * @param array  $response      HTTP response.
 		 *
 		 * @return array|WP_Error       Array on success, WP_Error on failure.
@@ -183,7 +184,7 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
-			$file_name = $domain . $locale['wp_locale'] . '.po';
+			$file_name = $domain . $locale->wp_locale . '.po';
 
 			// Report message.
 			$result['log'] = sprintf(
@@ -217,10 +218,11 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 		 * Extract translations from file.
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
-		 * @param array  $locale        Locale array.
+		 * @param object $locale        Locale object.
 		 *
 		 * @return array|WP_Error       Array on success, WP_Error on failure.
 		 */
@@ -228,7 +230,7 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
-			$file_name = $domain . $locale['wp_locale'] . '.po';
+			$file_name = $domain . $locale->wp_locale . '.po';
 
 			// Report message.
 			$result['log'] = sprintf(
@@ -262,10 +264,11 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 		 * Generate .mo file from extracted translations.
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.0  Use Locale object.
 		 *
 		 * @param string $destination    Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project        Project array.
-		 * @param array  $locale         Locale array.
+		 * @param object $locale         Locale object.
 		 * @param object $translations   Extracted translations to export.
 		 *
 		 * @return array|WP_Error        Array on success, WP_Error on failure.
@@ -274,7 +277,7 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
-			$file_name = $domain . $locale['wp_locale'] . '.mo';
+			$file_name = $domain . $locale->wp_locale . '.mo';
 
 			// Report message.
 			$result['log'] = sprintf(

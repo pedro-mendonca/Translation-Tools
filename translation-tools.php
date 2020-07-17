@@ -60,6 +60,15 @@ define( 'TTOOLS_FILE', plugin_basename( __FILE__ ) );
 
 
 /**
+ * Require wordpress.org Locales list.
+ * Copy of https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/locales/locales.php
+ *
+ * Updated on 2020-06-28.
+ */
+require_once 'lib/wp.org/locales.php';
+
+
+/**
  * Register classes autoloader function.
  *
  * @since 1.0.0

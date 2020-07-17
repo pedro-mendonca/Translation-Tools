@@ -16,6 +16,7 @@ parameters:
 		# Dependencies
 		- %currentWorkingDirectory%/node_modules/*
 		- %currentWorkingDirectory%/vendor/*
+		- %currentWorkingDirectory%/lib/*
 		# Temporarily exlusions:
 		- %currentWorkingDirectory%/uninstall.php
 	autoload_files:
@@ -24,5 +25,7 @@ parameters:
 	ignoreErrors:
 		# Temporarily ignore:
 		- "#Parameter \\#1 \\$autoload_function of function spl_autoload_register expects callable\\(string\\): void, 'ttools_class…' given.#"
+		- "#Function preferred_languages_get_site_list not found.#"
+		- "#Function preferred_languages_get_user_list not found.#"
 	# Temporarily disable test.
 	checkMissingIterableValueType: false
