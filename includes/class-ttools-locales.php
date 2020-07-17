@@ -36,6 +36,9 @@ if ( ! class_exists( 'TTools_Locales' ) ) {
 
 			$locales = $instance->locales;
 
+			// Exclude 'en_US' from the Locales array.
+			unset( $locales['en'] );
+
 			// Get Available Translations (Locales with language packs).
 			require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 			$translations = wp_get_available_translations();
