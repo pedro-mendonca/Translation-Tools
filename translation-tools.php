@@ -13,7 +13,7 @@
  * Plugin URI:        https://wordpress.org/plugins/translation-tools/
  * GitHub Plugin URI: https://github.com/pedro-mendonca/Translation-Tools
  * Description:       Translation tools for your WordPress install.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Pedro Mendonça
  * Author URI:        https://profiles.wordpress.org/pedromendonca/
  * License:           GPLv2
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 // Set Translation Tools plugin version.
-define( 'TTOOLS_VERSION', '1.1.0' );
+define( 'TTOOLS_VERSION', '1.2.0' );
 
 // Set Translation Tools required PHP version. Needed for PHP compatibility check for WordPress < 5.1.
 define( 'TTOOLS_REQUIRED_PHP', '5.6' );
@@ -60,7 +60,7 @@ define( 'TTOOLS_FILE', plugin_basename( __FILE__ ) );
 
 
 /**
- * Require wordpress.org Locales list.
+ * Require wordpress.org Locales list since translate.wp.org Languages API (https://translate.wordpress.org/api/languages/) was disabled on meta changeset #10056 (https://meta.trac.wordpress.org/changeset/10056).
  * Copy of https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/locales/locales.php
  *
  * Updated on 2020-06-28.
