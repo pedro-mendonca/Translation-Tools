@@ -1,56 +1,132 @@
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded ttools-options-general.js' );
 
-	// Relocate Site Language description data on General Settings page.
-	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.options-general-php select#WPLANG' );
+	console.log( 'Current screen is "' + ttools.current_screen + '"' );
 
-	// Relocate Site Language description data on Profile page.
-	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.profile-php select#locale' );
+	// Detect if plugin Preferred Languages is active.
+	if ( ttools.compatible_plugins.includes( 'preferred-languages/preferred-languages.php' ) ) {
+		console.log( 'Plugin Preferred Languages detected.' );
+		// Load plugin Preferred Languages specific scripts.
+		ttoolsPluginPreferredLanguagesSettings();
+	} else {
+		console.log( 'Plugin Preferred Languages not detected.' );
+		// Load Translation Tools default scripts.
+		ttoolsSettings();
+	}
 
-	// Relocate Site Language description data on User Edit page.
-	ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.user-edit-php select#locale' );
+	/**
+	 * Load Translation Tools default scripts.
+	 *
+	 * @since 1.2.0
+	 */
+	function ttoolsSettings() {
+		// Select field ID.
+		var selectID = '';
 
-	// Check each option of installed languages on General Settings language select.
-	$( '#WPLANG > optgroup:eq(0) > option' ).each( function() {
-		// Add all Locales to the available languages list.
-		ttoolsAddAllLocales();
+		switch ( ttools.current_screen ) {
+			case 'options-general':
 
-		var value = $( this ).prop( 'value' );
-		var selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
+				// Check each option of installed languages on General Settings language select.
+				$( '#WPLANG > optgroup:eq(0) > option' ).each( function() {
+					// Add all Locales to the available languages list.
+					ttoolsAddAllLocales( '.options-general-php select#WPLANG' );
 
-		// Check if the Locale should be on the Installed languages group.
-		if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
-			// Remove Locales that are not installed.
-			ttoolsRemoveLocaleOption( selectID, value );
-		} else {
+					var value = $( this ).prop( 'value' );
+					selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
+
+					// Check if the Locale should be on the Installed languages group.
+					if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+						// Remove Locales that are not installed.
+						ttoolsRemoveLocaleOption( selectID, value );
+					} else {
+						// Rename Locale and add attributes.
+						ttoolsRenameLocaleOption( selectID, value );
+					}
+				} );
+
+				// Check each option of available languages on General Settings language select.
+				$( '#WPLANG > optgroup:eq(1) > option' ).each( function() {
+					var value = $( this ).prop( 'value' );
+					selectID = '.options-general-php select#WPLANG > optgroup:eq(1)';
+
+					// Rename Locale and add attributes.
+					ttoolsRenameLocaleOption( selectID, value );
+				} );
+
+				// Relocate Site Language description data on General Settings page.
+				ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.options-general-php select#WPLANG' );
+
+				break;
+
+			default:
+
+				// Check each option of installed languages on Profile and User Edit language select.
+				$( '#locale > option' ).each( function() {
+					var value = $( this ).prop( 'value' );
+					selectID = 'select#locale';
+
+					// Check if the Locale should be on the Installed languages group.
+					if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+						// Remove Locales that are not installed.
+						ttoolsRemoveLocaleOption( selectID, value );
+					} else {
+						// Rename Locale and add attributes.
+						ttoolsRenameLocaleOption( selectID, value );
+					}
+				} );
+
+				// Relocate Site Language description data on Profile and User Edit page.
+				ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', 'select#locale' );
+
+				break;
+		}
+	}
+
+	/**
+	 * Load plugin Preferred Languages specific scripts.
+	 *
+	 * @since 1.2.0
+	 */
+	function ttoolsPluginPreferredLanguagesSettings() {
+		// Check each option of installed languages on General Settings language select.
+		$( 'select#preferred-languages-inactive-locales > optgroup:eq(0) > option' ).each( function() {
+			// Add all Locales to the available languages list.
+			ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
+
+			var value = $( this ).prop( 'value' );
+			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
+
+			// Check if the Locale should be on the Installed languages group.
+			if ( ! ttools.available_languages.includes( value ) ) {
+				// Remove Locales that are not installed.
+				ttoolsRemoveLocaleOption( selectID, value );
+			} else {
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleOption( selectID, value );
+			}
+		} );
+
+		// Check each option of available languages on language select.
+		$( 'select#preferred-languages-inactive-locales > optgroup:eq(1) > option' ).each( function() {
+			var value = $( this ).prop( 'value' );
+			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(1)';
+
 			// Rename Locale and add attributes.
 			ttoolsRenameLocaleOption( selectID, value );
-		}
-	} );
+		} );
 
-	// Check each option of available languages on General Settings language select.
-	$( '#WPLANG > optgroup:eq(1) > option' ).each( function() {
-		var value = $( this ).prop( 'value' );
-		var selectID = '.options-general-php select#WPLANG > optgroup:eq(1)';
+		// Check each list item of selected languages on language select.
+		$( 'ul#preferred_languages > li' ).each( function() {
+			var value = $( this ).prop( 'id' );
+			selectID = 'ul#preferred_languages';
 
-		// Rename Locale and add attributes.
-		ttoolsRenameLocaleOption( selectID, value );
-	} );
-
-	// Check each option of installed languages on Profile and User Edit language select.
-	$( '#locale > option' ).each( function() {
-		var value = $( this ).prop( 'value' );
-		var selectID = 'select#locale';
-
-		// Check if the Locale should be on the Installed languages group.
-		if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
-			// Remove Locales that are not installed.
-			ttoolsRemoveLocaleOption( selectID, value );
-		} else {
 			// Rename Locale and add attributes.
-			ttoolsRenameLocaleOption( selectID, value );
-		}
-	} );
+			ttoolsRenameLocaleListItem( selectID, value );
+		} );
+
+		// Relocate Site Language description data on General Settings page.
+		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', 'select#preferred-languages-inactive-locales' );
+	}
 
 	/**
 	 * Relocate description data and show.
@@ -97,7 +173,7 @@ jQuery( document ).ready( function( $ ) {
 	function ttoolsRenameLocaleOption( selectID, value ) {
 		// Rename Locales except 'en_US' (with empty value) and 'site-default'.
 		if ( '' !== value && 'site-default' !== value ) {
-			// Set Locale name format: "Native name [wp_locale]".
+			// Get all languages.
 			var language = ttools.all_languages[ value ];
 
 			// Set option name and attributes.
@@ -108,11 +184,31 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	/**
+	 * Rename Locales that have only the value as name from Preferred Languages plugin unordered list items.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param {string} selectID - Select field ID.
+	 * @param {string} value    - Option value.
+	 */
+	function ttoolsRenameLocaleListItem( selectID, value ) {
+		// Get all languages.
+		var language = ttools.all_languages[ value ];
+
+		// Set option name and attributes.
+		$( selectID + ' > li#' + value ).text( language.name ).attr( 'lang', language.lang ).attr( 'data-has-lang-packs', language.lang_packs );
+
+		console.log( 'Rename Locale list item from "' + language.value + '" to "' + language.name + '"' );
+	}
+
+	/**
 	 * Add all Locales the available languages list.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @param {string} selectID - Select field ID.
 	 */
-	function ttoolsAddAllLocales() {
+	function ttoolsAddAllLocales( selectID ) {
 		// Get all languages.
 		var languages = ttools.all_languages;
 
@@ -124,7 +220,7 @@ jQuery( document ).ready( function( $ ) {
 		} );
 
 		// Set available languages list.
-		$( '#WPLANG > optgroup:eq(1)' ).html( options );
+		$( selectID + ' > optgroup:eq(1)' ).html( options );
 
 		console.log( 'Add Locales to the available languages list.' );
 
