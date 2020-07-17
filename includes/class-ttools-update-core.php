@@ -293,6 +293,47 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 
 
 		/**
+		 * Set the Locales for WordPress core translations update.
+		 *
+		 * @since 1.2.0
+		 *
+		 * @return array             Filtered array of Locales.
+		 */
+		public static function core_update_locales() {
+
+			$wp_locales = array();
+
+			// Add User Locale, fallsback to Site Locale.
+			if ( 'en_US' !== get_user_locale() ) {
+				$wp_locales[] = get_user_locale();
+			}
+
+			// Add Site Locale.
+			if ( 'en_US' !== get_locale() ) {
+				$wp_locales[] = get_locale();
+			}
+
+			/**
+			 * Filters the list of WordPress core locales to update.
+			 *
+			 * @since 1.2.0
+			 *
+			 * @param array $wp_locales  An array of the selected Locales to update.
+			 *
+			 * @return array             A filtered array of Locales.
+			 */
+			$wp_locales = apply_filters( 'ttools_core_update_locales', $wp_locales );
+
+			// Remove duplicates.
+			$wp_locales = array_unique( $wp_locales );
+
+			sort( $wp_locales );
+
+			return $wp_locales;
+		}
+
+
+		/**
 		 * Load WordPress core update content.
 		 *
 		 * @since 1.0.0
