@@ -31,13 +31,6 @@ if ( ! class_exists( 'TTools_Compatible' ) ) {
 
 			// List of compatible plugins.
 			$compatible_plugins = array(
-				/**
-				 * Plugin Name: Preferred Languages
-				 * Plugin URI:  https://wordpress.org/plugins/preferred-languages/
-				 * Description: Choose languages for displaying WordPress in, in order of preference.
-				 * Author:      Pascal Birchler
-				 * Version:     1.6.0
-				 */
 				'preferred-languages/preferred-languages.php' => array(
 					'name'             => 'Preferred Languages',
 					'required_version' => '1.6.0',
