@@ -20,7 +20,7 @@
 **Requires at least:** 4.9  
 **Tested up to:** 5.4  
 **Requires PHP:** 5.6  
-**Stable tag:** 1.1.0  
+**Stable tag:** 1.2.0  
 **License:** GPLv2  
 **License URI:** [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)  
 
@@ -35,6 +35,12 @@ With core Language Packs you can easily change the language of your WordPress in
 The Language Packs are only provided for 100% translated Locales.  
 
 If you need a Locale that has no Language Packs yet, this tool helps you by enabling ALL Locales on the list of the available languages.  
+
+### Compatible with plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) ###
+
+The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.  
+
+All the features added by Translation Tools are available for Preferred Languages users.  
 
 ### Update your WordPress translation, on demand ###
 
@@ -75,6 +81,12 @@ Now you can! Just install and activate this plugin to enable every possible Loca
 ### My desired Locale doesn't exist in the list ###
 If your Locale doesn't exist and you would like to request it, please [click here](https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/).
 
+### Is this plugin compatible with the plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/)? ###
+Short anwser: yes!
+The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.
+Since version 1.2.0, this plugin is compatible with Preferred Languages 1.6.0.
+All the features added by Translation Tools are available for Preferred Languages users.
+
 ### Can I help translating this plugin to my own language? ###
 Yes you can! If you want to translate this plugin to your language, please [click here](https://translate.wordpress.org/projects/wp-plugins/translation-tools).
 
@@ -102,6 +114,12 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 ![screenshot-4](./assets/screenshot-6.png)
 
 ## Changelog ##
+
+### 1.2.0 ###
+*   Include Locales list since [translate.wp.org Languages API](https://translate.wordpress.org/api/languages/) was disabled on meta [changeset #10056](https://meta.trac.wordpress.org/changeset/10056)
+*   Compatible with plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) by [Pascal Birchler](https://profiles.wordpress.org/swissspidy/)
+*   Update both languages configured in Site and User Language
+*   Update the full set of languages configured in plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/)
 
 ### 1.1.0 ###
 *   Improve usability, remove extra steps to add Locales with no Language Packs
