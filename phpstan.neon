@@ -19,7 +19,7 @@ parameters:
 		- %currentWorkingDirectory%/lib/*
 		# Temporarily exlusions:
 		- %currentWorkingDirectory%/uninstall.php
-	autoload_files:
+	bootstrapFiles:
 		# Plugin main file
 		- %currentWorkingDirectory%/translation-tools.php
 	ignoreErrors:
