@@ -18,7 +18,7 @@
 **Donate link:** [github.com/sponsors/pedro-mendonca](https://github.com/sponsors/pedro-mendonca)  
 **Tags:** internationalization, i18n, localization, l10n, translation, language packs  
 **Requires at least:** 4.9  
-**Tested up to:** 5.4  
+**Tested up to:** 5.5  
 **Requires PHP:** 5.6  
 **Stable tag:** 1.2.1  
 **License:** GPLv2  
