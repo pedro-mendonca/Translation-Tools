@@ -168,12 +168,11 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * @since 1.1.0
 		 * @since 1.2.0  Use user object to get user Locale.
 		 *               Loaded on 'personal_options' hook to allow use of $user.
-		 *
-		 * @param object $user  User object.
+		 * @since 1.2.2  Remove $user param.
 		 *
 		 * @return void
 		 */
-		public function settings_site_language( $user ) {
+		public function settings_site_language() {
 
 			// Show formated Locale if DEBUG is true.
 			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
@@ -301,7 +300,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 
 			$languages = array();
 
-			foreach ( $locales as $key => $locale ) {
+			foreach ( $locales as $locale ) {
 				// Set 'lang' option attrib to the first Locale 'lang_code_iso_639' code, empty if none.
 				$lang = isset( $locale->translations ) ? array_values( $locale->translations['iso'] )[0] : '';
 

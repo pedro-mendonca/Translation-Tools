@@ -81,11 +81,11 @@ Now you can! Just install and activate this plugin to enable every possible Loca
 ### My desired Locale doesn't exist in the list ###
 If your Locale doesn't exist and you would like to request it, please [click here](https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/).
 
-### Is this plugin compatible with the plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/)? ###
-Short anwser: yes!
-The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.
-Since version 1.2.0, this plugin is compatible with Preferred Languages 1.6.0.
-All the features added by Translation Tools are available for Preferred Languages users.
+### Is this plugin compatible with the plugin Preferred Languages? ###
+Short anwser: yes!  
+The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.  
+Since version 1.2.0, this plugin is compatible with Preferred Languages 1.6.0.  
+All the features added by Translation Tools are available for Preferred Languages users.  
 
 ### Can I help translating this plugin to my own language? ###
 Yes you can! If you want to translate this plugin to your language, please [click here](https://translate.wordpress.org/projects/wp-plugins/translation-tools).
