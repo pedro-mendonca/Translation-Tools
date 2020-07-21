@@ -200,10 +200,13 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 
 			foreach ( $locales as $locale ) {
 
+				$wordpress_version   = substr( $wp_version['number'], 0, 3 );
+				$translation_version = substr( $locale->translations['version'], 0, 3 );
+
 				$native_name = $locale->native_name;
 
-				// Check for Language Packs data.
-				if ( isset( $locale->translations ) ) {
+				// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
+				if ( isset( $locale->translations ) && $wordpress_version === $translation_version ) {
 
 					$notice_messages[] = sprintf(
 						wp_kses_post(
@@ -214,11 +217,8 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 						'<strong>' . esc_html( $native_name ) . '</strong>',
 						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 					);
-				}
 
-				// TODO: Check the logic for when there is an update of WordPress and a language with no language pack, and project version link.
-				// Check if the current translation exist, if the current translation version is different from the WordPress installed version and is not beta.
-				if ( ! isset( $locale->translations ) || ( substr( $locale->translations['version'], 0, 3 ) !== substr( $wp_version['number'], 0, 3 ) && false === strpos( $wp_version['number'], 'beta' ) ) ) {
+				} else {
 
 					$notice_messages[] = sprintf(
 						'%s %s',
