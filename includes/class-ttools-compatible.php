@@ -99,10 +99,10 @@ if ( ! class_exists( 'TTools_Compatible' ) ) {
 
 			$plugins = array();
 
-			foreach ( $compatible_plugins as $key => $compatible_plugin ) {
+			foreach ( $compatible_plugins as $compatible_plugin ) {
 
-				if ( self::is_compatible( $key ) ) {
-					$plugins[] = $key;
+				if ( self::is_compatible( key( $compatible_plugins ) ) ) {
+					$plugins[] = key( $compatible_plugins );
 				}
 			}
 

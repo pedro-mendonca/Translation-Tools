@@ -212,7 +212,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 			$current_locale = null;
 
-			foreach ( $locales as $key => $locale ) {
+			foreach ( $locales as $locale ) {
 
 				if ( $locale->wp_locale === $wp_locale ) {
 
