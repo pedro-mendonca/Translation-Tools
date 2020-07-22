@@ -26,11 +26,11 @@ jQuery( document ).ready( function( $ ) {
 		switch ( ttools.current_screen ) {
 			case 'options-general':
 
+				// Add all Locales to the available languages list.
+				ttoolsAddAllLocales( '.options-general-php select#WPLANG' );
+
 				// Check each option of installed languages on General Settings language select.
 				$( '#WPLANG > optgroup:eq(0) > option' ).each( function() {
-					// Add all Locales to the available languages list.
-					ttoolsAddAllLocales( '.options-general-php select#WPLANG' );
-
 					var value = $( this ).prop( 'value' );
 					selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
 
@@ -88,11 +88,11 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.0
 	 */
 	function ttoolsPluginPreferredLanguagesSettings() {
+		// Add all Locales to the available languages list.
+		ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
+
 		// Check each option of installed languages on General Settings language select.
 		$( 'select#preferred-languages-inactive-locales > optgroup:eq(0) > option' ).each( function() {
-			// Add all Locales to the available languages list.
-			ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
-
 			var value = $( this ).prop( 'value' );
 			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
 
