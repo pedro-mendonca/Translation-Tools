@@ -135,9 +135,9 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @param string $project   Set the project API URL you want to get.
 		 *
-		 * @return string $api_url  Returns API URL.
+		 * @return string           Returns API URL.
 		 */
-		public function translations_api_url( $project ) {
+		public function translations_api_url( $project = null ) {
 
 			$translations_api_url = array(
 				'wp'        => 'https://translate.wordpress.org/api/projects/wp/',         // Translate API WordPress core URL.
@@ -163,19 +163,23 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @param string $project  Set the project URL you want to get.
 		 *
-		 * @return string $url     Returns URL.
+		 * @return string          Returns URL.
 		 */
-		public function translations_url( $project ) {
+		public function translations_url( $project = null ) {
 
-			$translations_url = array(
-				'wp'      => 'https://translate.wordpress.org/projects/wp/',         // Translate WordPress core URL.
-				'plugins' => 'https://translate.wordpress.org/projects/wp-plugins/', // Translate plugins URL.
-				'themes'  => 'https://translate.wordpress.org/projects/wp-themes/',  // Translate themes URL.
+			$translations_url = 'https://translate.wordpress.org/projects/';
+
+			$project_slug = array(
+				'wp'      => 'wp',         // Translate WordPress core URL.
+				'plugins' => 'wp-plugins', // Translate plugins URL.
+				'themes'  => 'wp-themes',  // Translate themes URL.
 			);
 
-			$url = $translations_url[ $project ];
+			if ( array_key_exists( $project, $project_slug ) ) {
+				$translations_url .= $project_slug[ $project ] . '/';
+			}
 
-			return $url;
+			return $translations_url;
 
 		}
 
