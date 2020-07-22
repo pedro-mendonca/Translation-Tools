@@ -63,6 +63,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 		/**
 		 * Get WordPress core translation sub-project data.
+		 * TODO: Use transients to cache core sub-project data.
 		 *
 		 * @since 1.2.2
 		 *
