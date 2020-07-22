@@ -62,39 +62,51 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 
 		/**
-		 * Get WordPress core translation version info.
+		 * Get WordPress core translation sub-project data.
 		 *
-		 * @since 1.0.0
+		 * @since 1.2.2
 		 *
-		 * @return array $wp_version  Array of WordPress installed version.
+		 * @return object|null  Object of WordPress translation sub-project, null if API is unreachable.
 		 */
-		public function get_wordpress_version() {
+		public function get_core_translation_project() {
 
-			// Get install WordPress version.
-			$current_version = get_bloginfo( 'version' );
+			// Get WordPress translation project path.
+			$source = $this->translations_api_url( 'wp' );
 
-			// Get available core updates.
-			$updates = get_core_updates();
-			if ( ! is_array( $updates ) ) {
-				return array();
+			// Get the translation project data.
+			$response = wp_remote_get( $source );
+
+			// Default response.
+			$translation_project = null;
+
+			// Check if WordPress translation project is reachable.
+			if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
+				return $translation_project;
 			}
 
-			$wp_version = array();
+			// Decode JSON.
+			$response = json_decode( $response['body'] );
 
-			// Check if WordPress install is current is the current major relase.
-			if ( substr( $current_version, 0, 3 ) === substr( $updates[0]->version, 0, 3 ) ) {
-				$wp_version['slug']   = 'dev';
-				$wp_version['name']   = substr( $current_version, 0, 3 ) . '.x';
-				$wp_version['number'] = $current_version;
-				$wp_version['latest'] = true;
-			} else {
-				$wp_version['slug']   = substr( $current_version, 0, 3 ) . '.x';
-				$wp_version['name']   = substr( $current_version, 0, 3 ) . '.x';
-				$wp_version['number'] = $current_version;
-				$wp_version['latest'] = false;
+			// Get the translation sub-projects.
+			$projects = $response->sub_projects;
+
+			// Get WordPress major version ( e.g.: '5.5' ).
+			$wp_version = $this->major_version( get_bloginfo( 'version' ) );
+
+			foreach ( $projects as $project ) {
+
+				$translation_version = $this->major_version( $project->name );
+
+				// Check for the WordPress installed major version translation project.
+				if ( $wp_version === $translation_version ) {
+					$translation_project = $project;
+				}
 			}
 
-			return $wp_version;
+			return $translation_project;
+
+		}
+
 
 		/**
 		 * Get major version number.
