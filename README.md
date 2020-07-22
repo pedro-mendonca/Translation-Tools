@@ -116,7 +116,7 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 ## Changelog ##
 
 ### 1.2.2 ###
-*   New filter 'ttools_get_wp_translations_status' to customize the filtered strings to download, default is 'current'
+*   New filter `ttools_get_wp_translations_status` to customize the filtered strings to download, default is 'current'
 *   Fix support for core beta versions
 *   Improve core translation sub-projects data through translate.wp.org API
 *   Tested up to WP 5.5
