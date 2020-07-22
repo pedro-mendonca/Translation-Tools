@@ -190,28 +190,24 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
 		 *
-		 * @return string|null     File path to get source.
+		 * @return string|null      File path to get source.
 		 */
 		public function translation_path( $project, $locale ) {
 
-			// Get WordPress core version info.
-			$wp_version = $this->get_wordpress_version();
+			// Get WordPress translation project.
+			$translation_project = $this->get_core_translation_project();
 
-			/**
-			 * TODO:
-			 *
-			 * Let users choose witch filter to use.
-			 * $filters = '?filters[status]=current_or_waiting_or_fuzzy';
-			 * $filters = '?filters[status]=current';
-			 *
-			 * Import from JED format to improve speed.
-			 * $format  = '&format=jed';
-			 */
-			$filters = '?filters[status]=current';
-			$format  = '&format=po';
-			$args    = $filters . $format;
-
-			$translation_path = esc_url_raw( $this->translations_url( 'wp' ) . $wp_version['slug'] . '/' . $project['slug'] . $locale->locale_slug . '/export-translations' . $args );
+			$translation_path = esc_url_raw(
+				add_query_arg(
+					array(
+						// Filter 'ttools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
+						'filters[status]' => apply_filters( 'ttools_get_wp_translations_status', 'current' ),
+						// TODO: Test format 'jed' to improve download speed.
+						'format'          => 'po',
+					),
+					$this->translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+				)
+			);
 
 			return $translation_path;
 		}
