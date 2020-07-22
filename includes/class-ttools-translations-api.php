@@ -96,6 +96,20 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 
 			return $wp_version;
 
+		/**
+		 * Get major version number.
+		 *
+		 * @since 1.2.2
+		 *
+		 * @param string $version  The version number (e.g.: 5.5.x).
+		 *
+		 * @return string          Returns major version (e.g.: 5.5).
+		 */
+		public function major_version( $version ) {
+
+			$major_version = substr( $version, 0, 3 );
+
+			return $major_version;
 		}
 
 
