@@ -24,6 +24,6 @@ parameters:
 		- %currentWorkingDirectory%/translation-tools.php
 	ignoreErrors:
 		# Missing functions from compatible plugins:
-		- "#Function preferred_languages_get_#"
+		- "#Function preferred_languages_#"
 	# Temporarily disable test.
 	checkMissingIterableValueType: false
