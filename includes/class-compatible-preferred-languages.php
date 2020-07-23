@@ -28,7 +28,7 @@ if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
 		public function __construct() {
 
 			// Add Preferred Language plugin selected languages.
-			add_filter( 'ttools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
+			add_filter( 'translation_tools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
 
 		}
 

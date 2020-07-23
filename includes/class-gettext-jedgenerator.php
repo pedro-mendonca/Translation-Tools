@@ -62,7 +62,7 @@ if ( ! class_exists( 'Gettext_JedGenerator' ) ) {
 					);
 					$data          = array(
 						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
-						'generator'                 => 'Translation Tools/' . TTOOLS_VERSION,
+						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
 						'source'                    => $options['source'],
 						'domain'                    => $domain,
 						'locale_data'               => array(
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Gettext_JedGenerator' ) ) {
 					);
 					$data          = array(
 						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
-						'generator'                 => 'Translation Tools/' . TTOOLS_VERSION,
+						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
 						'domain'                    => $domain,
 						'locale_data'               => array(
 							$domain => $configuration + $messages,

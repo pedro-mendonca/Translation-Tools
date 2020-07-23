@@ -31,34 +31,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 // Set Translation Tools plugin version.
-define( 'TTOOLS_VERSION', '1.2.2' );
+define( 'TRANSLATION_TOOLS_VERSION', '1.2.2' );
 
 // Set Translation Tools required PHP version. Needed for PHP compatibility check for WordPress < 5.1.
-define( 'TTOOLS_REQUIRED_PHP', '5.6' );
+define( 'TRANSLATION_TOOLS_REQUIRED_PHP', '5.6' );
 
 // Set Translation Tools settings database version.
-// define( 'TTOOLS_SETTINGS_VERSION', '1.1' ); // phpcs:ignore.
+// define( 'TRANSLATION_TOOLS_SETTINGS_VERSION', '1.1' ); // phpcs:ignore.
 
 // Set the WordPress option to store Translation Tools settings.
-// define( 'TTOOLS_WP_OPTION', 'ttools_settings' ); // phpcs:ignore.
+// define( 'TRANSLATION_TOOLS_WP_OPTION', 'translation_tools_settings' ); // phpcs:ignore.
 
 // Set Translation Tools settings page slug.
-// define( 'TTOOLS_SETTINGS_PAGE', 'translation-tools' ); // phpcs:ignore.
+// define( 'TRANSLATION_TOOLS_SETTINGS_PAGE', 'translation-tools' ); // phpcs:ignore.
 
 // Set Translation Tools transients prefix.
-define( 'TTOOLS_TRANSIENTS_PREFIX', 'translation_tools_' );
+define( 'TRANSLATION_TOOLS_TRANSIENTS_PREFIX', 'translation_tools_' );
 
 // Set Translation Tools transients 1 week expiration for Locales data.
-define( 'TTOOLS_TRANSIENTS_LOCALES_EXPIRATION', WEEK_IN_SECONDS );
+define( 'TRANSLATION_TOOLS_TRANSIENTS_LOCALES_EXPIRATION', WEEK_IN_SECONDS );
 
 // Set Translation Tools plugin URL.
-define( 'TTOOLS_DIR_URL', plugin_dir_url( __FILE__ ) );
+define( 'TRANSLATION_TOOLS_DIR_URL', plugin_dir_url( __FILE__ ) );
 
 // Set Translation Tools plugin filesystem path.
-define( 'TTOOLS_DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'TRANSLATION_TOOLS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 // Set Translation Tools file path.
-define( 'TTOOLS_FILE', plugin_basename( __FILE__ ) );
+define( 'TRANSLATION_TOOLS_FILE', plugin_basename( __FILE__ ) );
 
 
 /**
@@ -77,7 +77,7 @@ require_once 'lib/wp.org/locales.php';
  *
  * @param callable(string): void
  */
-spl_autoload_register( __NAMESPACE__ . '\ttools_class_autoload' );
+spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
 
 
 /**
@@ -90,10 +90,10 @@ spl_autoload_register( __NAMESPACE__ . '\ttools_class_autoload' );
  *
  * @return void
  */
-function ttools_class_autoload( $class_name ) {
+function translation_tools_class_autoload( $class_name ) {
 
 	// Set class file path and name.
-	$ttools_class_path = TTOOLS_DIR_PATH . 'includes/';
+	$ttools_class_path = TRANSLATION_TOOLS_DIR_PATH . 'includes/';
 	$ttools_class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( __NAMESPACE__ . '\\', '', $class_name ) ) ) . '.php';
 	$ttools_class      = $ttools_class_path . $ttools_class_file;
 
@@ -106,7 +106,7 @@ function ttools_class_autoload( $class_name ) {
 
 
 // Include Composer autoload.
-require_once TTOOLS_DIR_PATH . 'vendor/autoload.php';
+require_once TRANSLATION_TOOLS_DIR_PATH . 'vendor/autoload.php';
 
 // Initialize the plugin.
 // TODO: Load via 'plugins_loaded'.

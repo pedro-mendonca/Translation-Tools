@@ -193,6 +193,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 * @since 1.0.0
 		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 * @since 1.2.0  Use Locale object.
+		 * @since 1.2.3  Rename filter 'ttools_get_wp_translations_status' to 'translation_tools_get_wp_translations_status'.
 		 *
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
@@ -207,8 +208,8 @@ if ( ! class_exists( 'Translations_API' ) ) {
 			$translation_path = esc_url_raw(
 				add_query_arg(
 					array(
-						// Filter 'ttools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
-						'filters[status]' => apply_filters( 'ttools_get_wp_translations_status', 'current' ),
+						// Filter 'translation_tools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
+						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
 						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),

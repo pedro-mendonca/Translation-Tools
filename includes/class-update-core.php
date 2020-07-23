@@ -355,7 +355,7 @@ if ( ! class_exists( 'Update_Core' ) ) {
 			 *
 			 * @return array             A filtered array of Locales.
 			 */
-			$wp_locales = apply_filters( 'ttools_core_update_locales', $wp_locales );
+			$wp_locales = apply_filters( 'translation_tools_core_update_locales', $wp_locales );
 
 			// Remove duplicates.
 			$wp_locales = array_unique( $wp_locales );

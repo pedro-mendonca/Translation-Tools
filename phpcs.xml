@@ -67,7 +67,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<!-- Set the global prefix. -->
-			<property name="prefixes" type="array" value="ttools,translation_tools"/>
+			<property name="prefixes" type="array" value="translation_tools"/>
 		</properties>
 	</rule>
 
