@@ -74,31 +74,34 @@ require_once 'lib/wp.org/locales.php';
  * Register classes autoloader function.
  *
  * @since 1.0.0
+ *
+ * @param callable(string): void
  */
-spl_autoload_register( 'ttools_class_autoload' );
+spl_autoload_register( __NAMESPACE__ . '\ttools_class_autoload' );
 
 
 /**
  * Class autoloader.
  *
  * @since 1.0.0
+ * @since 1.2.3  Remove namespace from class name.
  *
- * @param string $class_name   Class name.
+ * @param string $class_name  Classe name.
  *
- * @return bool  True if class found, false if not found.
+ * @return void
  */
 function ttools_class_autoload( $class_name ) {
 
 	// Set class file path and name.
 	$ttools_class_path = TTOOLS_DIR_PATH . 'includes/';
-	$ttools_class_file = 'class-' . str_replace( '_', '-', strtolower( $class_name ) ) . '.php';
+	$ttools_class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( __NAMESPACE__ . '\\', '', $class_name ) ) ) . '.php';
 	$ttools_class      = $ttools_class_path . $ttools_class_file;
 
 	if ( ! file_exists( $ttools_class ) ) {
-		return false;
+		return;
 	}
 
-	return require_once $ttools_class;
+	require_once $ttools_class;
 }
 
 
