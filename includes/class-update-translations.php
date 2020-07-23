@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace TTools;
+namespace Translation_Tools;
 
 use Gettext\Translations as Translations;
 use WP_Error;
