@@ -93,15 +93,15 @@ spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
 function translation_tools_class_autoload( $class_name ) {
 
 	// Set class file path and name.
-	$ttools_class_path = TRANSLATION_TOOLS_DIR_PATH . 'includes/';
-	$ttools_class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( __NAMESPACE__ . '\\', '', $class_name ) ) ) . '.php';
-	$ttools_class      = $ttools_class_path . $ttools_class_file;
+	$class_path = TRANSLATION_TOOLS_DIR_PATH . 'includes/';
+	$class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( __NAMESPACE__ . '\\', '', $class_name ) ) ) . '.php';
+	$class      = $class_path . $class_file;
 
-	if ( ! file_exists( $ttools_class ) ) {
+	if ( ! file_exists( $class ) ) {
 		return;
 	}
 
-	require_once $ttools_class;
+	require_once $class;
 }
 
 
