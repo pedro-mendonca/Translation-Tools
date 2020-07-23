@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Locales' ) ) {
+if ( ! class_exists( 'Locales' ) ) {
 
 	/**
-	 * Class TTools_Locales.
+	 * Class Locales.
 	 */
-	class TTools_Locales extends GP_Locales {
+	class Locales extends GP_Locales {
 
 
 		/**

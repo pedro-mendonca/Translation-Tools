@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Globals' ) ) {
+if ( ! class_exists( 'Globals' ) ) {
 
 	/**
-	 * Class TTools_Globals.
+	 * Class Globals.
 	 */
-	class TTools_Globals {
+	class Globals {
 
 
 		/**

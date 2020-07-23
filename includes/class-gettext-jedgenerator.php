@@ -20,14 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Gettext_JedGenerator' ) ) {
+if ( ! class_exists( 'Gettext_JedGenerator' ) ) {
 
 	/**
-	 * Class TTools_Gettext_JedGenerator.
+	 * Class Gettext_JedGenerator.
 	 *
 	 * Adds some more meta data to JED translation files than the default generator.
 	 */
-	class TTools_Gettext_JedGenerator extends Jed {
+	class Gettext_JedGenerator extends Jed {
 
 
 		/**

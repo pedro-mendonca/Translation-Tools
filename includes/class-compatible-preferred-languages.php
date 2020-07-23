@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Compatible_Preferred_Languages' ) ) {
+if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
 
 	/**
-	 * Class TTools_Compatible_Preferred_Languages.
+	 * Class Compatible_Preferred_Languages.
 	 */
-	class TTools_Compatible_Preferred_Languages extends TTools_Compatible {
+	class Compatible_Preferred_Languages extends Compatible {
 
 
 		/**

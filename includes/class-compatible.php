@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Compatible' ) ) {
+if ( ! class_exists( 'Compatible' ) ) {
 
 	/**
-	 * Class TTools_Compatible.
+	 * Class Compatible.
 	 */
-	class TTools_Compatible {
+	class Compatible {
 
 
 		/**

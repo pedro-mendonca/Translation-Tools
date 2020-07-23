@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Translations_API' ) ) {
+if ( ! class_exists( 'Translations_API' ) ) {
 
 
 	/**
-	 * Class TTools_Translations_API.
+	 * Class Translations_API.
 	 */
-	class TTools_Translations_API {
+	class Translations_API {
 
 
 		/**
@@ -237,7 +237,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		public function locale( $wp_locale ) {
 
 			// Get wordpress.org Locales.
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			$current_locale = null;
 

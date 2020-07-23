@@ -14,12 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Options_General' ) ) {
+if ( ! class_exists( 'Options_General' ) ) {
 
 	/**
-	 * Class TTools_Options_General.
+	 * Class Options_General.
 	 */
-	class TTools_Options_General {
 
 
 		/**
@@ -28,6 +27,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 * @var object
 		 */
 		protected $translations_api;
+	class Options_General {
 
 
 		/**
@@ -98,7 +98,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function update_available_languages( $languages ) {
 
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			foreach ( $locales as $locale ) {
 				if ( ! isset( $locale->translations ) ) {
@@ -190,7 +190,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			}
 
 			// Get site and user core update Locales.
-			$wp_locales = TTools_Update_Core::core_update_locales();
+			$wp_locales = Update_Core::core_update_locales();
 
 			// If Locales array is empty, do nothing.
 			if ( empty( $wp_locales ) ) {
@@ -200,7 +200,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			foreach ( $wp_locales as $wp_locale ) {
 
 				// Get Locale data.
-				$locale = $this->translations_api->locale( $wp_locale );
+				$locale = Translations_API::locale( $wp_locale );
 
 				$native_name = $locale->native_name;
 
@@ -298,7 +298,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		public static function all_languages() {
 
 			// Get Locales.
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			$languages = array();
 
