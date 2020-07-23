@@ -23,7 +23,7 @@ parameters:
 		# Plugin main file
 		- %currentWorkingDirectory%/translation-tools.php
 	ignoreErrors:
-		- "#Function preferred_languages_get_site_list not found.#"
-		- "#Function preferred_languages_get_user_list not found.#"
+		# Missing functions from compatible plugins:
+		- "#Function preferred_languages_get_#"
 	# Temporarily disable test.
 	checkMissingIterableValueType: false
