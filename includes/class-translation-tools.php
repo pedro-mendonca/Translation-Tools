@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools' ) ) {
+if ( ! class_exists( 'Translation_Tools' ) ) {
 
 	/**
-	 * Class TTools.
+	 * Class Translation_Tools.
 	 */
-	class TTools {
+	class Translation_Tools {
 
 
 		/**
@@ -78,11 +78,11 @@ if ( ! class_exists( 'TTools' ) ) {
 
 				wp_register_script(
 					'translation-tools-update-core',
-					TTOOLS_DIR_URL . 'js/ttools-update-core' . $suffix . '.js',
+					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-update-core' . $suffix . '.js',
 					array(
 						'jquery',
 					),
-					TTOOLS_VERSION,
+					TRANSLATION_TOOLS_VERSION,
 					false
 				);
 
@@ -104,11 +104,11 @@ if ( ! class_exists( 'TTools' ) ) {
 
 				wp_register_script(
 					'translation-tools-options-general',
-					TTOOLS_DIR_URL . 'js/ttools-options-general' . $suffix . '.js',
+					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-options-general' . $suffix . '.js',
 					array(
 						'jquery',
 					),
-					TTOOLS_VERSION,
+					TRANSLATION_TOOLS_VERSION,
 					false
 				);
 

@@ -110,4 +110,4 @@ require_once TTOOLS_DIR_PATH . 'vendor/autoload.php';
 
 // Initialize the plugin.
 // TODO: Load via 'plugins_loaded'.
-new TTools();
+new Translation_Tools();
