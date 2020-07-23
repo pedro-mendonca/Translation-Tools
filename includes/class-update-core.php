@@ -7,6 +7,8 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

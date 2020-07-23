@@ -7,7 +7,10 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 use Gettext\Translations;
+use WP_Error;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
