@@ -107,3 +107,4 @@ require_once TTOOLS_DIR_PATH . 'vendor/autoload.php';
 
 // Initialize the plugin.
 new TTools_Main();
+// TODO: Load via 'plugins_loaded'.
