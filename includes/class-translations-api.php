@@ -168,7 +168,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 *
 		 * @return string          Returns URL.
 		 */
-		public function translations_url( $project = null ) {
+		public static function translations_url( $project = null ) {
 
 			$translations_url = 'https://translate.wordpress.org/projects/';
 
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
-					$this->translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 *
 		 * @return object            Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
 		 */
-		public function locale( $wp_locale ) {
+		public static function locale( $wp_locale ) {
 
 			// Get wordpress.org Locales.
 			$locales = Locales::locales();

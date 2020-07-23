@@ -19,14 +19,6 @@ if ( ! class_exists( 'Options_General' ) ) {
 	/**
 	 * Class Options_General.
 	 */
-
-
-		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
 	class Options_General {
 
 
@@ -34,9 +26,6 @@ if ( ! class_exists( 'Options_General' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new TTools_Translations_API();
 
 			// Add Locales with no Language Packs to the available languages.
 			add_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
@@ -152,7 +141,7 @@ if ( ! class_exists( 'Options_General' ) ) {
 		public function core_version_check_locale( $wp_locale ) {
 
 			// Get Translation Tools Locale data.
-			$locale = $this->translations_api->locale( $wp_locale );
+			$locale = Translations_API::locale( $wp_locale );
 
 			// If the current locale has no Language Packs, set the core update to default 'en_US'.
 			if ( ! isset( $locale->translations ) ) {
