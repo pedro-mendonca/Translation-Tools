@@ -7,18 +7,20 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Translations_API' ) ) {
+if ( ! class_exists( 'Translations_API' ) ) {
 
 
 	/**
-	 * Class TTools_Translations_API.
+	 * Class Translations_API.
 	 */
-	class TTools_Translations_API {
+	class Translations_API {
 
 
 		/**
@@ -166,7 +168,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @return string          Returns URL.
 		 */
-		public function translations_url( $project = null ) {
+		public static function translations_url( $project = null ) {
 
 			$translations_url = 'https://translate.wordpress.org/projects/';
 
@@ -191,6 +193,7 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 * @since 1.0.0
 		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 * @since 1.2.0  Use Locale object.
+		 * @since 1.2.3  Rename filter 'ttools_get_wp_translations_status' to 'translation_tools_get_wp_translations_status'.
 		 *
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
@@ -205,12 +208,12 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 			$translation_path = esc_url_raw(
 				add_query_arg(
 					array(
-						// Filter 'ttools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
-						'filters[status]' => apply_filters( 'ttools_get_wp_translations_status', 'current' ),
+						// Filter 'translation_tools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
+						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
 						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
-					$this->translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 
@@ -232,10 +235,10 @@ if ( ! class_exists( 'TTools_Translations_API' ) ) {
 		 *
 		 * @return object            Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
 		 */
-		public function locale( $wp_locale ) {
+		public static function locale( $wp_locale ) {
 
 			// Get wordpress.org Locales.
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			$current_locale = null;
 

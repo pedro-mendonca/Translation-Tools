@@ -10,6 +10,8 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 use Gettext\Generators\Jed;
 use Gettext\Translations;
 
@@ -18,14 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Gettext_JedGenerator' ) ) {
+if ( ! class_exists( 'Gettext_JedGenerator' ) ) {
 
 	/**
-	 * Class TTools_Gettext_JedGenerator.
+	 * Class Gettext_JedGenerator.
 	 *
 	 * Adds some more meta data to JED translation files than the default generator.
 	 */
-	class TTools_Gettext_JedGenerator extends Jed {
+	class Gettext_JedGenerator extends Jed {
 
 
 		/**
@@ -60,7 +62,7 @@ if ( ! class_exists( 'TTools_Gettext_JedGenerator' ) ) {
 					);
 					$data          = array(
 						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
-						'generator'                 => 'Translation Tools/' . TTOOLS_VERSION,
+						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
 						'source'                    => $options['source'],
 						'domain'                    => $domain,
 						'locale_data'               => array(
@@ -78,7 +80,7 @@ if ( ! class_exists( 'TTools_Gettext_JedGenerator' ) ) {
 					);
 					$data          = array(
 						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
-						'generator'                 => 'Translation Tools/' . TTOOLS_VERSION,
+						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
 						'domain'                    => $domain,
 						'locale_data'               => array(
 							$domain => $configuration + $messages,

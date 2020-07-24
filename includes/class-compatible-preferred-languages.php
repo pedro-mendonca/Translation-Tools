@@ -7,17 +7,19 @@
  * @since 1.2.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Compatible_Preferred_Languages' ) ) {
+if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
 
 	/**
-	 * Class TTools_Compatible_Preferred_Languages.
+	 * Class Compatible_Preferred_Languages.
 	 */
-	class TTools_Compatible_Preferred_Languages extends TTools_Compatible {
+	class Compatible_Preferred_Languages extends Compatible {
 
 
 		/**
@@ -26,7 +28,7 @@ if ( ! class_exists( 'TTools_Compatible_Preferred_Languages' ) ) {
 		public function __construct() {
 
 			// Add Preferred Language plugin selected languages.
-			add_filter( 'ttools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
+			add_filter( 'translation_tools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
 
 		}
 

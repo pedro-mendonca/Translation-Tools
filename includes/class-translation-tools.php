@@ -7,17 +7,19 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Main' ) ) {
+if ( ! class_exists( 'Translation_Tools' ) ) {
 
 	/**
-	 * Class TTools_Main.
+	 * Class Translation_Tools.
 	 */
-	class TTools_Main {
+	class Translation_Tools {
 
 
 		/**
@@ -37,13 +39,13 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'register_plugin_scripts' ) );
 
 			// Initialize the Update Core page metadata view.
-			new TTools_Update_Core();
+			new Update_Core();
 
 			// Instantiate Translation Tools Options General.
-			$this->options_general = new TTools_Options_General();
+			$this->options_general = new Options_General();
 
 			// Initialize Class file for the Translation Tools compatibility with Preferred Languages plugin.
-			new TTools_Compatible_Preferred_Languages();
+			new Compatible_Preferred_Languages();
 
 		}
 
@@ -76,11 +78,11 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 				wp_register_script(
 					'translation-tools-update-core',
-					TTOOLS_DIR_URL . 'js/ttools-update-core' . $suffix . '.js',
+					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-update-core' . $suffix . '.js',
 					array(
 						'jquery',
 					),
-					TTOOLS_VERSION,
+					TRANSLATION_TOOLS_VERSION,
 					false
 				);
 
@@ -102,11 +104,11 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 
 				wp_register_script(
 					'translation-tools-options-general',
-					TTOOLS_DIR_URL . 'js/ttools-options-general' . $suffix . '.js',
+					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-options-general' . $suffix . '.js',
 					array(
 						'jquery',
 					),
-					TTOOLS_VERSION,
+					TRANSLATION_TOOLS_VERSION,
 					false
 				);
 
@@ -120,9 +122,9 @@ if ( ! class_exists( 'TTools_Main' ) ) {
 				// Variables to send to JavaScript.
 				$vars = array(
 					'available_languages' => $available_languages,                                // Get installed languages.
-					'all_languages'       => TTools_Options_General::all_languages(),             // Get all languages.
+					'all_languages'       => Options_General::all_languages(),             // Get all languages.
 					'current_screen'      => get_current_screen()->id,                            // Get current screen.
-					'compatible_plugins'  => TTools_Compatible::get_compatible_plugins(), // Get compatible plugins data.
+					'compatible_plugins'  => Compatible::get_compatible_plugins(), // Get compatible plugins data.
 				);
 
 				wp_localize_script(

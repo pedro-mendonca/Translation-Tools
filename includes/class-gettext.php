@@ -14,19 +14,22 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 use Gettext\Translations;
+use WP_Error;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Gettext' ) ) {
+if ( ! class_exists( 'Gettext' ) ) {
 
 	/**
-	 * Class TTools_Gettext.
+	 * Class Gettext.
 	 */
-	class TTools_Gettext {
+	class Gettext {
 
 
 		/**
@@ -147,7 +150,7 @@ if ( ! class_exists( 'TTools_Gettext' ) ) {
 					'<code>' . esc_html( $base_file_name ) . '-' . esc_html( $hash ) . '.json</code>'
 				);
 
-				$success = TTools_Gettext_JedGenerator::toFile(
+				$success = Gettext_JedGenerator::toFile(
 					$translations,
 					$destination_file,
 					array(

@@ -7,34 +7,25 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Options_General' ) ) {
+if ( ! class_exists( 'Options_General' ) ) {
 
 	/**
-	 * Class TTools_Options_General.
+	 * Class Options_General.
 	 */
-	class TTools_Options_General {
-
-
-		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
+	class Options_General {
 
 
 		/**
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new TTools_Translations_API();
 
 			// Add Locales with no Language Packs to the available languages.
 			add_filter( 'get_available_languages', array( $this, 'update_available_languages' ) );
@@ -96,7 +87,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		 */
 		public function update_available_languages( $languages ) {
 
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			foreach ( $locales as $locale ) {
 				if ( ! isset( $locale->translations ) ) {
@@ -150,7 +141,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		public function core_version_check_locale( $wp_locale ) {
 
 			// Get Translation Tools Locale data.
-			$locale = $this->translations_api->locale( $wp_locale );
+			$locale = Translations_API::locale( $wp_locale );
 
 			// If the current locale has no Language Packs, set the core update to default 'en_US'.
 			if ( ! isset( $locale->translations ) ) {
@@ -188,7 +179,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			}
 
 			// Get site and user core update Locales.
-			$wp_locales = TTools_Update_Core::core_update_locales();
+			$wp_locales = Update_Core::core_update_locales();
 
 			// If Locales array is empty, do nothing.
 			if ( empty( $wp_locales ) ) {
@@ -198,7 +189,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 			foreach ( $wp_locales as $wp_locale ) {
 
 				// Get Locale data.
-				$locale = $this->translations_api->locale( $wp_locale );
+				$locale = Translations_API::locale( $wp_locale );
 
 				$native_name = $locale->native_name;
 
@@ -296,7 +287,7 @@ if ( ! class_exists( 'TTools_Options_General' ) ) {
 		public static function all_languages() {
 
 			// Get Locales.
-			$locales = TTools_Locales::locales();
+			$locales = Locales::locales();
 
 			$languages = array();
 

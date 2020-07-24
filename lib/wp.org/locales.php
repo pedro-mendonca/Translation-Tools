@@ -7,7 +7,10 @@
  * - Without https://github.com/GlotPress/GlotPress-WP/pull/1012 and https://github.com/GlotPress/GlotPress-WP/pull/1017.
  * - Without other dependencies because the file gets also loaded in api.wordpress.org context.
  */
-if ( ! class_exists( 'GP_Locale' ) ) :
+
+namespace Translation_Tools;
+
+if ( ! class_exists( '\TTools\GP_Locale' ) ) :
 
 class GP_Locale {
 	public $english_name;
@@ -128,7 +131,7 @@ class GP_Locale {
 
 endif;
 
-if ( ! class_exists( 'GP_Locales' ) ) :
+if ( ! class_exists( '\TTools\GP_Locales' ) ) :
 
 class GP_Locales {
 

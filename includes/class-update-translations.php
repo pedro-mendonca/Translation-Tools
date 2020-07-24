@@ -7,19 +7,22 @@
  * @since 1.0.0
  */
 
-use Gettext\Translations;
+namespace Translation_Tools;
+
+use Gettext\Translations as Translations;
+use WP_Error;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Update_Translations' ) ) {
+if ( ! class_exists( 'Update_Translations' ) ) {
 
 	/**
-	 * Class TTools_Update_Translations.
+	 * Class Update_Translations.
 	 */
-	class TTools_Update_Translations {
+	class Update_Translations {
 
 
 		/**
@@ -43,10 +46,10 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 		public function __construct() {
 
 			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new TTools_Translations_API();
+			$this->translations_api = new Translations_API();
 
 			// Instantiate Translation Tools Gettext.
-			$this->gettext = new TTools_Gettext();
+			$this->gettext = new Gettext();
 
 		}
 
@@ -239,7 +242,7 @@ if ( ! class_exists( 'TTools_Update_Translations' ) ) {
 				'<code>' . esc_html( $file_name ) . '</code>'
 			);
 
-			$translations = Gettext\Translations::fromPoFile( $destination . $file_name );
+			$translations = Translations::fromPoFile( $destination . $file_name );
 
 			if ( ! is_object( $translations ) ) {
 

@@ -7,17 +7,19 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Update_Core' ) ) {
+if ( ! class_exists( 'Update_Core' ) ) {
 
 	/**
-	 * Class TTools_Update_Core.
+	 * Class Update_Core.
 	 */
-	class TTools_Update_Core {
+	class Update_Core {
 
 
 		/**
@@ -55,16 +57,16 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 		public function __construct() {
 
 			// Instantiate Translation Tools Globals.
-			$this->globals = new TTools_Globals();
+			$this->globals = new Globals();
 
 			// Instantiate Translation Tools Notices.
-			$this->notices = new TTools_Notices();
+			$this->notices = new Notices();
 
 			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new TTools_Translations_API();
+			$this->translations_api = new Translations_API();
 
 			// Instantiate Translation Tools Update Translations.
-			$this->update_translations = new TTools_Update_Translations();
+			$this->update_translations = new Update_Translations();
 
 			// Add WordPress translation info and update button to updates page.
 			add_action( 'core_upgrade_preamble', array( $this, 'updates_wp_translation_notice' ) );
@@ -353,7 +355,7 @@ if ( ! class_exists( 'TTools_Update_Core' ) ) {
 			 *
 			 * @return array             A filtered array of Locales.
 			 */
-			$wp_locales = apply_filters( 'ttools_core_update_locales', $wp_locales );
+			$wp_locales = apply_filters( 'translation_tools_core_update_locales', $wp_locales );
 
 			// Remove duplicates.
 			$wp_locales = array_unique( $wp_locales );

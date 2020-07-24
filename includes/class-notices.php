@@ -7,17 +7,19 @@
  * @since 1.0.0
  */
 
+namespace Translation_Tools;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'TTools_Notices' ) ) {
+if ( ! class_exists( 'Notices' ) ) {
 
 	/**
-	 * Class TTools_Notices.
+	 * Class Notices.
 	 */
-	class TTools_Notices {
+	class Notices {
 
 
 		/**
@@ -34,7 +36,7 @@ if ( ! class_exists( 'TTools_Notices' ) ) {
 		public function __construct() {
 
 			// Instantiate Translation Tools Globals.
-			$this->globals = new TTools_Globals();
+			$this->globals = new Globals();
 
 		}
 
