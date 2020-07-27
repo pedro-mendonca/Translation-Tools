@@ -43,7 +43,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 				),
 			);
 
-			return $compatible_plugins;
+			$compatible_plugins_data = apply_filters( 'translation_tools_compatible_plugins', $compatible_plugins );
+
+			return $compatible_plugins_data;
 
 		}
 
@@ -105,10 +107,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 
 			$plugins = array();
 
-			foreach ( $compatible_plugins as $compatible_plugin ) {
+			foreach ( $compatible_plugins as $key => $compatible_plugin ) {
 
-				if ( self::is_compatible( key( $compatible_plugins ) ) ) {
-					$plugins[] = key( $compatible_plugins );
+				if ( self::is_compatible( $key ) ) {
+
+					$plugins[ $key ] = $compatible_plugin;
 				}
 			}
 
