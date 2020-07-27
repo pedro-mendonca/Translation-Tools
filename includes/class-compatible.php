@@ -23,6 +23,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 
 
 		/**
+		 * Plugin file (e.g.: 'translation-tools/translation-tools.php' )
+		 *
+		 * @var string $plugin_file
+		 */
+		public $plugin_file = null;
+
+
+		/**
 		 * Detect active compatible plugins.
 		 *
 		 * @since 1.2.0
