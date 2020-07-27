@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Compatible' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 
 	/**
 	 * Class Compatible.

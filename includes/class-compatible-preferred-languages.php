@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 
 	/**
 	 * Class Compatible_Preferred_Languages.

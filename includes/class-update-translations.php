@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Update_Translations' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 	/**
 	 * Class Update_Translations.

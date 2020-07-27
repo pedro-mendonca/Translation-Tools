@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Gettext' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 	/**
 	 * Class Gettext.

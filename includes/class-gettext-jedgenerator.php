@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Gettext_JedGenerator' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 
 	/**
 	 * Class Gettext_JedGenerator.
