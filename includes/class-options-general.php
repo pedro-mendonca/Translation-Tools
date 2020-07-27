@@ -39,9 +39,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 			// Add Site Language description.
 			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
+			// Add Site Language css.
+			add_action( 'load-options-general.php', array( $this, 'settings_site_language_css' ) );
 
 			// Add Profile and User Edit Language description.
 			add_action( 'personal_options', array( $this, 'settings_site_language' ) );
+			// Add Profile and User Edit Language css.
+			add_action( 'personal_options', array( $this, 'settings_site_language_css' ) );
+
+			// Add Translation Stats Language css.
+			add_action( 'settings_page_translation-stats', array( $this, 'settings_site_language_css' ) );
 
 		}
 
@@ -165,19 +172,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 */
 		public function settings_site_language() {
 
-			// Show formated Locale if DEBUG is true.
-			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
-				?>
-				<style>
-					option[data-has-lang-packs="false"],
-					li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
-					#ttools_language_select_description .has-no-lang-packs strong {
-						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
-					}
-				</style>
-				<?php
-			}
-
 			// Get site and user core update Locales.
 			$wp_locales = Update_Core::core_update_locales();
 
@@ -273,6 +267,34 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			</div>
 
 			<?php
+		}
+
+
+		/**
+		 * Render description for settings Language select field.
+		 *
+		 * @since 1.1.0
+		 * @since 1.2.0  Use user object to get user Locale.
+		 *               Loaded on 'personal_options' hook to allow use of $user.
+		 * @since 1.2.2  Remove $user param.
+		 *
+		 * @return void
+		 */
+		public function settings_site_language_css() {
+
+			// Show formated Locale if DEBUG is true.
+			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+				?>
+				<style>
+					select option[data-has-lang-packs="false"],
+					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+					#ttools_language_select_description .has-no-lang-packs strong {
+						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+					}
+				</style>
+				<?php
+			}
+
 		}
 
 
