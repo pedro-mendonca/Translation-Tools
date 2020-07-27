@@ -26,6 +26,22 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 
 
 		/**
+		 * Set custom 'translation_tools_locales' global variable.
+		 * This avoids conficts with other plugins that might use the 'gp_locales' global.
+		 *
+		 * @return object  Object with all the GP_Locales.
+		 */
+		public static function &instance() {
+
+			if ( ! isset( $GLOBALS['translation_tools_locales'] ) ) {
+				$GLOBALS['translation_tools_locales'] = new GP_Locales();
+			}
+
+			return $GLOBALS['translation_tools_locales'];
+		}
+
+
+		/**
 		 * Locales from WordPress.org extended with Transaltion Tools data.
 		 *
 		 * @since 1.2.0
