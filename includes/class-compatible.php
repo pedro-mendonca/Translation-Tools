@@ -37,6 +37,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 					'name'             => 'Preferred Languages',
 					'required_version' => '1.6.0',
 				),
+				'translation-stats/translation-stats.php' => array(
+					'name'             => 'Translation Stats',
+					'required_version' => '1.1.0',
+				),
 			);
 
 			return $compatible_plugins;

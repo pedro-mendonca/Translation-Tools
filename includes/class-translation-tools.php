@@ -47,6 +47,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			// Initialize Class file for the Translation Tools compatibility with Preferred Languages plugin.
 			new Compatible_Preferred_Languages();
 
+			// Initialize Class file for the Translation Tools compatibility with Translation Stats plugin.
+			new Compatible_Translation_Stats();
+
 		}
 
 
@@ -97,7 +100,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			}
 
 			// Check for General Settings page, Profile page and User Edit page.
-			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook ) {
+			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 
 				// Provide minified version if SCRIPT_DEBUG is not set to true.
 				$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -150,7 +153,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 		public function allowed_pages( $hook ) {
 
 			// Check for Updates page, General Options page and Profile page.
-			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook ) {
+			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 				return true;
 			}
 
