@@ -192,7 +192,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			foreach ( $wp_locales as $wp_locale ) {
 				// Get Locale data.
-				$locales[] = $this->translations_api->locale( $wp_locale );
+				$locales[] = Translations_API::locale( $wp_locale );
 			}
 
 			// Get WordPress major version ( e.g.: '5.5' ).
@@ -299,7 +299,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			foreach ( $wp_locales as $wp_locale ) {
 				// Get Locale data.
-				$locale = $this->translations_api->locale( $wp_locale );
+				$locale = Translations_API::locale( $wp_locale );
 				// Format Locale name.
 				$update_locales[] = $locale->native_name . ' [' . $locale->wp_locale . ']';
 			}

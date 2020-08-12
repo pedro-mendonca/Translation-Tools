@@ -74,7 +74,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$result['log'] = array();
 
 			// Get Translation Tools Locale data.
-			$locale = $this->translations_api->locale( $wp_locale );
+			$locale = Translations_API::locale( $wp_locale );
 
 			// Download file from WordPress.org translation table.
 			$download = $this->download_translations( $project, $locale );
@@ -128,8 +128,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param array $project    Project array.
-		 * @param array $locale     Locale array.
+		 * @param array  $project   Project array.
+		 * @param object $locale    Locale object.
 		 *
 		 * @return array|WP_Error   Array on success, WP_Error on failure.
 		 */
