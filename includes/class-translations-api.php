@@ -129,65 +129,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 
 		/**
-		 * Get Translate API URL.
-		 *
-		 * Example:
-		 * $api_url = $this->translations_api->translations_api_url( 'plugins' );
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $project   Set the project API URL you want to get.
-		 *
-		 * @return string           Returns API URL.
-		 */
-		public function translations_api_url( $project = null ) {
-
-			$translations_api_url = array(
-				'wp'        => 'https://translate.wordpress.org/api/projects/wp/',         // Translate API WordPress core URL.
-				'languages' => 'https://translate.wordpress.org/api/languages',            // Translate API languages URL.
-				'plugins'   => 'https://translate.wordpress.org/api/projects/wp-plugins/', // Translate API plugins URL.
-				'themes'    => 'https://translate.wordpress.org/api/projects/wp-themes/',  // Translate API themes URL.
-			);
-
-			$api_url = $translations_api_url[ $project ];
-
-			return $api_url;
-
-		}
-
-
-		/**
-		 * Get Translate URL.
-		 *
-		 * Example:
-		 * $url = $this->translations_api->translations_url( 'plugins' );
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $project  Set the project URL you want to get.
-		 *
-		 * @return string          Returns URL.
-		 */
-		public static function translations_url( $project = null ) {
-
-			$translations_url = 'https://translate.wordpress.org/projects/';
-
-			$project_slug = array(
-				'wp'      => 'wp',         // Translate WordPress core URL.
-				'plugins' => 'wp-plugins', // Translate plugins URL.
-				'themes'  => 'wp-themes',  // Translate themes URL.
-			);
-
-			if ( array_key_exists( $project, $project_slug ) ) {
-				$translations_url .= $project_slug[ $project ] . '/';
-			}
-
-			return $translations_url;
-
-		}
-
-
-		/**
 		 * Get the translate site URL.
 		 *
 		 * Example for WordPress.org plugins URL (normal URL, not API URL):
