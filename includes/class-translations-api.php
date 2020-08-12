@@ -214,7 +214,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 					array(
 						// Filter 'translation_tools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
 						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
-						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
 					self::translate_url( 'wp', false ) . $translation_project->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
