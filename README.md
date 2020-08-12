@@ -115,6 +115,9 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog ##
 
+### Unreleased ###
+*   Rename filter `ttools_get_wp_translations_status` to `translation_tools_get_wp_translations_status`
+
 ### 1.2.2 ###
 *   New filter `ttools_get_wp_translations_status` to customize the filtered strings to download, default is 'current'
 *   Fix support for core beta versions
