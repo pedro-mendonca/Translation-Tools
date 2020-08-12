@@ -228,7 +228,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * Get locale data from wordpress.org and Translation Tools.
 		 *
 		 * Example:
-		 * $locale = $this->translations_api->locale( 'pt_PT' );
+		 * $locale = Translations_API::locale( 'pt_PT' );
 		 * $locale_english_name = $locale->english_name.
 		 *
 		 * @since 1.0.0
