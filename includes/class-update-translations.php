@@ -136,7 +136,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		public function download_translations( $project, $locale ) {
 
 			// Set translation data path.
-			$source = $this->translations_api->translation_path( $project, $locale );
+			$source = Translations_API::translation_path( $project, $locale );
 
 			// Report message.
 			$result['log'] = sprintf(

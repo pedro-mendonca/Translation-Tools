@@ -71,7 +71,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @return object|null  Object of WordPress translation sub-project, null if API is unreachable.
 		 */
-		public function get_core_translation_project() {
+		public static function get_core_translation_project() {
+
 			// Set the transient name.
 			$translation_project_transient = 'wordpress_translation_project';
 
@@ -81,41 +82,41 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			// Check if transient data exist, otherwise get new data and set transient.
 			if ( false === $translation_project ) {
 
-			// Get WordPress translation project path.
-			$source = self::translate_url( 'wp', true );
+				// Get WordPress translation project API URL.
+				$source = self::translate_url( 'wp', true );
 
-			// Get the translation project data.
-			$response = wp_remote_get( $source );
+				// Get the translation project data.
+				$response = wp_remote_get( $source );
 
-			// Default response.
-			$translation_project = null;
+				// Default response.
+				$translation_project = null;
 
-			// Check if WordPress translation project is reachable.
-			if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
-				return $translation_project;
-			}
-
-			// Decode JSON.
-			$response = json_decode( $response['body'] );
-
-			// Get the translation sub-projects.
-			$projects = $response->sub_projects;
-
-			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = $this->major_version( get_bloginfo( 'version' ) );
-
-			foreach ( $projects as $project ) {
-
-				$translation_version = $this->major_version( $project->name );
-
-				// Check for the WordPress installed major version translation project.
-				if ( $wp_version === $translation_version ) {
-					$translation_project = $project;
+				// Check if WordPress translation project is reachable.
+				if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
+					return $translation_project;
 				}
-			}
 
-			// Set WordPress core translation project data transient for 24h.
-			set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_project, DAY_IN_SECONDS );
+				// Decode JSON.
+				$response = json_decode( $response['body'] );
+
+				// Get the translation sub-projects.
+				$projects = $response->sub_projects;
+
+				// Get WordPress major version ( e.g.: '5.5' ).
+				$wp_version = self::major_version( get_bloginfo( 'version' ) );
+
+				foreach ( $projects as $project ) {
+
+					$translation_version = self::major_version( $project->name );
+
+					// Check for the WordPress installed major version translation project.
+					if ( $wp_version === $translation_version ) {
+						$translation_project = $project;
+					}
+				}
+
+				// Set WordPress core translation project data transient for 24h.
+				set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_project, DAY_IN_SECONDS );
 			}
 
 			return $translation_project;
@@ -132,7 +133,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @return string          Returns major version (e.g.: 5.5).
 		 */
-		public function major_version( $version ) {
+		public static function major_version( $version ) {
 
 			$major_version = substr( $version, 0, 3 );
 
@@ -203,10 +204,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @return string|null      File path to get source.
 		 */
-		public function translation_path( $project, $locale ) {
+		public static function translation_path( $project, $locale ) {
 
 			// Get WordPress translation project.
-			$translation_project = $this->get_core_translation_project();
+			$translation_project = self::get_core_translation_project();
 
 			$translation_path = esc_url_raw(
 				add_query_arg(
@@ -216,7 +217,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
-					self::translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translate_url( null, false ) . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 

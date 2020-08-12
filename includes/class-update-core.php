@@ -196,16 +196,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			}
 
 			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = $this->translations_api->major_version( get_bloginfo( 'version' ) );
+			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
 			// Get WordPress core translation project.
-			$translation_project = $this->translations_api->get_core_translation_project();
+			$translation_project = Translations_API::get_core_translation_project();
 
 			$notice_messages = array();
 
 			foreach ( $locales as $locale ) {
 
-				$translation_version = $this->translations_api->major_version( $locale->translations['version'] );
+				$translation_version = Translations_API::major_version( $locale->translations['version'] );
 
 				$native_name = $locale->native_name;
 
