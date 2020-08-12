@@ -217,7 +217,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
-					self::translate_url( null, false ) . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translate_url( 'wp', false ) . $translation_project->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 
