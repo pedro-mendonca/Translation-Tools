@@ -65,16 +65,24 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 		/**
 		 * Get WordPress core translation sub-project data.
-		 * TODO: Use transients to cache core sub-project data.
 		 *
 		 * @since 1.2.2
+		 * @since 1.2.3  Use transient to store WordPress core translation project for 24h.
 		 *
 		 * @return object|null  Object of WordPress translation sub-project, null if API is unreachable.
 		 */
 		public function get_core_translation_project() {
+			// Set the transient name.
+			$translation_project_transient = 'wordpress_translation_project';
+
+			// Get WordPress core translation project transient data.
+			$translation_project = get_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
+
+			// Check if transient data exist, otherwise get new data and set transient.
+			if ( false === $translation_project ) {
 
 			// Get WordPress translation project path.
-			$source = $this->translations_api_url( 'wp' );
+			$source = self::translate_url( 'wp', true );
 
 			// Get the translation project data.
 			$response = wp_remote_get( $source );
@@ -104,6 +112,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				if ( $wp_version === $translation_version ) {
 					$translation_project = $project;
 				}
+			}
+
+			// Set WordPress core translation project data transient for 24h.
+			set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_project, DAY_IN_SECONDS );
 			}
 
 			return $translation_project;
