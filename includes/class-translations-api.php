@@ -30,7 +30,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @return array $subprojects  Returns array of the supported WordPress translation known subprojects.
 		 */
-		public function get_wordpress_subprojects() {
+		public static function get_wordpress_subprojects() {
 
 			$subprojects = array(
 				array(

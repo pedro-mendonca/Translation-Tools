@@ -37,13 +37,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		protected $notices;
 
 		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
-
-		/**
 		 * Update Translations.
 		 *
 		 * @var object
@@ -61,9 +54,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			// Instantiate Translation Tools Notices.
 			$this->notices = new Notices();
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new Translations_API();
 
 			// Instantiate Translation Tools Update Translations.
 			$this->update_translations = new Update_Translations();
@@ -377,7 +367,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			$result = array();
 
-			$projects = $this->translations_api->get_wordpress_subprojects();
+			$projects = Translations_API::get_wordpress_subprojects();
 
 			$wp_locales = self::core_update_locales();
 

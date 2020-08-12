@@ -26,13 +26,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 
 		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
-
-		/**
 		 * Gettext.
 		 *
 		 * @var object
@@ -44,9 +37,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new Translations_API();
 
 			// Instantiate Translation Tools Gettext.
 			$this->gettext = new Gettext();
