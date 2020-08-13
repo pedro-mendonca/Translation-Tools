@@ -160,7 +160,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			$translate_url = 'https://translate.wordpress.org/';
 
 			/**
-			 * Filters the translate site URL.
+			 * Filters the translate site URL. Defaults to Translate WordPress.org site.
 			 *
 			 * @since 1.2.3
 			 */
@@ -195,7 +195,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * Set the path to get the translation file.
 		 *
 		 * @since 1.0.0
-		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 * @since 1.2.0  Use Locale object.
 		 * @since 1.2.3  Rename filter 'ttools_get_wp_translations_status' to 'translation_tools_get_wp_translations_status'.
 		 *
@@ -212,7 +211,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			$translation_path = esc_url_raw(
 				add_query_arg(
 					array(
-						// Filter 'translation_tools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
+						/**
+						 * Filter the status of the translations strings to get.
+						 * Examples of useful status:
+						 *   - 'current'                                       Gets all currently translated strings (Default).
+						 *   - 'current_or_fuzzy'                              Gets all currently translated and fuzzy strings.
+						 *   - 'current_or_waiting'                            Gets all currently translated and waiting strings.
+						 *   - 'current_or_waiting_or_fuzzy'                   Gets all currently translated, fuzzy and waiting strings.
+						 *   - 'current_or_waiting_or_fuzzy_or_untranslated'   Gets all currently translated, fuzzy, waiting and untranslated strings.
+						 *
+						 * @since 1.2.3
+						 */
 						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
 						'format'          => 'po',
 					),

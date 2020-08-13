@@ -286,6 +286,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			 * Filter to highlight Locales with no language packs in the language select fields. Defaults to false.
 			 *
 			 * Filter example: add_filter( 'translation_tools_show_locale_colors', '__return_true' );
+			 *
+			 * @since 1.2.3
 			 */
 			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', false );
 
@@ -332,6 +334,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				 * Output example: 'Português [pt_PT]'.
 				 *
 				 * Filter example: add_filter( 'translation_tools_show_locale_codes', '__return_true' );
+				 *
+				 * @since 1.2.3
 				 */
 				$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', false );
 
