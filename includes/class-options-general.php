@@ -282,8 +282,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 */
 		public function settings_site_language_css() {
 
-			// Show formated Locale if DEBUG is true.
-			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+			/**
+			 * Filter to highlight Locales with no language packs in the language select fields. Defaults to false.
+			 *
+			 * Filter example: add_filter( 'translation_tools_show_locale_colors', '__return_true' );
+			 */
+			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', false );
+
+			// Show formated Locale if DEBUG is true or if filter 'translation_tools_show_locale_colors' is true.
+			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || $show_locale_colors ) {
 				?>
 				<style>
 					select option[data-has-lang-packs="false"],
@@ -320,9 +327,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Check if Language Packs are available.
 				$lang_packs = isset( $locale->translations ) ? true : false;
 
-				// Language name is 'native_name', append 'wp_locale' if WP_DEBUG is set. Example: 'Português [pt_PT]'.
+				/**
+				 * Filter to show Locales codes in the language select fields. Defaults to false.
+				 * Output example: 'Português [pt_PT]'.
+				 *
+				 * Filter example: add_filter( 'translation_tools_show_locale_codes', '__return_true' );
+				 */
+				$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', false );
+
+				// Set language name to 'native_name'.
 				$name = $locale->native_name;
-				if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+
+				// Append 'wp_locale' if DEBUG is true or if filter 'translation_tools_show_locale_codes' is true.
+				if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || $show_locale_codes ) {
 					$name .= ' [' . $locale->wp_locale . ']';
 				}
 
