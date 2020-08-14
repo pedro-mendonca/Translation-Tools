@@ -161,6 +161,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 			/**
 			 * Filters the translate site URL. Defaults to Translate WordPress.org site.
+			 * Example: 'https://translate.my-site.com/glotpress/'
 			 *
 			 * @since 1.2.3
 			 */
