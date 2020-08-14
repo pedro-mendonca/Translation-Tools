@@ -197,7 +197,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 				$translation_version = Translations_API::major_version( $locale->translations['version'] );
 
-				$native_name = $locale->native_name;
+				// Set language name to 'native_name'.
+				$formated_name = Options_General::locale_name_format( $locale );
 
 				// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
 				if ( isset( $locale->translations ) && $wp_version === $translation_version ) {
@@ -208,7 +209,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 							__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
 						),
 						'<strong>' . esc_html( $translation_project->name ) . '</strong>',
-						'<strong>' . esc_html( $native_name ) . '</strong>',
+						'<strong>' . esc_html( $formated_name ) . '</strong>',
 						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 					);
 
@@ -222,7 +223,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 							),
 							'<strong>' . esc_html( $translation_project->name ) . '</strong>',
-							'<strong>' . esc_html( $native_name ) . '</strong>'
+							'<strong>' . esc_html( $formated_name ) . '</strong>'
 						),
 						sprintf(
 							wp_kses_post(
@@ -232,7 +233,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 							'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project->path ) . '/" target="_blank">',
 							'</a>',
 							'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
-							'<strong>' . esc_html( $native_name ) . '</strong>'
+							'<strong>' . esc_html( $formated_name ) . '</strong>'
 						)
 					);
 
@@ -290,8 +291,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			foreach ( $wp_locales as $wp_locale ) {
 				// Get Locale data.
 				$locale = Translations_API::locale( $wp_locale );
-				// Format Locale name.
-				$update_locales[] = $locale->native_name . ' [' . $locale->wp_locale . ']';
+
+				// Get the formated Locale name.
+				$formated_name = Options_General::locale_name_format( $locale );
+
+				$update_locales[] = $formated_name;
 			}
 
 			$admin_notice = array(

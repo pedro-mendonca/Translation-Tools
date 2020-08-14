@@ -185,15 +185,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Get Locale data.
 				$locale = Translations_API::locale( $wp_locale );
 
-				$native_name = $locale->native_name;
+				// Get the formated Locale name.
+				$formated_name = self::locale_name_format( $locale );
 
 				if ( isset( $locale->translations ) ) {
 
 					// Format Locale name.
-					$locales_with_lang_packs[] = $native_name . ' [' . $wp_locale . ']';
+					$locales_with_lang_packs[] = $formated_name;
 				} else {
 					// Format Locale name.
-					$locales_with_no_lang_packs[] = $native_name . ' [' . $wp_locale . ']';
+					$locales_with_no_lang_packs[] = $formated_name;
 				}
 			}
 			?>
@@ -282,17 +283,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 */
 		public function settings_site_language_css() {
 
-			/**
-			 * Filter to highlight Locales with no language packs in the language select fields. Defaults to false.
-			 *
-			 * Filter example: add_filter( 'translation_tools_show_locale_colors', '__return_true' );
-			 *
-			 * @since 1.2.3
-			 */
-			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', false );
+			// Get the filtered Locale naming preferences.
+			$locale_name_format = self::locale_name_format();
 
-			// Show formated Locale if DEBUG is true or if filter 'translation_tools_show_locale_colors' is true.
-			if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || $show_locale_colors ) {
+			// Highlighted Locales with no language packs in the language select fields if 'show_locale_colors' is set to true.
+			if ( $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
 					select option[data-has-lang-packs="false"],
@@ -329,29 +324,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Check if Language Packs are available.
 				$lang_packs = isset( $locale->translations ) ? true : false;
 
-				/**
-				 * Filter to show Locales codes in the language select fields. Defaults to false.
-				 * Output example: 'Português [pt_PT]'.
-				 *
-				 * Filter example: add_filter( 'translation_tools_show_locale_codes', '__return_true' );
-				 *
-				 * @since 1.2.3
-				 */
-				$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', false );
-
-				// Set language name to 'native_name'.
-				$name = $locale->native_name;
-
-				// Append 'wp_locale' if DEBUG is true or if filter 'translation_tools_show_locale_codes' is true.
-				if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || $show_locale_codes ) {
-					$name .= ' [' . $locale->wp_locale . ']';
-				}
+				// Get the formated Locale name.
+				$formated_name = self::locale_name_format( $locale );
 
 				$language = array(
 					'value'      => $locale->wp_locale, // Option 'value'.
 					'lang'       => $lang,              // Option 'lang' attrib.
 					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
-					'name'       => $name,              // Option text.
+					'name'       => $formated_name,       // Option text.
 				);
 				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
 				$languages[ $locale->wp_locale ] = $language;
