@@ -160,7 +160,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			$translate_url = 'https://translate.wordpress.org/';
 
 			/**
-			 * Filters the translate site URL. Defaults to Translate WordPress.org site.
+			 * Filters the translate site URL. Defaults to Translating WordPress.org site.
+			 * This allows to override with a private GlotPress install with the same exact WP core structure as https://translate.w.org/projects/wp/
 			 * Example: 'https://translate.my-site.com/glotpress/'
 			 *
 			 * @since 1.2.3
@@ -175,10 +176,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 			// WordPress.org translate known projects slugs.
 			$wporg_projects = array(
-				'languages' => 'languages/',           // Translate languages slug (deprecated).
-				'wp'        => 'projects/wp/',         // Translate WordPress slug.
-				'plugins'   => 'projects/wp-plugins/', // Translate plugins slug.
-				'themes'    => 'projects/wp-themes/',  // Translate themes slug.
+				'languages' => 'languages/',           // Translating WordPress languages slug (deprecated).
+				'wp'        => 'projects/wp/',         // Translating WordPress core slug.
+				'plugins'   => 'projects/wp-plugins/', // Translating WordPress plugins slug.
+				'themes'    => 'projects/wp-themes/',  // Translating WordPress themes slug.
 			);
 
 			// Check if project is one of the known ones.
