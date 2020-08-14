@@ -362,6 +362,67 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 		}
 
+
+		/**
+		 * Format how Locale names are shown in the the languages dropdown and admin notices.
+		 * Returns Locale formated name if $locale is passed.
+		 * Returns Locale format settings if no $locale is passed.
+		 *
+		 * @since 1.2.3
+		 *
+		 * @param object $locale  Locale object. Defaults to null.
+		 *
+		 * @return string|array   Formated Locale name if $locale is passed. Array of Locale name format parameters if no $locale passed.
+		 */
+		public static function locale_name_format( $locale = null ) {
+
+			/**
+			 * Filter to show Locales codes in the language select fields.
+			 * Defaults to true if WP_DEBUG is true
+			 * Defaults to false. Defaults to true if WP_DEBUG is true.
+			 *
+			 * Output example: 'Português [pt_PT]'.
+			 *
+			 * Filter example: add_filter( 'translation_tools_show_locale_codes', '__return_true' );
+			 *
+			 * @since 1.2.3
+			 */
+			$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', defined( 'WP_DEBUG' ) && true === WP_DEBUG ? true : false );
+
+			/**
+			 * Filter to highlight Locales with no language packs in the language select fields.
+			 * Defaults to true if WP_DEBUG is true
+			 * Defaults to false. Defaults to true if WP_DEBUG is true.
+			 *
+			 * Filter example: add_filter( 'translation_tools_show_locale_colors', '__return_true' );
+			 *
+			 * @since 1.2.3
+			 */
+			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', defined( 'WP_DEBUG' ) && true === WP_DEBUG ? true : false );
+
+			$name_format = array(
+				'show_locale_codes'  => $show_locale_codes,
+				'show_locale_colors' => $show_locale_colors,
+			);
+
+			// Check for $locale parameter.
+			if ( null === $locale ) {
+				// Return Locale name format filtered settings.
+				return $name_format;
+			}
+
+			// Set language name to 'native_name'.
+			$formated_name = $locale->native_name;
+
+			// Append 'wp_locale' if 'show_locale_codes' is true.
+			if ( $name_format['show_locale_codes'] ) {
+				$formated_name .= ' [' . $locale->wp_locale . ']';
+			}
+
+			return $formated_name;
+
+		}
+
 	}
 
 }
