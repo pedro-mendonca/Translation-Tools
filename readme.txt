@@ -92,6 +92,15 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 == Changelog ==
 
+= 1.2.3 =
+*   New filter `translation_tools_get_wp_translations_status` to customize the downloaded strings filter
+*   New filter `translation_tools_show_locale_codes` to append Locale codes to each language
+*   New filter `translation_tools_show_locale_colors` to highlight Locales without language packs
+*   New filter `translation_tools_translate_url` to get translations from any private GlotPress install with an identic WP core project structure
+*   Filter `ttools_get_wp_translations_status` renamed to `translation_tools_get_wp_translations_status`
+*   Compatible with plugin [Translation Stats](https://wordpress.org/plugins/translation-stats/) language select field
+*   Code optimization
+
 = 1.2.2 =
 *   New filter `ttools_get_wp_translations_status` to customize the filtered strings to download, default is 'current'
 *   Fix support for core beta versions
