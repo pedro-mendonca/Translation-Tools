@@ -48,9 +48,6 @@ define( 'TRANSLATION_TOOLS_REQUIRED_PHP', '5.6' );
 // Set Translation Tools transients prefix.
 define( 'TRANSLATION_TOOLS_TRANSIENTS_PREFIX', 'translation_tools_' );
 
-// Set Translation Tools transients 1 week expiration for Locales data.
-define( 'TRANSLATION_TOOLS_TRANSIENTS_LOCALES_EXPIRATION', WEEK_IN_SECONDS );
-
 // Set Translation Tools plugin URL.
 define( 'TRANSLATION_TOOLS_DIR_URL', plugin_dir_url( __FILE__ ) );
 

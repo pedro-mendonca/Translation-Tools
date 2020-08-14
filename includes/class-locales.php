@@ -17,12 +17,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Locales' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 
 	/**
 	 * Class Locales.
 	 */
 	class Locales extends GP_Locales {
+
+
+		/**
+		 * Set custom 'translation_tools_locales' global variable.
+		 * This avoids conficts with other plugins that might use the 'gp_locales' global.
+		 *
+		 * @return object  Object with all the GP_Locales.
+		 */
+		public static function &instance() {
+
+			if ( ! isset( $GLOBALS['translation_tools_locales'] ) ) {
+				$GLOBALS['translation_tools_locales'] = new GP_Locales();
+			}
+
+			return $GLOBALS['translation_tools_locales'];
+		}
 
 
 		/**

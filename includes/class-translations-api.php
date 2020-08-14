@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Translations_API' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 
 	/**
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 *
 		 * @return array $subprojects  Returns array of the supported WordPress translation known subprojects.
 		 */
-		public function get_wordpress_subprojects() {
+		public static function get_wordpress_subprojects() {
 
 			$subprojects = array(
 				array(
@@ -65,45 +65,58 @@ if ( ! class_exists( 'Translations_API' ) ) {
 
 		/**
 		 * Get WordPress core translation sub-project data.
-		 * TODO: Use transients to cache core sub-project data.
 		 *
 		 * @since 1.2.2
+		 * @since 1.2.3  Use transient to store WordPress core translation project for 24h.
 		 *
 		 * @return object|null  Object of WordPress translation sub-project, null if API is unreachable.
 		 */
-		public function get_core_translation_project() {
+		public static function get_core_translation_project() {
 
-			// Get WordPress translation project path.
-			$source = $this->translations_api_url( 'wp' );
+			// Set the transient name.
+			$translation_project_transient = 'wordpress_translation_project';
 
-			// Get the translation project data.
-			$response = wp_remote_get( $source );
+			// Get WordPress core translation project transient data.
+			$translation_project = get_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
 
-			// Default response.
-			$translation_project = null;
+			// Check if transient data exist, otherwise get new data and set transient.
+			if ( false === $translation_project ) {
 
-			// Check if WordPress translation project is reachable.
-			if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
-				return $translation_project;
-			}
+				// Get WordPress translation project API URL.
+				$source = self::translate_url( 'wp', true );
 
-			// Decode JSON.
-			$response = json_decode( $response['body'] );
+				// Get the translation project data.
+				$response = wp_remote_get( $source );
 
-			// Get the translation sub-projects.
-			$projects = $response->sub_projects;
+				// Default response.
+				$translation_project = null;
 
-			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = $this->major_version( get_bloginfo( 'version' ) );
-
-			foreach ( $projects as $project ) {
-
-				$translation_version = $this->major_version( $project->name );
-
-				// Check for the WordPress installed major version translation project.
-				if ( $wp_version === $translation_version ) {
-					$translation_project = $project;
+				// Check if WordPress translation project is reachable.
+				if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
+					return $translation_project;
 				}
+
+				// Decode JSON.
+				$response = json_decode( $response['body'] );
+
+				// Get the translation sub-projects.
+				$projects = $response->sub_projects;
+
+				// Get WordPress major version ( e.g.: '5.5' ).
+				$wp_version = self::major_version( get_bloginfo( 'version' ) );
+
+				foreach ( $projects as $project ) {
+
+					$translation_version = self::major_version( $project->name );
+
+					// Check for the WordPress installed major version translation project.
+					if ( $wp_version === $translation_version ) {
+						$translation_project = $project;
+					}
+				}
+
+				// Set WordPress core translation project data transient for 24h.
+				set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_project, DAY_IN_SECONDS );
 			}
 
 			return $translation_project;
@@ -120,7 +133,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 *
 		 * @return string          Returns major version (e.g.: 5.5).
 		 */
-		public function major_version( $version ) {
+		public static function major_version( $version ) {
 
 			$major_version = substr( $version, 0, 3 );
 
@@ -129,60 +142,51 @@ if ( ! class_exists( 'Translations_API' ) ) {
 
 
 		/**
-		 * Get Translate API URL.
+		 * Get the translate site URL.
 		 *
-		 * Example:
-		 * $api_url = $this->translations_api->translations_api_url( 'plugins' );
+		 * Example for WordPress.org plugins URL (normal URL, not API URL):
+		 * $url = Translations_API::translate_url( 'plugins', false );
 		 *
-		 * @since 1.0.0
+		 * @since 1.2.3
 		 *
-		 * @param string $project   Set the project API URL you want to get.
-		 *
-		 * @return string           Returns API URL.
-		 */
-		public function translations_api_url( $project = null ) {
-
-			$translations_api_url = array(
-				'wp'        => 'https://translate.wordpress.org/api/projects/wp/',         // Translate API WordPress core URL.
-				'languages' => 'https://translate.wordpress.org/api/languages',            // Translate API languages URL.
-				'plugins'   => 'https://translate.wordpress.org/api/projects/wp-plugins/', // Translate API plugins URL.
-				'themes'    => 'https://translate.wordpress.org/api/projects/wp-themes/',  // Translate API themes URL.
-			);
-
-			$api_url = $translations_api_url[ $project ];
-
-			return $api_url;
-
-		}
-
-
-		/**
-		 * Get Translate URL.
-		 *
-		 * Example:
-		 * $url = $this->translations_api->translations_url( 'plugins' );
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $project  Set the project URL you want to get.
+		 * @param string $project  Set the project URL you want to get. Defaults to null.
+		 * @param bool   $api      Set to 'true' to get the API URL. Defaults to false.
 		 *
 		 * @return string          Returns URL.
 		 */
-		public static function translations_url( $project = null ) {
+		public static function translate_url( $project = null, $api = false ) {
 
-			$translations_url = 'https://translate.wordpress.org/projects/';
+			// Set WordPress.org translate site URL.
+			$translate_url = 'https://translate.wordpress.org/';
 
-			$project_slug = array(
-				'wp'      => 'wp',         // Translate WordPress core URL.
-				'plugins' => 'wp-plugins', // Translate plugins URL.
-				'themes'  => 'wp-themes',  // Translate themes URL.
-			);
+			/**
+			 * Filters the translate site URL. Defaults to Translate WordPress.org site.
+			 *
+			 * @since 1.2.3
+			 */
+			$translate_url = apply_filters( 'translation_tools_translate_url', $translate_url );
 
-			if ( array_key_exists( $project, $project_slug ) ) {
-				$translations_url .= $project_slug[ $project ] . '/';
+			// Check if the request is for an API URL.
+			if ( true === $api ) {
+				// Add the API slug.
+				$translate_url .= 'api/';
 			}
 
-			return $translations_url;
+			// WordPress.org translate known projects slugs.
+			$wporg_projects = array(
+				'languages' => 'languages/',           // Translate languages slug (deprecated).
+				'wp'        => 'projects/wp/',         // Translate WordPress slug.
+				'plugins'   => 'projects/wp-plugins/', // Translate plugins slug.
+				'themes'    => 'projects/wp-themes/',  // Translate themes slug.
+			);
+
+			// Check if project is one of the known ones.
+			if ( array_key_exists( $project, $wporg_projects ) ) {
+				// Add project slug to translate URL.
+				$translate_url .= $wporg_projects[ $project ];
+			}
+
+			return $translate_url;
 
 		}
 
@@ -191,7 +195,6 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 * Set the path to get the translation file.
 		 *
 		 * @since 1.0.0
-		 * @since 1.0.1  Increase translate.wp.org languages API timeout to 20 seconds.
 		 * @since 1.2.0  Use Locale object.
 		 * @since 1.2.3  Rename filter 'ttools_get_wp_translations_status' to 'translation_tools_get_wp_translations_status'.
 		 *
@@ -200,20 +203,29 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 *
 		 * @return string|null      File path to get source.
 		 */
-		public function translation_path( $project, $locale ) {
+		public static function translation_path( $project, $locale ) {
 
 			// Get WordPress translation project.
-			$translation_project = $this->get_core_translation_project();
+			$translation_project = self::get_core_translation_project();
 
 			$translation_path = esc_url_raw(
 				add_query_arg(
 					array(
-						// Filter 'translation_tools_get_wp_translations_status' allows to set another status ( e.g.: 'current_or_waiting_or_fuzzy' ).
+						/**
+						 * Filter the status of the translations strings to get.
+						 * Examples of useful status:
+						 *   - 'current'                                       Gets all currently translated strings (Default).
+						 *   - 'current_or_fuzzy'                              Gets all currently translated and fuzzy strings.
+						 *   - 'current_or_waiting'                            Gets all currently translated and waiting strings.
+						 *   - 'current_or_waiting_or_fuzzy'                   Gets all currently translated, fuzzy and waiting strings.
+						 *   - 'current_or_waiting_or_fuzzy_or_untranslated'   Gets all currently translated, fuzzy, waiting and untranslated strings.
+						 *
+						 * @since 1.2.3
+						 */
 						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
-						// TODO: Test format 'jed' to improve download speed.
 						'format'          => 'po',
 					),
-					self::translations_url() . $translation_project->path . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translate_url( 'wp', false ) . $translation_project->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 
@@ -225,7 +237,7 @@ if ( ! class_exists( 'Translations_API' ) ) {
 		 * Get locale data from wordpress.org and Translation Tools.
 		 *
 		 * Example:
-		 * $locale = $this->translations_api->locale( 'pt_PT' );
+		 * $locale = Translations_API::locale( 'pt_PT' );
 		 * $locale_english_name = $locale->english_name.
 		 *
 		 * @since 1.0.0

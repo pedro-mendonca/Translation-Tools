@@ -3,8 +3,10 @@ jQuery( document ).ready( function( $ ) {
 
 	console.log( 'Current screen is "' + ttools.current_screen + '"' );
 
+	console.log( 'Compatible plugins installed: ' + JSON.stringify( ttools.compatible_plugins ) );
+
 	// Detect if plugin Preferred Languages is active.
-	if ( ttools.compatible_plugins.includes( 'preferred-languages/preferred-languages.php' ) ) {
+	if ( 'preferred-languages/preferred-languages.php' in ttools.compatible_plugins ) {
 		console.log( 'Plugin Preferred Languages detected.' );
 		// Load plugin Preferred Languages specific scripts.
 		ttoolsPluginPreferredLanguagesSettings();
@@ -12,6 +14,15 @@ jQuery( document ).ready( function( $ ) {
 		console.log( 'Plugin Preferred Languages not detected.' );
 		// Load Translation Tools default scripts.
 		ttoolsSettings();
+	}
+
+	// Detect if plugin Translation Stats is active.
+	if ( 'translation-stats/translation-stats.php' in ttools.compatible_plugins ) {
+		console.log( 'Plugin Translation Stats detected.' );
+		// Load plugin Preferred Languages specific scripts.
+		ttoolsPluginTranslationStatsSettings();
+	} else {
+		console.log( 'Plugin Translation Stats not detected.' );
 	}
 
 	/**
@@ -126,6 +137,44 @@ jQuery( document ).ready( function( $ ) {
 
 		// Relocate Site Language description data on General Settings page.
 		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', 'select#preferred-languages-inactive-locales' );
+	}
+
+	/**
+	 * Load plugin Translation Stats specific scripts.
+	 *
+	 * @since 1.2.3
+	 */
+	function ttoolsPluginTranslationStatsSettings() {
+		// Plugin file.
+		var pluginFile = 'translation-stats/translation-stats.php';
+		// Translation Stats language.
+		var translationStatsLanguage = ttools.compatible_plugins[ pluginFile ].settings.translation_language;
+		// Add all Locales to the available languages list.
+		ttoolsAddAllLocales( 'select#tstats_settings\\[settings\\]\\[translation_language\\]' );
+
+		// Check each option of installed languages on General Settings language select.
+		$( 'select#tstats_settings\\[settings\\]\\[translation_language\\] > optgroup:eq(0) > option' ).each( function() {
+			var value = $( this ).prop( 'value' );
+			selectID = 'select#tstats_settings\\[settings\\]\\[translation_language\\] > optgroup:eq(0)';
+
+			// Check if the Locale should be on the Installed languages group.
+			if ( ! ttools.available_languages.includes( value ) && 'site-default' !== value && translationStatsLanguage !== value ) {
+				// Remove Locales that are not installed.
+				ttoolsRemoveLocaleOption( selectID, value );
+			} else {
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleOption( selectID, value );
+			}
+		} );
+
+		// Check each option of available languages on language select.
+		$( 'select#tstats_settings\\[settings\\]\\[translation_language\\] > optgroup:eq(1) > option' ).each( function() {
+			var value = $( this ).prop( 'value' );
+			selectID = 'select#tstats_settings\\[settings\\]\\[translation_language\\] > optgroup:eq(1)';
+
+			// Rename Locale and add attributes.
+			ttoolsRenameLocaleOption( selectID, value );
+		} );
 	}
 
 	/**

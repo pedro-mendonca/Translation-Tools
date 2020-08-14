@@ -17,20 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Update_Translations' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 	/**
 	 * Class Update_Translations.
 	 */
 	class Update_Translations {
 
-
-		/**
-		 * Translations API.
-		 *
-		 * @var object
-		 */
-		protected $translations_api;
 
 		/**
 		 * Gettext.
@@ -44,9 +37,6 @@ if ( ! class_exists( 'Update_Translations' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Translations API.
-			$this->translations_api = new Translations_API();
 
 			// Instantiate Translation Tools Gettext.
 			$this->gettext = new Gettext();
@@ -74,7 +64,7 @@ if ( ! class_exists( 'Update_Translations' ) ) {
 			$result['log'] = array();
 
 			// Get Translation Tools Locale data.
-			$locale = $this->translations_api->locale( $wp_locale );
+			$locale = Translations_API::locale( $wp_locale );
 
 			// Download file from WordPress.org translation table.
 			$download = $this->download_translations( $project, $locale );
@@ -128,15 +118,15 @@ if ( ! class_exists( 'Update_Translations' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param array $project    Project array.
-		 * @param array $locale     Locale array.
+		 * @param array  $project   Project array.
+		 * @param object $locale    Locale object.
 		 *
 		 * @return array|WP_Error   Array on success, WP_Error on failure.
 		 */
 		public function download_translations( $project, $locale ) {
 
 			// Set translation data path.
-			$source = $this->translations_api->translation_path( $project, $locale );
+			$source = Translations_API::translation_path( $project, $locale );
 
 			// Report message.
 			$result['log'] = sprintf(

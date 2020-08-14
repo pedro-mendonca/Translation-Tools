@@ -14,12 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Compatible' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 
 	/**
 	 * Class Compatible.
 	 */
 	class Compatible {
+
+
+		/**
+		 * Plugin file (e.g.: 'translation-tools/translation-tools.php' )
+		 *
+		 * @var string $plugin_file
+		 */
+		public $plugin_file = null;
 
 
 		/**
@@ -37,9 +45,15 @@ if ( ! class_exists( 'Compatible' ) ) {
 					'name'             => 'Preferred Languages',
 					'required_version' => '1.6.0',
 				),
+				'translation-stats/translation-stats.php' => array(
+					'name'             => 'Translation Stats',
+					'required_version' => '1.1.0',
+				),
 			);
 
-			return $compatible_plugins;
+			$compatible_plugins_data = apply_filters( 'translation_tools_compatible_plugins', $compatible_plugins );
+
+			return $compatible_plugins_data;
 
 		}
 
@@ -101,10 +115,11 @@ if ( ! class_exists( 'Compatible' ) ) {
 
 			$plugins = array();
 
-			foreach ( $compatible_plugins as $compatible_plugin ) {
+			foreach ( $compatible_plugins as $key => $compatible_plugin ) {
 
-				if ( self::is_compatible( key( $compatible_plugins ) ) ) {
-					$plugins[] = key( $compatible_plugins );
+				if ( self::is_compatible( $key ) ) {
+
+					$plugins[ $key ] = $compatible_plugin;
 				}
 			}
 

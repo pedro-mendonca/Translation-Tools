@@ -14,12 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 
 	/**
 	 * Class Compatible_Preferred_Languages.
 	 */
 	class Compatible_Preferred_Languages extends Compatible {
+
+
+		/**
+		 * Plugin file.
+		 *
+		 * @var string $plugin_file
+		 */
+		public $plugin_file = 'preferred-languages/preferred-languages.php';
 
 
 		/**
@@ -45,8 +53,7 @@ if ( ! class_exists( 'Compatible_Preferred_Languages' ) ) {
 		public function preferred_languages_selected_languages( $wp_locales ) {
 
 			// Check plugin compatibility.
-			$plugin_file = 'preferred-languages/preferred-languages.php';
-			if ( ! self::is_compatible( $plugin_file ) ) {
+			if ( ! self::is_compatible( $this->plugin_file ) ) {
 				// If incompatible, return unfiltered $wp_locales array.
 				return $wp_locales;
 			}

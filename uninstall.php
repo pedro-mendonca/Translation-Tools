@@ -30,6 +30,8 @@ if ( is_multisite() ) {
  * Removes ALL plugin data if set in the settings.
  *
  * @since 1.0.0
+ *
+ * @return void
  */
 function translation_tools_uninstall() {
 	$option = get_option( 'translation_tools_settings' );
@@ -56,6 +58,8 @@ function translation_tools_uninstall() {
  * @since 1.0.0
  *
  * @param string $search  Transient search term.
+ *
+ * @return void
  */
 function translation_tools_uninstall_delete_transients( $search ) {
 	global $wpdb;
