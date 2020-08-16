@@ -163,6 +163,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		/**
 		 * Generate .po from WordPress.org response.
 		 *
+		 * The .po files obtained include ALL the strings, including the strings from .js files.
+		 * These files are different from the ones provided by the language packs, that don't include strings that belong exclusively to .json files.
+		 *
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 *
