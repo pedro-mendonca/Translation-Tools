@@ -17,6 +17,7 @@
 namespace Translation_Tools;
 
 use Gettext\Translations;
+use Gettext\Generators\Jed as Jed;
 use WP_Error;
 
 // Exit if accessed directly.
@@ -134,6 +135,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 		 */
 		protected function build_json_files( $mapping, $base_file_name, $destination ) {
 
+			global $wp_filesystem;
+
 			$result['log'] = array();
 
 			$result['data'] = true;
@@ -149,6 +152,43 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					esc_html__( 'Saving file %s…', 'translation-tools' ),
 					'<code>' . esc_html( $base_file_name ) . '-' . esc_html( $hash ) . '.json</code>'
 				);
+
+				/**
+				 * Merge translations into an existing JSON file.
+				 * Based on meta changeset https://meta.trac.wordpress.org/changeset/10064
+				 *
+				 * Some strings occur in multiple source files which may be used on the frontend
+				 * or in the admin or both, thus they can be part of different translation
+				 * projects (wp/dev, wp/dev/admin, wp/dev/admin/network).
+				 * Unlike in PHP with gettext, where translations from multiple MO files are merged
+				 * automatically, we have do merge the translations before shipping the
+				 * single JSON file per reference.
+				 */
+				// Check if file already exists.
+				if ( $wp_filesystem->exists( $destination_file ) ) {
+					// TODO: Only check for existent files if it's the second pass and the previous file was just created.
+					// TODO: Or merge all .po files, and export all JSON files in one single pass.
+
+					// Decode translations JSON.
+					$json_content_decoded = json_decode( Jed::toString( $translations ) );
+
+					// Get existing file translations, to prepare for merge with next pass.
+					$existing_json_content_decoded = json_decode( $wp_filesystem->get_contents( $destination_file ) );
+
+					if ( isset( $existing_json_content_decoded->locale_data->messages ) ) {
+
+						foreach ( $existing_json_content_decoded->locale_data->messages as $key => $existing_translations ) {
+							if ( ! isset( $json_content_decoded->messages->{ $key } ) ) {
+
+								// Loop all translations, singular and plurals, if exist.
+								foreach ( $existing_translations as $existing_translation ) {
+									// Add translations from the existing file that don't exist in the current translations.
+									$translations->insert( null, $key )->setTranslation( $existing_translation );
+								}
+							}
+						}
+					}
+				}
 
 				$success = Gettext_JedGenerator::toFile(
 					$translations,
