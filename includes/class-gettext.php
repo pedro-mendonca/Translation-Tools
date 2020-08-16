@@ -141,7 +141,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 			foreach ( $mapping as $file => $translations ) {
 
 				$hash             = md5( $file );
-				$destination_file = "{$destination}/{$base_file_name}-{$hash}.json";
+				$destination_file = "{$destination}{$base_file_name}-{$hash}.json";
 
 				// Report message.
 				$result['log'][] = sprintf(
