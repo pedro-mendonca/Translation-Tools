@@ -115,6 +115,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog ##
 
+### 1.2.4 ###
+*   Fix issue with missing strings from .json files, caused by overriding .json files from Development and Administration core sub-projects, instead of merging both.
+*   Based on meta [changeset #10064](https://meta.trac.wordpress.org/changeset/10064)
+
 ### 1.2.3 ###
 *   New filter `translation_tools_get_wp_translations_status` to customize the status of the strings to download
 *   New filter `translation_tools_show_locale_codes` to append Locale codes to each language
