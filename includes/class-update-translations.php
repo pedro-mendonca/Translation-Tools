@@ -115,6 +115,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 		/**
 		 * Download file from WordPress.org translation table.
+		 * The downloaded .po files differ from the ones included in language packs:
+		 *  - .po files downloaded from translate.wp.org include all the strings.
+		 *  - .po files included in the language packs don't include strings that are exclusive to JavaScript source files, those strings are included in the .json files.
 		 *
 		 * @since 1.0.0
 		 *
