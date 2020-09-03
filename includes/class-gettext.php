@@ -74,24 +74,32 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			foreach ( $translations as $translation ) {
 
-				// Find all unique sources this translation originates from.
+				// Find all unique JavaScript sources this translation originates from.
 				$sources = array_map(
 					function ( $reference ) {
+
+						// Get only the file name, without the line number.
 						$file = $reference[0];
 
+						// Check if reference is a minified JavaScript file.
 						if ( substr( $file, - 7 ) === '.min.js' ) {
 							return substr( $file, 0, - 7 ) . '.js';
 						}
 
+						// Check if reference is a JavaScript file.
 						if ( substr( $file, - 3 ) === '.js' ) {
 							return $file;
 						}
 
+						// Return empty source.
 						return null;
+
 					},
+					// Get translation references.
 					$translation->getReferences()
 				);
 
+				// Remove duplicate source files and empty (null) entries.
 				$sources = array_unique( array_filter( $sources ) );
 
 				foreach ( $sources as $source ) {
