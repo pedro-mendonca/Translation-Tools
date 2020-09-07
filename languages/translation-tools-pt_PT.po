@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translation Tools\n"
 "Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
-"POT-Creation-Date: 2020-07-17 15:43+0100\n"
-"PO-Revision-Date: 2020-07-17 15:50+0100\n"
+"POT-Creation-Date: 2020-09-07 23:48+0100\n"
+"PO-Revision-Date: 2020-09-07 23:48+0100\n"
 "Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language: pt_PT\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Textdomain-Support: yes\n"
@@ -22,162 +22,229 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
+#: includes/class-compatible-preferred-languages.php:129
+msgid "Site Preferred Languages"
+msgstr "Idiomas preferidos do site"
+
+#: includes/class-compatible-preferred-languages.php:174
+msgid "User Preferred Languages"
+msgstr "Idiomas preferidos do utilizador"
+
 #. translators: %s: File name.
-#: includes/class-ttools-gettext.php:146
-#: includes/class-ttools-update-translations.php:192
-#: includes/class-ttools-update-translations.php:285
+#: includes/class-gettext.php:160 includes/class-update-translations.php:191
+#: includes/class-update-translations.php:284
 #, php-format
 msgid "Saving file %s…"
 msgstr "A guardar o ficheiro %s…"
 
-#: includes/class-ttools-gettext.php:163
-#: includes/class-ttools-update-translations.php:204
-#: includes/class-ttools-update-translations.php:297
+#: includes/class-gettext.php:214 includes/class-update-translations.php:203
+#: includes/class-update-translations.php:296
 msgid "Could not create file."
 msgstr "Não foi possível criar o ficheiro."
 
-#: includes/class-ttools-options-general.php:240
+#: includes/class-options-general.php:214
 msgid "<strong>%l</strong> has Language Packs."
 msgid_plural "<strong>%l</strong> have Language Packs."
 msgstr[0] "<strong>%l</strong> tem pacotes de idioma."
 msgstr[1] "<strong>%l</strong> têm pacotes de idioma."
 
-#: includes/class-ttools-options-general.php:262
+#: includes/class-options-general.php:236
 msgid "<strong>%l</strong> has no Language Packs."
 msgid_plural "<strong>%l</strong> have no Language Packs."
 msgstr[0] "<strong>%l</strong> não tem pacotes de idioma."
 msgstr[1] "<strong>%l</strong> não têm pacotes de idioma."
 
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
-#: includes/class-ttools-options-general.php:281
+#: includes/class-options-general.php:255
 #, php-format
 msgid "To update the WordPress translations %1$sclick here%2$s."
 msgstr "Para actualizar a tradução do WordPress %1$sclique aqui%2$s."
 
+#. translators: Accessibility text.
+#: includes/class-options-general.php:260
+#: includes/class-options-general.php:270
+#: includes/class-site-health-test-wordpress-translations.php:108
+#: includes/class-site-health-test-wordpress-translations.php:122
+#: includes/class-update-core.php:237
+msgid "(opens in a new tab)"
+msgstr "(abre num novo separador)"
+
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
-#: includes/class-ttools-options-general.php:287
+#: includes/class-options-general.php:265
 #, php-format
 msgid "Learn more about %1$sLanguage Packs%2$s."
 msgstr "Saiba mais sobre %1$spacotes de idioma%2$s."
 
-#. translators: Subproject name in translate.wordpress.org, do not translate!
-#: includes/class-ttools-translations-api.php:37
-msgctxt "Subproject name"
-msgid "Development"
-msgstr "Development"
+#: includes/class-site-health-debug-info.php:61
+msgid "Site Language"
+msgstr "Idioma do site"
 
-#. translators: Subproject name in translate.wordpress.org, do not translate!
-#: includes/class-ttools-translations-api.php:43
-msgctxt "Subproject name"
-msgid "Administration"
-msgstr "Administration"
+#: includes/class-site-health-debug-info.php:82
+msgid "User Language"
+msgstr "Idioma do utilizador"
 
-#. translators: Subproject name in translate.wordpress.org, do not translate!
-#: includes/class-ttools-translations-api.php:49
-msgctxt "Subproject name"
-msgid "Network Admin"
-msgstr "Network Admin"
+#: includes/class-site-health-debug-info.php:92
+#: includes/class-site-health-test.php:184
+msgid "Translations"
+msgstr "Traduções"
 
-#. translators: Subproject name in translate.wordpress.org, do not translate!
-#: includes/class-ttools-translations-api.php:55
-msgctxt "Subproject name"
-msgid "Continents & Cities"
-msgstr "Continents & Cities"
+#: includes/class-site-health-debug-info.php:95
+msgid "Details about your WordPress site and user languages."
+msgstr "Informações sobre os idiomas do site e do utilizador do seu WordPress."
 
-#: includes/class-ttools-update-core.php:161
-#: includes/class-ttools-update-core.php:247
-msgid "Update WordPress Translations"
-msgstr "Actualizar traduções do WordPress"
+#: includes/class-site-health-debug-info.php:96
+#: includes/class-site-health-test.php:212
+msgid "Report by plugin Translation Tools"
+msgstr "Relatório pelo plugin Translation Tools"
+
+#. translators: 1: WordPress version. 2: Locale name.
+#: includes/class-site-health-test-wordpress-translations.php:67
+#, php-format
+msgid "The translation of WordPress %1$s for %2$s is complete."
+msgstr "A tradução do WordPress %1$s para %2$s está completa."
 
 #. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
-#: includes/class-ttools-update-core.php:207
+#: includes/class-site-health-test-wordpress-translations.php:77
+#: includes/class-update-core.php:209
 #, php-format
 msgid "The translation of WordPress %1$s for %2$s was updated on %3$s."
 msgstr "A tradução do WordPress %1$s para %2$s foi actualizada em %3$s."
 
 #. translators: 1: WordPress version. 2: Locale name.
-#: includes/class-ttools-update-core.php:224
+#: includes/class-site-health-test-wordpress-translations.php:91
+#: includes/class-update-core.php:223
 #, php-format
 msgid "The translation of WordPress %1$s for %2$s is not complete."
 msgstr "A tradução do WordPress %1$s para %2$s está incompleta."
 
+#. translators: 1: Locale name. 2: Opening link tag <a href="[link]">. 3: Closing link tag </a>.
+#: includes/class-site-health-test-wordpress-translations.php:101
+#, php-format
+msgid "<strong>Translate WordPress to %1$s:</strong> It looks like you understand %1$s. Did you know you can help translate WordPress and its plugins/themes in your language? %2$sVisit this page%3$s to get started."
+msgstr "<strong>Traduza o WordPress para %1$s:</strong> Parece que compreende %1$s. Sabia que pode ajudar a traduzir o WordPress, plugins e temas para o seu idioma? %2$sVisite esta página%3$s para começar."
+
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
-#: includes/class-ttools-update-core.php:232
+#: includes/class-site-health-test-wordpress-translations.php:116
+#: includes/class-update-core.php:231
 #, php-format
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr "Por favor, registe-se em %1$sTranslating WordPress%2$s e junte-se à %3$sequipa de tradução%2$s para ajudar a traduzir o WordPress para %4$s!"
 
+#: includes/class-site-health.php:63
+msgid "WordPress default language, has no translation."
+msgstr "Idioma por omissão do WordPress, não tem tradução."
+
+#. translators: %s: Locale name.
+#: includes/class-site-health.php:69
+#, php-format
+msgid "%s has Language Packs."
+msgstr "%s tem pacotes de idioma."
+
+#. translators: %s: Locale name.
+#: includes/class-site-health.php:77
+#, php-format
+msgid "%s has no Language Packs."
+msgstr "%s não tem pacotes de idioma."
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-translations-api.php:39
+msgctxt "Subproject name"
+msgid "Development"
+msgstr "Development"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-translations-api.php:45
+msgctxt "Subproject name"
+msgid "Administration"
+msgstr "Administration"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-translations-api.php:51
+msgctxt "Subproject name"
+msgid "Network Admin"
+msgstr "Network Admin"
+
+#. translators: Subproject name in translate.wordpress.org, do not translate!
+#: includes/class-translations-api.php:57
+msgctxt "Subproject name"
+msgid "Continents & Cities"
+msgstr "Continents & Cities"
+
+#: includes/class-update-core.php:153 includes/class-update-core.php:250
+msgid "Update WordPress Translations"
+msgstr "Actualizar traduções do WordPress"
+
 #. translators: %s: Button label.
-#: includes/class-ttools-update-core.php:246
+#: includes/class-update-core.php:249
 #, php-format
 msgid "Click the %s button to force update the latest approved translations."
 msgstr "Clique no botão %s para forçar a actualização das traduções aprovadas mais recentes."
 
-#: includes/class-ttools-update-core.php:307
+#: includes/class-update-core.php:313
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
 msgstr "A actualização está a começar. Este processo poderá demorar mais tempo em alguns serviços de alojamento, por favor aguarde."
 
 #. translators: %l: Coma separated list of Locales.
-#: includes/class-ttools-update-core.php:310
+#: includes/class-update-core.php:316
 msgid "Downloading translations for <strong>%l</strong>."
 msgstr "A descarregar traduções para <strong>%l</strong>."
 
 #. translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated.
-#: includes/class-ttools-update-core.php:396
+#: includes/class-update-core.php:402
 #, php-format
 msgid "Updating translations for %1$s (%2$s) (%3$d/%4$d)"
 msgstr "A actualizar as traduções para %1$s (%2$s) (%3$d/%4$d)"
 
 #. translators: 1: Title of an update. 2: Error message.
-#: includes/class-ttools-update-core.php:429
+#: includes/class-update-core.php:435
 #, php-format
 msgid "An error occurred while updating %1$s: %2$s"
 msgstr "Ocorreu um erro ao actualizar %1$s: %2$s"
 
 #. translators: %s: Project name.
-#: includes/class-ttools-update-core.php:444
+#: includes/class-update-core.php:450
 #, php-format
 msgid "%s updated successfully."
 msgstr "%s actualizado com sucesso."
 
-#: includes/class-ttools-update-core.php:448
+#: includes/class-update-core.php:454
 msgid "Show details."
 msgstr "Mostrar detalhes."
 
-#: includes/class-ttools-update-core.php:460
+#: includes/class-update-core.php:466
 msgid "All updates have been completed."
 msgstr "Todas as actualizações foram concluídas."
 
-#: includes/class-ttools-update-translations.php:116
+#: includes/class-update-translations.php:109
 msgid "Translation updated successfully."
 msgstr "Tradução actualizada com sucesso."
 
 #. translators: %s: URL.
-#: includes/class-ttools-update-translations.php:141
+#: includes/class-update-translations.php:137
 #, php-format
 msgid "Downloading translation from %s…"
 msgstr "A descarregar tradução de %s…"
 
-#: includes/class-ttools-update-translations.php:155
+#: includes/class-update-translations.php:151
 msgid "Download failed."
 msgstr "Falhou ao descarregar."
 
-#: includes/class-ttools-update-translations.php:156
+#: includes/class-update-translations.php:152
 msgid "A valid URL was not provided."
 msgstr "Não foi indicado um URL válido."
 
 #. translators: %s: File name.
-#: includes/class-ttools-update-translations.php:238
+#: includes/class-update-translations.php:237
 #, php-format
 msgid "Extracting translations from file %s…"
 msgstr "A extrair as traduções do ficheiro %s…"
 
-#: includes/class-ttools-update-translations.php:249
+#: includes/class-update-translations.php:248
 msgid "Could not extract translations from file."
 msgstr "Não foi possível extrair traduções do ficheiro."
 
 #. translators: combined name for locales: 1: name in English, 2: native name
-#: lib/wp.org/locales.php:86
+#: lib/wp.org/locales.php:89
 #, php-format
 msgctxt "locales"
 msgid "%1$s/%2$s"
@@ -202,3 +269,6 @@ msgstr "Pedro Mendonça"
 #. Author URI of the plugin/theme
 msgid "https://profiles.wordpress.org/pedromendonca/"
 msgstr "https://profiles.wordpress.org/pedromendonca/"
+
+#~ msgid "Show the details about your WordPress site and user languages."
+#~ msgstr "Mostra as informações sobre os idiomas do site e do utilizador do seu WordPress."
