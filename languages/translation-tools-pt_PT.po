@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translation Tools\n"
 "Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
-"POT-Creation-Date: 2020-09-07 16:34+0100\n"
-"PO-Revision-Date: 2020-09-07 16:36+0100\n"
+"POT-Creation-Date: 2020-09-07 17:20+0100\n"
+"PO-Revision-Date: 2020-09-07 17:20+0100\n"
 "Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language: pt_PT\n"
@@ -89,8 +89,8 @@ msgid "Translations"
 msgstr "Traduções"
 
 #: includes/class-site-health-debug-info.php:95
-msgid "Show the details about your WordPress site and user languages."
-msgstr "Mostre as informações sobre os idiomas do site e do utilizador do seu WordPress."
+msgid "Details about your WordPress site and user languages."
+msgstr "Informações sobre os idiomas do site e do utilizador do seu WordPress."
 
 #: includes/class-site-health-debug-info.php:96
 #: includes/class-site-health-test.php:212
@@ -265,3 +265,6 @@ msgstr "Pedro Mendonça"
 #. Author URI of the plugin/theme
 msgid "https://profiles.wordpress.org/pedromendonca/"
 msgstr "https://profiles.wordpress.org/pedromendonca/"
+
+#~ msgid "Show the details about your WordPress site and user languages."
+#~ msgstr "Mostra as informações sobre os idiomas do site e do utilizador do seu WordPress."

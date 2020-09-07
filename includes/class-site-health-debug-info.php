@@ -92,7 +92,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Debug_Info' ) ) {
 				'label'       => __( 'Translations', 'translation-tools' ),
 				'description' => sprintf(
 					'%s %s',
-					__( 'Show the details about your WordPress site and user languages.', 'translation-tools' ),
+					__( 'Details about your WordPress site and user languages.', 'translation-tools' ),
 					__( 'Report by plugin Translation Tools', 'translation-tools' )
 				),
 				'fields'      => array(

@@ -88,7 +88,7 @@ msgid "Translations"
 msgstr ""
 
 #: includes/class-site-health-debug-info.php:95
-msgid "Show the details about your WordPress site and user languages."
+msgid "Details about your WordPress site and user languages."
 msgstr ""
 
 #: includes/class-site-health-debug-info.php:96
