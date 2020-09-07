@@ -129,14 +129,18 @@ msgstr ""
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr ""
 
+#: includes/class-site-health.php:63
+msgid "WordPress default language, has no translation."
+msgstr ""
+
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:64
+#: includes/class-site-health.php:69
 #, php-format
 msgid "%s has Language Packs."
 msgstr ""
 
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:70
+#: includes/class-site-health.php:77
 #, php-format
 msgid "%s has no Language Packs."
 msgstr ""

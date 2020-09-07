@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translation Tools\n"
 "Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
-"POT-Creation-Date: 2020-09-07 17:20+0100\n"
-"PO-Revision-Date: 2020-09-07 17:20+0100\n"
+"POT-Creation-Date: 2020-09-07 23:48+0100\n"
+"PO-Revision-Date: 2020-09-07 23:48+0100\n"
 "Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language: pt_PT\n"
@@ -130,14 +130,18 @@ msgstr "<strong>Traduza o WordPress para %1$s:</strong> Parece que compreende %1
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr "Por favor, registe-se em %1$sTranslating WordPress%2$s e junte-se à %3$sequipa de tradução%2$s para ajudar a traduzir o WordPress para %4$s!"
 
+#: includes/class-site-health.php:63
+msgid "WordPress default language, has no translation."
+msgstr "Idioma por omissão do WordPress, não tem tradução."
+
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:64
+#: includes/class-site-health.php:69
 #, php-format
 msgid "%s has Language Packs."
 msgstr "%s tem pacotes de idioma."
 
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:70
+#: includes/class-site-health.php:77
 #, php-format
 msgid "%s has no Language Packs."
 msgstr "%s não tem pacotes de idioma."
