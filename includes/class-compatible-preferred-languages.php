@@ -25,7 +25,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 		/**
 		 * Plugin file.
 		 *
-		 * @var string $plugin_file
+		 * @var string
 		 */
 		public $plugin_file = 'preferred-languages/preferred-languages.php';
 

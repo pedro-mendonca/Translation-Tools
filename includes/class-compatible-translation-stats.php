@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( __NAMESPACE__ . '\Compatible_Translation_Stats' ) ) {
 
-
 	/**
 	 * Class Compatible_Translation_Stats.
 	 */
@@ -26,7 +25,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Translation_Stats' ) ) {
 		/**
 		 * Plugin file.
 		 *
-		 * @var string $plugin_file
+		 * @var string
 		 */
 		public $plugin_file = 'translation-stats/translation-stats.php';
 
