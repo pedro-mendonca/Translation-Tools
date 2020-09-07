@@ -5,7 +5,7 @@ Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 1.2.4
+Stable tag: 1.3.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,13 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 6. Automatic theme translation update for Locale with no Language Packs
 
 == Changelog ==
+
+= 1.3.0 =
+*   New Site Health WordPress translations tests and debug info!
+*   Site Health tests to show the current Language Packs status for your site and user languages, for your WordPress installed version
+*   Site Health debug info includes details about your site and user language
+*   Site Health tests and debug info are compatible with multiple languages configured in plugin Preferred Languages
+*   Inspired by [ticket #51039](https://core.trac.wordpress.org/ticket/51039) (WIP)
 
 = 1.2.4 =
 *   Fix issue with missing strings from .json files, caused by overriding .json files from Development and Administration core sub-projects, instead of merging both.
