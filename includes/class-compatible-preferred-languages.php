@@ -38,6 +38,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			// Add Preferred Language plugin selected languages.
 			add_filter( 'translation_tools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
 
+			// Add Preferred Language plugin Site Languages to Translation Tools Site Health data.
+			add_filter( 'translation_tools_site_health_site_language', array( $this, 'preferred_languages_site_languages' ) );
+
+			// Add Preferred Language plugin User Languages to Translation Tools Site Health data.
+			add_filter( 'translation_tools_site_health_user_language', array( $this, 'preferred_languages_user_languages' ) );
+
 		}
 
 
@@ -82,6 +88,96 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			sort( $pl_all_languages );
 
 			return $pl_all_languages;
+		}
+
+
+		/**
+		 * Get the languages selected for site user in Preferred Languages plugin.
+		 *
+		 * @since 1.3.0
+		 *
+		 * @param string $site_language   Site locale.
+		 *
+		 * @return array|string   Array of Site Preferred Languages. Defaults to Site Locale if empty.
+		 */
+		public function preferred_languages_site_languages( $site_language ) {
+
+			// Check plugin compatibility.
+			if ( ! self::is_compatible( $this->plugin_file ) ) {
+				// If incompatible, return unfiltered $wp_locales array.
+				return $site_language;
+			}
+
+			// Define array.
+			$pl_site_languages = array();
+
+			// Get Site languages selected on Preferred Languages plugin.
+			if ( function_exists( 'preferred_languages_get_site_list' ) ) { // Double check for funcion.
+				$pl_site_languages = preferred_languages_get_site_list();
+			}
+
+			if ( $pl_site_languages ) {
+
+				// Define array.
+				$site_languages = array();
+
+				foreach ( $pl_site_languages as $pl_site_language ) {
+					$site_languages[ $pl_site_language ] = Site_Health::locale_lang_pack_status( $pl_site_language );
+				}
+
+				$site_language = array(
+					'label' => __( 'Site Preferred Languages', 'translation-tools' ),
+					'value' => $site_languages,
+				);
+
+			}
+
+			return $site_language;
+		}
+
+
+		/**
+		 * Get the languages selected for current user in Preferred Languages plugin.
+		 *
+		 * @since 1.3.0
+		 *
+		 * @param string $user_language   User locale.
+		 *
+		 * @return array|string   Array of User Preferred Languages. Defaults to User Locale if empty.
+		 */
+		public function preferred_languages_user_languages( $user_language ) {
+
+			// Check plugin compatibility.
+			if ( ! self::is_compatible( $this->plugin_file ) ) {
+				// If incompatible, return unfiltered $wp_locales array.
+				return $user_language;
+			}
+
+			// Define array.
+			$pl_user_languages = array();
+
+			// Get current user languages selected on Preferred Languages plugin.
+			if ( function_exists( 'preferred_languages_get_user_list' ) ) { // Double check for funcion.
+				$pl_user_languages = preferred_languages_get_user_list( get_current_user_id() );
+			}
+
+			if ( $pl_user_languages ) {
+
+				// Define array.
+				$user_languages = array();
+
+				foreach ( $pl_user_languages as $pl_user_language ) {
+					$user_languages[ $pl_user_language ] = Site_Health::locale_lang_pack_status( $pl_user_language );
+				}
+
+				$user_language = array(
+					'label' => __( 'User Preferred Languages', 'translation-tools' ),
+					'value' => $user_languages,
+				);
+
+			}
+
+			return $user_language;
 		}
 
 	}
