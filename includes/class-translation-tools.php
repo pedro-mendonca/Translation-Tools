@@ -50,6 +50,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			// Initialize Class file for the Translation Tools compatibility with Translation Stats plugin.
 			new Compatible_Translation_Stats();
 
+			// Initialize Class file for the Translation Tools Site Health.
+			new Site_Health();
+
 		}
 
 
