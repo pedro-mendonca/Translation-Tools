@@ -46,6 +46,12 @@ Go to "Update WordPress Translation" on the Updates screen.
 *   .mo (binary translation files)
 *   .json (JavaScript translation files)
 
+### WordPress Translations tests and info in Site Health ###
+
+Check your WordPress core translations in Site Health tests page.
+
+The Site Health debug info shows the selected site and user languages, including multiple languages from the plugin Preferred Languages.
+
 == Frequently Asked Questions ==
 
 = Where can I find the full list of WordPress Locales? =
