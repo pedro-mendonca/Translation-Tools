@@ -231,7 +231,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
 							),
 							'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project->path ) . '/" target="_blank">',
-							'</a>',
+							sprintf(
+								'<span class="screen-reader-text">%s</span></a>',
+								/* translators: Accessibility text. */
+								esc_html__( '(opens in a new tab)', 'translation-tools' )
+							),
 							'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
 							'<strong>' . esc_html( $formated_name ) . '</strong>'
 						)
@@ -324,7 +328,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @return array             Filtered array of Locales.
+		 * @return array   Filtered array of Locales.
 		 */
 		public static function core_update_locales() {
 
@@ -345,9 +349,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			 *
 			 * @since 1.2.0
 			 *
-			 * @param array $wp_locales  An array of the selected Locales to update.
+			 * @param array $wp_locales   An array of the selected Locales to update.
 			 *
-			 * @return array             A filtered array of Locales.
+			 * @return array   A filtered array of Locales.
 			 */
 			$wp_locales = apply_filters( 'translation_tools_core_update_locales', $wp_locales );
 
