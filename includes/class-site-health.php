@@ -61,13 +61,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 			if ( isset( $locale->translations ) ) {
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
-					esc_html__( '%s has Language Packs.', 'translation-stats' ),
+					esc_html__( '%s has Language Packs.', 'translation-tools' ),
 					$formated_name
 				);
 			} else {
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
-					esc_html__( '%s has no Language Packs.', 'translation-stats' ),
+					esc_html__( '%s has no Language Packs.', 'translation-tools' ),
 					$formated_name
 				);
 			}
