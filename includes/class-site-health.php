@@ -58,18 +58,26 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 			// Get the formated Locale name.
 			$formated_name = Options_General::locale_name_format( $locale );
 
-			if ( isset( $locale->translations ) ) {
+			if ( 'en_US' === $wp_locale ) {
+
+				$locale = esc_html__( 'WordPress default language, has no translation.', 'translation-tools' );
+
+			} elseif ( isset( $locale->translations ) ) {
+
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has Language Packs.', 'translation-tools' ),
 					$formated_name
 				);
+
 			} else {
+
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has no Language Packs.', 'translation-tools' ),
 					$formated_name
 				);
+
 			}
 
 			return $locale;
