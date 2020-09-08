@@ -114,10 +114,19 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 ![screenshot-4](./assets/screenshot-4.png)
 
 5.  Notification of themes and plugins translations updates for Locales with no Language Packs
-![screenshot-4](./assets/screenshot-5.png)
+![screenshot-5](./assets/screenshot-5.png)
 
 6.  Automatic theme translation update for Locale with no Language Packs
-![screenshot-4](./assets/screenshot-6.png)
+![screenshot-6](./assets/screenshot-6.png)
+
+7.  Site Health test recommendation for incomplete WordPress translation
+![screenshot-7](./assets/screenshot-7.png)
+
+8.  Site Health test passed for complete WordPress translation
+![screenshot-8](./assets/screenshot-8.png)
+
+9.  Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
+![screenshot-9](./assets/screenshot-9.png)
 
 ## Changelog ##
 

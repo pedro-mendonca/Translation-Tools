@@ -95,6 +95,9 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 4. Sub-project details and files
 5. Notification of themes and plugins translations updates for Locales with no Language Packs
 6. Automatic theme translation update for Locale with no Language Packs
+7. Site Health test recommendation for incomplete WordPress translation
+8. Site Health test passed for complete WordPress translation
+9. Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
 
 == Changelog ==
 
