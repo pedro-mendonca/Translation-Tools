@@ -358,6 +358,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			// Remove duplicates.
 			$wp_locales = array_unique( $wp_locales );
 
+			// Remove 'en_US' from the locales to update.
+			$key = array_search( 'en_US', $wp_locales, true );
+			if ( false !== $key ) {
+				unset( $wp_locales[ $key ] );
+			}
+
 			sort( $wp_locales );
 
 			return $wp_locales;

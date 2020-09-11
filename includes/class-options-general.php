@@ -96,6 +96,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 			$locales = Locales::locales();
 
+			// Exclude 'en_US' from the Locales array.
+			unset( $locales['en'] );
+
 			foreach ( $locales as $locale ) {
 				if ( ! isset( $locale->translations ) ) {
 					$languages[] = $locale->wp_locale;
@@ -189,7 +192,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				$formated_name = self::locale_name_format( $locale );
 
 				if ( isset( $locale->translations ) ) {
-
 					// Format Locale name.
 					$locales_with_lang_packs[] = $formated_name;
 				} else {
@@ -322,6 +324,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 			// Get Locales.
 			$locales = Locales::locales();
+
+			// Exclude 'en_US' from the Locales array.
+			unset( $locales['en'] );
 
 			$languages = array();
 

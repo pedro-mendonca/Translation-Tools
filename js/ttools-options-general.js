@@ -46,7 +46,7 @@ jQuery( document ).ready( function( $ ) {
 					selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
 
 					// Check if the Locale should be on the Installed languages group.
-					if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+					if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
 						// Remove Locales that are not installed.
 						ttoolsRemoveLocaleOption( selectID, value );
 					} else {
@@ -108,7 +108,7 @@ jQuery( document ).ready( function( $ ) {
 			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
 
 			// Check if the Locale should be on the Installed languages group.
-			if ( ! ttools.available_languages.includes( value ) ) {
+			if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID, value );
 			} else {
@@ -131,8 +131,12 @@ jQuery( document ).ready( function( $ ) {
 			var value = $( this ).prop( 'id' );
 			selectID = 'ul#preferred_languages';
 
-			// Rename Locale and add attributes.
-			ttoolsRenameLocaleListItem( selectID, value );
+			// Don't rename 'en_US' language.
+			if ( 'en_US' !== value ) {
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleListItem( selectID, value );
+			}
+
 		} );
 
 		// Relocate Site Language description data on General Settings page.
@@ -241,6 +245,7 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleListItem( selectID, value ) {
+
 		// Get all languages.
 		var language = ttools.all_languages[ value ];
 
