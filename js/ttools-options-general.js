@@ -108,7 +108,7 @@ jQuery( document ).ready( function( $ ) {
 			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
 
 			// Check if the Locale should be on the Installed languages group.
-			if ( ! ttools.available_languages.includes( value ) ) {
+			if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID, value );
 			} else {
