@@ -46,7 +46,7 @@ jQuery( document ).ready( function( $ ) {
 					selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
 
 					// Check if the Locale should be on the Installed languages group.
-					if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+					if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
 						// Remove Locales that are not installed.
 						ttoolsRemoveLocaleOption( selectID, value );
 					} else {
