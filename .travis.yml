@@ -20,22 +20,22 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  # - nightly # PHP 8.0
+  - nightly # PHP 8.0
   - 7.4
   - 7.3
   - 7.2
   - 7.1
-  # - 7.0
-  # - 5.6
+  - 7.0
+  - 5.6
 
-# env:
-  # - WP_VERSION=latest WP_MULTISITE=0
+env:
+  - WP_VERSION=latest WP_MULTISITE=0
   # - WP_VERSION=latest WP_MULTISITE=1
 
 jobs:
   include:
   - php: nightly
-  #   env: WP_VERSION=nightly WP_MULTISITE=0
+    env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer update --ignore-platform-reqs
   # - php: nightly
@@ -50,13 +50,13 @@ jobs:
   #   env: WP_VERSION=4.9 WP_MULTISITE=1
   - php: "5.6"
     dist: xenial
-  #   env: WP_VERSION=4.9 WP_MULTISITE=0
+    env: WP_VERSION=4.9 WP_MULTISITE=0
   # - php: "5.6"
   #   dist: xenial
   #   env: WP_VERSION=4.9 WP_MULTISITE=1
   allow_failures:
   - php: nightly
-  #   env: WP_VERSION=nightly WP_MULTISITE=0
+    env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer update --ignore-platform-reqs
   # - php: nightly
