@@ -33,11 +33,11 @@ jobs:
     - php: 7.0
       dist: xenial
       install:
-        - composer install --ignore-platform-reqs
+        - composer update --ignore-platform-reqs
     - php: 5.6
       dist: xenial
       install:
-        - composer install --ignore-platform-reqs
+        - composer update --ignore-platform-reqs
   allow_failures:
   - php: nightly
     install:
