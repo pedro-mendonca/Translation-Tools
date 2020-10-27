@@ -1,5 +1,5 @@
 os: linux
-dist: trusty
+dist: bionic
 
 # Declare project language.
 # @link http://about.travis-ci.org/docs/user/languages/php/
@@ -34,7 +34,6 @@ env:
 jobs:
   include:
   - php: nightly
-    dist: bionic
     env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer update --ignore-platform-reqs
@@ -43,13 +42,16 @@ jobs:
 #    env: WP_VERSION=nightly WP_MULTISITE=1
 #    install:
 #    - composer update --ignore-platform-reqs
+  - php: "7.0"
+    dist: xenial
+    env: WP_VERSION=latest WP_MULTISITE=0
   - php: "5.6"
+    dist: xenial
     env: WP_VERSION=4.9 WP_MULTISITE=0
 #  - php: "5.6"
 #    env: WP_VERSION=4.9 WP_MULTISITE=1
   allow_failures:
   - php: nightly
-    dist: bionic
     env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer update --ignore-platform-reqs
