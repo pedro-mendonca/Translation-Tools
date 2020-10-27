@@ -41,8 +41,7 @@ jobs:
     env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer install --ignore-platform-reqs
-  - name: PHP {$TRAVIS_PHP_VERSION} | WP {$WP_VERSION}
-    php: 7.0
+  - php: 7.0
     dist: xenial
     env: WP_VERSION=latest WP_MULTISITE=0
   - php: 5.6
@@ -53,6 +52,9 @@ jobs:
     env: WP_VERSION=4.9 WP_MULTISITE=0
   allow_failures:
   - php: nightly
+    env: WP_VERSION=nightly WP_MULTISITE=0
+    install:
+    - composer install --ignore-platform-reqs
 
 before_install:
   # Speed up build time by disabling Xdebug.
