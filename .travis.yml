@@ -1,5 +1,5 @@
 os: linux
-dist: trusty
+dist: bionic
 
 # Declare project language.
 # @link http://about.travis-ci.org/docs/user/languages/php/
@@ -20,6 +20,7 @@ cache:
     - $HOME/.composer/cache
 
 php:
+  - nightly # PHP 8.0
   - 7.4
   - 7.3
   - 7.2
@@ -38,8 +39,10 @@ jobs:
   - php: nightly
     env: WP_VERSION=nightly WP_MULTISITE=1
   - php: "5.6"
+    dist: xenial
     env: WP_VERSION=4.9 WP_MULTISITE=0
   - php: "5.6"
+    dist: xenial
     env: WP_VERSION=4.9 WP_MULTISITE=1
   allow_failures:
   - php: nightly
