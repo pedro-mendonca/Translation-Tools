@@ -38,7 +38,7 @@ jobs:
   include:
     # Nightly is PHP 8.0 since Feb 2019.
   - php: nightly
-    env: WP_VERSION=nightly WP_MULTISITE=0
+  #   env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer install --ignore-platform-reqs
   - php: 7.0
@@ -52,7 +52,7 @@ jobs:
     env: WP_VERSION=4.9 WP_MULTISITE=0
   allow_failures:
   - php: nightly
-    env: WP_VERSION=nightly WP_MULTISITE=0
+  #   env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer install --ignore-platform-reqs
 
