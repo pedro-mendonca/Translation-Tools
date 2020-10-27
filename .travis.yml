@@ -38,6 +38,10 @@ jobs:
       dist: xenial
       install:
         - composer install --ignore-platform-reqs
+  allow_failures:
+  - php: nightly
+    install:
+    - composer update --ignore-platform-reqs
 
 before_install:
   # Speed up build time by disabling Xdebug.
