@@ -19,45 +19,36 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+###################
+# Default builds. #
+###################
 php:
   - 7.4
   - 7.3
   - 7.2
   - 7.1
-
 env:
   - WP_VERSION=latest WP_MULTISITE=0
 #  - WP_VERSION=latest WP_MULTISITE=1
 
+##################
+# Custom builds. #
+##################
 jobs:
   include:
+    # Nightly is PHP 8.0 since Feb 2019.
   - php: nightly
     env: WP_VERSION=nightly WP_MULTISITE=0
     install:
     - composer install --ignore-platform-reqs
-#  - php: nightly
-#    dist: bionic
-#    env: WP_VERSION=nightly WP_MULTISITE=1
-#    install:
-#    - composer install --ignore-platform-reqs
-  - php: "7.0"
+  - php: 7.0
     dist: xenial
     env: WP_VERSION=latest WP_MULTISITE=0
-  - php: "5.6"
+  - php: 5.6
     dist: xenial
     env: WP_VERSION=4.9 WP_MULTISITE=0
-#  - php: "5.6"
-#    env: WP_VERSION=4.9 WP_MULTISITE=1
   allow_failures:
   - php: nightly
-    env: WP_VERSION=nightly WP_MULTISITE=0
-    install:
-    - composer install --ignore-platform-reqs
-#  - php: nightly
-#    dist: bionic
-#    env: WP_VERSION=nightly WP_MULTISITE=1
-#    install:
-#    - composer install --ignore-platform-reqs
 
 before_install:
   # Speed up build time by disabling Xdebug.
@@ -66,7 +57,7 @@ before_install:
 
 install:
   # Remove PHPStan WordPress for PHP less than 7.1.
-  # - if [[ $TRAVIS_PHP_VERSION = "5.6" || $TRAVIS_PHP_VERSION = "7.0" ]]; then composer remove --dev szepeviktor/phpstan-wordpress; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.6" || $TRAVIS_PHP_VERSION = "7.0" ]]; then composer remove --dev szepeviktor/phpstan-wordpress; fi
   # Composer install.
   - composer install
 
