@@ -50,8 +50,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 			// Get WordPress core translation project.
 			$translation_project = Translations_API::get_core_translation_project();
 
-			$notice_messages = array();
-
 			$translation_version = Translations_API::major_version( $locale->translations['version'] );
 
 			// Set language name to 'native_name'.
