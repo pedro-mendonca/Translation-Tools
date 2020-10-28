@@ -23,7 +23,6 @@ cache:
 # Default builds. #
 ###################
 php:
-  - 7.4
   - 7.3
   - 7.2
   - 7.1
@@ -40,6 +39,7 @@ jobs:
 
     # Nightly is PHP 8.0 since Feb 2019.
   - php: nightly
+    dist: focal
     env: WP_VERSION=nightly WP_MULTISITE=0
     # install:
     # - composer update --ignore-platform-reqs
@@ -47,6 +47,9 @@ jobs:
     # PHP versions not supported by default Bionic dist, last supported by Xenial dist.
     # https://docs.travis-ci.com/user/reference/bionic/#php-support
     # https://docs.travis-ci.com/user/reference/xenial/#php-support
+  - php: 7.4
+    dist: focal
+    env: WP_VERSION=latest WP_MULTISITE=0
   - php: 7.0
     dist: xenial
     env: WP_VERSION=latest WP_MULTISITE=0
