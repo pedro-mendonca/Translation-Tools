@@ -136,7 +136,6 @@ jQuery( document ).ready( function( $ ) {
 				// Rename Locale and add attributes.
 				ttoolsRenameLocaleListItem( selectID, value );
 			}
-
 		} );
 
 		// Relocate Site Language description data on General Settings page.
@@ -245,7 +244,6 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleListItem( selectID, value ) {
-
 		// Get all languages.
 		var language = ttools.all_languages[ value ];
 
