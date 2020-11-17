@@ -82,6 +82,7 @@ spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
  *
  * @since 1.0.0
  * @since 1.2.3  Remove namespace from class name.
+ * @since 1.3.2  Check if class exist in project namespace.
  *
  * @param string $class_name  Classe name.
  *
