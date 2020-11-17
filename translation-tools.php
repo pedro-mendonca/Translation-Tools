@@ -91,6 +91,11 @@ function translation_tools_class_autoload( $class_name ) {
 
 	$project_namespace = __NAMESPACE__ . '\\';
 
+	// Check if class is in the project namespace.
+	if ( 0 !== strncmp( $project_namespace, $class_name, strlen( $project_namespace ) ) ) {
+		return;
+	}
+
 	// Set class file full path.
 	$class = sprintf(
 		'%sincludes/class-%s.php',
