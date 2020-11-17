@@ -91,10 +91,12 @@ function translation_tools_class_autoload( $class_name ) {
 
 	$project_namespace = __NAMESPACE__ . '\\';
 
-	// Set class file path and name.
-	$class_path = TRANSLATION_TOOLS_DIR_PATH . 'includes/';
-	$class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( $project_namespace, '', $class_name ) ) ) . '.php';
-	$class      = $class_path . $class_file;
+	// Set class file full path.
+	$class = sprintf(
+		'%sincludes/class-%s.php',
+		TRANSLATION_TOOLS_DIR_PATH,
+		str_replace( '_', '-', strtolower( str_replace( $project_namespace, '', $class_name ) ) )
+	);
 
 	if ( ! file_exists( $class ) ) {
 		return;
