@@ -82,6 +82,7 @@ spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
  *
  * @since 1.0.0
  * @since 1.2.3  Remove namespace from class name.
+ * @since 1.3.2  Check if class exist in project namespace.
  *
  * @param string $class_name  Classe name.
  *
@@ -89,12 +90,21 @@ spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
  */
 function translation_tools_class_autoload( $class_name ) {
 
-	// Set class file path and name.
-	$class_path = TRANSLATION_TOOLS_DIR_PATH . 'includes/';
-	$class_file = 'class-' . str_replace( '_', '-', strtolower( str_replace( __NAMESPACE__ . '\\', '', $class_name ) ) ) . '.php';
-	$class      = $class_path . $class_file;
+	$project_namespace = __NAMESPACE__ . '\\';
 
-	if ( ! file_exists( $class ) ) {
+	// Check if class is in the project namespace.
+	if ( 0 !== strncmp( $project_namespace, $class_name, strlen( $project_namespace ) ) ) {
+		return;
+	}
+
+	// Set class file full path.
+	$class = sprintf(
+		'%sincludes/class-%s.php',
+		TRANSLATION_TOOLS_DIR_PATH,
+		str_replace( '_', '-', strtolower( str_replace( $project_namespace, '', $class_name ) ) )
+	);
+
+	if ( ! is_file( $class ) ) {
 		return;
 	}
 

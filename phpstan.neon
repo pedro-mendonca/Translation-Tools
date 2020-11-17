@@ -1,28 +1,23 @@
-#$ composer update --optimize-autoloader
-#$ vendor/bin/phpstan analyze
-
 includes:
-	# @see https://github.com/phpstan/phpstan-src/blob/master/conf/bleedingEdge.neon
-	- phar://phpstan.phar/conf/bleedingEdge.neon
-	# Include this extension
 	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 parameters:
 	level: 6
 	inferPrivatePropertyTypeFromConstructor: true
 	paths:
-		# Plugin root
-		- %currentWorkingDirectory%/
-	excludes_analyse:
-		# Libraries
-		- %currentWorkingDirectory%/lib/*
-		# Dependencies
-		- %currentWorkingDirectory%/node_modules/*
-		- %currentWorkingDirectory%/vendor/*
+		- translation-tools.php
+		- uninstall.php
+		- includes/
+		- lib/
 	bootstrapFiles:
-		# Plugin main file
-		- %currentWorkingDirectory%/translation-tools.php
+		# Plugin main file.
+		- translation-tools.php
 	ignoreErrors:
 		# Missing functions from compatible plugins:
 		- "#Function preferred_languages_#"
-	# Temporarily disable test.
+		# GlotPress locales file.
+		-
+			path: lib/wp.org/locales.php
+			message: '#typehint specified\.$#'
+			count: 35
+	# TODO Tell PHPStan what is inside arrays.
 	checkMissingIterableValueType: false
