@@ -103,7 +103,7 @@ function translation_tools_class_autoload( $class_name ) {
 		str_replace( '_', '-', strtolower( str_replace( $project_namespace, '', $class_name ) ) )
 	);
 
-	if ( ! file_exists( $class ) ) {
+	if ( ! is_file( $class ) ) {
 		return;
 	}
 
