@@ -1,8 +1,11 @@
-name: PHP tests
+name: Coding Standards
 on: [push, pull_request]
 
 jobs:
-  build:
+
+# Runs PHP coding standards checks.
+  phpcs:
+    name: PHP coding standards
     runs-on: ubuntu-18.04
 
     steps:
@@ -11,7 +14,7 @@ jobs:
 
     - name: Validate composer.json and composer.lock
       run: composer validate
-
+    
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -21,8 +24,16 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
+    - name: Log debug information
+      run: |
+        php --version
+        composer --version
+
     - name: Install dependencies
       run: composer install
+
+    - name: Log PHPCS debug information
+      run: phpcs -i
 
     - name: PHP Coding Standards
       run: composer lint
