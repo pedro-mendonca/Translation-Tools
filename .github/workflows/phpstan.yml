@@ -3,16 +3,13 @@ name: CI
 on: [push]
 
 jobs:
-  build-test:
+  phpstan:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - uses: php-actions/composer@v2 # or alternative dependency management
     - uses: dingo-d/phpstan-wp-action@v1
-
-
-  phpstan:
-
+    
     - name: PHPStan
       uses: dingo-d/phpstan-wp-action@v1
