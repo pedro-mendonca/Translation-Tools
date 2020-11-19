@@ -11,5 +11,7 @@ jobs:
     - uses: php-actions/composer@v2 # or alternative dependency management
     - uses: dingo-d/phpstan-wp-action@v1
     
-    - name: PHPStan
+    - name: PHPStan Static Analysis
       uses: dingo-d/phpstan-wp-action@v1
+      with:
+        error_format: github
