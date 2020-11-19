@@ -1,0 +1,31 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+
+    - name: Install dependencies
+      run: composer install
+
+    - name: PHP Coding Standards
+      run: composer lint
+    
+    - name: PHPStan Static Analysis
+      run: composer stan
+  
+    - name: PHPStan Static Analysis (dingo-d/phpstan-wp-action@v1)
+      uses: dingo-d/phpstan-wp-action@v1
+      with:
+        error_format: github
