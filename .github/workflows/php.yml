@@ -53,5 +53,5 @@ jobs:
       run: composer lint
 
     - name: Run PHPStan
-      if: matrix.php > '7.0'
+      if: matrix.php == '7.4'
       run: composer stan
