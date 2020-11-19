@@ -15,3 +15,4 @@ jobs:
       uses: dingo-d/phpstan-wp-action@v1
       with:
         error_format: github
+        args: --debug
