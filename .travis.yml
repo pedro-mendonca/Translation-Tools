@@ -27,6 +27,7 @@ php:
   - 7.3
   - 7.2
   - 7.1
+  - 8.0
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
