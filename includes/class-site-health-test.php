@@ -209,7 +209,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			$this->test_actions .= sprintf(
 				'%s%s%s',
 				'<p style="font-size: 12px; color: #555; text-align: right"><em>',
-				esc_html__( 'Report by plugin Translation Tools', 'wordpress-seo' ),
+				esc_html__( 'Report by plugin Translation Tools', 'translation-tools' ),
 				'</em></p>'
 			);
 		}
