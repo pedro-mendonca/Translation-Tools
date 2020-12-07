@@ -60,8 +60,8 @@ jobs:
       - name: Run PHPCS on all Core files
         run: phpcs -q -n --report=checkstyle | cs2pr
 
-      - name: Check test suite files for warnings
-        run: phpcs tests -q --report=checkstyle | cs2pr
+      - name: Run PHPCS
+        run: phpcs -v --standard=phpcs.xml
 
   # Runs the JavaScript coding standards checks.
   #
@@ -111,5 +111,5 @@ jobs:
       - name: Install Dependencies
         run: npx install-changed --install-command="npm ci"
 
-      - name: Run JSHint
-        run: npm run grunt jshint
+      - name: Run eslint
+        run: npm run eslint .
