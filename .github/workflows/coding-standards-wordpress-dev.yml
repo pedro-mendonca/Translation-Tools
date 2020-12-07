@@ -63,6 +63,9 @@ jobs:
       - name: Run PHPCS
         run: phpcs -v --standard=phpcs.xml
 
+      - name: Detect coding standard violations
+        run: phpcs -q --report=checkstyle | cs2pr --graceful-warnings
+
   # Runs the JavaScript coding standards checks.
   #
   # Performs the following steps:
