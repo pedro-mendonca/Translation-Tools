@@ -23,7 +23,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    
+
     - name: Install PHP
       uses: "shivammathur/setup-php@v2"
       with:
@@ -53,5 +53,5 @@ jobs:
       run: composer lint
 
     - name: Run PHPStan
-      if: matrix.php == '7.4'
+      if: matrix.php-version >= '7.1'
       run: composer stan
