@@ -67,7 +67,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 		 */
 		public function register_plugin_scripts( $hook ) {
 
-			if ( ! $this->allowed_pages( $hook ) ) {
+			if ( ! $this->allowed_pages($hook ) ) {
 				return;
 			}
 
