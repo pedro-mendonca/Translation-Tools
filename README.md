@@ -5,13 +5,13 @@
 [![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/translation-tools.svg?label=Downloads&logo=wordpress)](https://wordpress.org/plugins/translation-tools/advanced/)
 [![Sponsor](https://img.shields.io/badge/GitHub-🤍%20Sponsor-ea4aaa?logo=github)](https://github.com/sponsors/pedro-mendonca)
 
-[![PHP from Travis config](https://img.shields.io/travis/php-v/pedro-mendonca/Translation-Tools.svg?logoColor=white&label=PHP%20Required&logo=php)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
+[![PHP from Travis config](https://img.shields.io/travis/php-v/pedro-mendonca/Translation-Tools.svg?logoColor=white&label=PHP%20Required&logo=php)](https://travis-ci.com/pedro-mendonca/Translation-Tools)
 [![WordPress Plugin: Required WP Version](https://img.shields.io/wordpress/plugin/wp-version/translation-tools?label=WordPress%20Required&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 [![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/translation-tools.svg?label=WordPress%20Tested&logo=wordpress)](https://wordpress.org/plugins/translation-tools/)
 
 [![Build Status](https://img.shields.io/travis/com/pedro-mendonca/Translation-Tools?label=Build&logo=travis)](https://travis-ci.com/github/pedro-mendonca/Translation-Tools)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/534909194f4446c3a865f66536ac4e03)](https://app.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&utm_medium=referral&utm_content=pedro-mendonca/Translation-Tools&utm_campaign=Badge_Grade_Settings)
-[![PHPStan Level](https://img.shields.io/badge/PHPStan%20Level-6-brightgreen)](https://travis-ci.org/pedro-mendonca/Translation-Tools)
+[![PHPStan Level](https://img.shields.io/badge/PHPStan%20Level-6-brightgreen)](https://travis-ci.com/pedro-mendonca/Translation-Tools)
 
 **Contributors:** pedromendonca  
 **Donate link:** [github.com/sponsors/pedro-mendonca](https://github.com/sponsors/pedro-mendonca)  
