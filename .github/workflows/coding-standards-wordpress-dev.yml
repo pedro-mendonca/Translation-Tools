@@ -112,4 +112,4 @@ jobs:
         run: npx install-changed --install-command="npm ci"
 
       - name: Run eslint
-        run: npm run eslint .
+        run: eslint .
