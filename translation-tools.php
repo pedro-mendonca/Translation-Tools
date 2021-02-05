@@ -2,11 +2,11 @@
 /**
  * Translation Tools
  *
- * @package      Translation Tools
+ * @package      TranslationTools
  * @link         https://github.com/pedro-mendonca/Translation-Tools
  * @author       Pedro Mendonça
  * @copyright    2020 Pedro Mendonça
- * @license      GPLv2
+ * @license      GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Translation Tools
@@ -14,9 +14,11 @@
  * GitHub Plugin URI: https://github.com/pedro-mendonca/Translation-Tools
  * Description:       Translation tools for your WordPress install.
  * Version:           1.3.2
+ * Requires at least: 4.9
+ * Requires PHP:      5.6
  * Author:            Pedro Mendonça
  * Author URI:        https://profiles.wordpress.org/pedromendonca/
- * License:           GPLv2
+ * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       translation-tools
  * Domain Path:       /languages
@@ -29,12 +31,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Check if get_plugin_data() function exists.
+if ( ! function_exists( 'get_plugin_data' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
+// Get plugin headers data.
+$translation_tools_data = get_plugin_data( __FILE__, false, false );
 
 // Set Translation Tools plugin version.
-define( 'TRANSLATION_TOOLS_VERSION', '1.3.2' );
+define( 'TRANSLATION_TOOLS_VERSION', $translation_tools_data['Version'] );
 
 // Set Translation Tools required PHP version. Needed for PHP compatibility check for WordPress < 5.1.
-define( 'TRANSLATION_TOOLS_REQUIRED_PHP', '5.6' );
+define( 'TRANSLATION_TOOLS_REQUIRED_PHP', $translation_tools_data['RequiresPHP'] );
 
 // Set Translation Tools settings database version.
 // define( 'TRANSLATION_TOOLS_SETTINGS_VERSION', '1.1' ); // phpcs:ignore.
