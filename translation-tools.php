@@ -2,11 +2,11 @@
 /**
  * Translation Tools
  *
- * @package      Translation Tools
+ * @package      TranslationTools
  * @link         https://github.com/pedro-mendonca/Translation-Tools
  * @author       Pedro Mendonça
  * @copyright    2020 Pedro Mendonça
- * @license      GPLv2
+ * @license      GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Translation Tools
@@ -14,9 +14,11 @@
  * GitHub Plugin URI: https://github.com/pedro-mendonca/Translation-Tools
  * Description:       Translation tools for your WordPress install.
  * Version:           1.3.2
+ * Requires at least: 4.9
+ * Requires PHP:      5.6
  * Author:            Pedro Mendonça
  * Author URI:        https://profiles.wordpress.org/pedromendonca/
- * License:           GPLv2
+ * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       translation-tools
  * Domain Path:       /languages
