@@ -2,11 +2,11 @@
 /**
  * Translation Tools
  *
- * @package      TranslationTools
- * @link         https://github.com/pedro-mendonca/Translation-Tools
- * @author       Pedro Mendonça
- * @copyright    2020 Pedro Mendonça
- * @license      GPL-2.0-or-later
+ * @package           TranslationTools
+ * @link              https://github.com/pedro-mendonca/Translation-Tools
+ * @author            Pedro Mendonça
+ * @copyright         2020 Pedro Mendonça
+ * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Translation Tools
@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 // Check if get_plugin_data() function exists.
 if ( ! function_exists( 'get_plugin_data' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -38,6 +39,7 @@ if ( ! function_exists( 'get_plugin_data' ) ) {
 
 // Get plugin headers data.
 $translation_tools_data = get_plugin_data( __FILE__, false, false );
+
 
 // Set Translation Tools plugin version.
 define( 'TRANSLATION_TOOLS_VERSION', $translation_tools_data['Version'] );
