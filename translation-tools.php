@@ -13,7 +13,7 @@
  * Plugin URI:        https://wordpress.org/plugins/translation-tools/
  * GitHub Plugin URI: https://github.com/pedro-mendonca/Translation-Tools
  * Description:       Translation tools for your WordPress install.
- * Version:           1.3.2
+ * Version:           1.3.3
  * Requires at least: 4.9
  * Requires PHP:      5.6
  * Author:            Pedro Mendonça
