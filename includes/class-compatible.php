@@ -34,6 +34,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 		 * Detect active compatible plugins.
 		 *
 		 * @since 1.2.0
+		 * @since 1.3.4  Add parameter 'tested_version'.
 		 *
 		 * @return array  Array of compatible plugins.
 		 */
@@ -44,10 +45,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 				'preferred-languages/preferred-languages.php' => array(
 					'name'             => 'Preferred Languages',
 					'required_version' => '1.6.0',
+					'tested_version'   => '1.6.0',
 				),
 				'translation-stats/translation-stats.php' => array(
 					'name'             => 'Translation Stats',
 					'required_version' => '1.1.0',
+					'tested_version'   => '1.1.2',
 				),
 			);
 
