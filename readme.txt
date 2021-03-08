@@ -17,7 +17,13 @@ Translation tools for your WordPress install.
 
 With core Language Packs you can easily change the language of your WordPress install.
 
-The Language Packs are only provided for 100% translated Locales.
+The Language Packs used to be provided only for 100% translated Locales.
+
+To give teams with less contributors a better chance to get WordPress released into their Locale, since [22nd February 2020](https://make.wordpress.org/polyglots/2021/02/22/wordpress-5-7-ready-to-be-translated/) the required translation status for core Language Packs to be built are as follows:
+
+*   The [Front-end project](https://translate.wordpress.org/projects/wp/dev/) needs to be translated at least <strong>90%</strong>.
+*   The [Administration project](https://translate.wordpress.org/projects/wp/dev/admin/) needs to be translated at least <strong>75%</strong>.
+*   The [Network Admin](https://translate.wordpress.org/projects/wp/dev/admin/network/) and [Continent & Cities](https://translate.wordpress.org/projects/wp/dev/cc/) projects are not included in the threshold calculation.
 
 If you need a Locale that has no Language Packs yet, this tool helps you by enabling ALL Locales on the list of the available languages.
 
