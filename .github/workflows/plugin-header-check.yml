@@ -1,0 +1,57 @@
+name: Version checks
+# From: https://gist.github.com/peterwilsoncc/f677c5c401f896ee7fef668e72b06cd0
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  # Compares the header information in the readme.txt and the main plugin file
+  # and fails if they differ.
+  versioncheck:
+    name: Version check
+    runs-on: ubuntu-latest
+    env:
+      MAIN_PHP_FILE: plugin.php
+      README_FILE: readme.txt
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Ensure PHP and readme headers match.
+        run: |
+          HEADERS=("Requires at least" "Requires PHP" "Tested up to")
+          EXIT_WITH_ONE=0
+          for HEADER in "${HEADERS[@]}"; do
+            RM_VALUE=`grep "^[ 	\*]*${HEADER}[ 	\*]*:" ${README_FILE} | awk -F' ' '{print $NF}'`
+            PHP_VALUE=`grep "^[ 	\*]*${HEADER}[ 	\*]*:" ${MAIN_PHP_FILE} | awk -F' ' '{print $NF}'`
+            RM_VALUE=$(echo "${RM_VALUE}" | head -n 1 )
+            PHP_VALUE=$(echo "${PHP_VALUE}" | head -n 1 )
+            echo "Header: ${HEADER}"
+            echo "readme file: ${RM_VALUE}"
+            echo "php file: ${PHP_VALUE}"
+            if [ "$RM_VALUE" != "$PHP_VALUE" ]; then
+              EXIT_WITH_ONE=1
+            fi;
+            echo
+          done;
+          if [ $EXIT_WITH_ONE == 1 ]; then
+            exit 1
+          fi
+
+      - name: Ensure stable tag and version headers match.
+        run: |
+          RM_VALUE=`grep "^[ 	\*]*Stable tag[ 	\*]*:" ${README_FILE} | awk -F' ' '{print $NF}'`
+          PHP_VALUE=`grep "^[ 	\*]*Version[ 	\*]*:" ${MAIN_PHP_FILE} | awk -F' ' '{print $NF}'`
+          RM_VALUE=$(echo "${RM_VALUE}" | head -n 1 )
+          PHP_VALUE=$(echo "${PHP_VALUE}" | head -n 1 )
+          echo "Version number check"
+          echo "readme stable tag: ${RM_VALUE}"
+          echo "php file version: ${PHP_VALUE}"
+          echo
+          if [ "$RM_VALUE" != "$PHP_VALUE" ]; then
+            exit 1
+          fi
