@@ -35,13 +35,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 		 */
 		public function __construct() {
 
-			// Add Preferred Language plugin selected languages.
+			// Add Preferred Languages plugin selected languages.
 			add_filter( 'translation_tools_core_update_locales', array( $this, 'preferred_languages_selected_languages' ) );
 
-			// Add Preferred Language plugin Site Languages to Translation Tools Site Health data.
+			// Add Preferred Languages plugin Site Languages to Translation Tools Site Health data.
 			add_filter( 'translation_tools_site_health_site_language', array( $this, 'preferred_languages_site_languages' ) );
 
-			// Add Preferred Language plugin User Languages to Translation Tools Site Health data.
+			// Add Preferred Languages plugin User Languages to Translation Tools Site Health data.
 			add_filter( 'translation_tools_site_health_user_language', array( $this, 'preferred_languages_user_languages' ) );
 
 		}
