@@ -69,13 +69,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @since 1.2.2
 		 * @since 1.2.3  Use transient to store WordPress core translation project for 24h.
 		 * @since 1.4.0  Add $wp_version parameter to allow custom query for WP major version.
+		 *               Add support to $force_check to force update transient.
 		 *               Return a specified project or fallback to the latest WordPress core translation sub-project.
 		 *
-		 * @param string $wp_version  WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
+		 * @param string $wp_version   WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
+		 * @param bool   $force_check  Set to 'true' to force update the transient.
 		 *
-		 * @return object|null  Object of WordPress translation sub-project, null if API is unreachable.
+		 * @return object|null         Object of latest or specified WordPress translation sub-project, null if API is unreachable.
 		 */
-		public static function get_core_translation_project( $wp_version = null ) {
+		public static function get_core_translation_project( $wp_version = null, $force_check = false ) {
 
 			// Set the transient name.
 			$translation_project_transient = 'wordpress_translation_project';
@@ -83,8 +85,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			// Get WordPress core translation project transient data.
 			$translation_sub_projects = get_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
 
-			// Check if transient data exist, otherwise get new data and set transient.
-			if ( false === $translation_sub_projects ) {
+			// If there is no unexpired transient data or force_check is set to 'true', get translation projects from the API.
+			if ( false === $translation_sub_projects || true === $force_check ) {
 
 				// Get WordPress translation project API URL.
 				$source = self::translate_url( 'wp', true );

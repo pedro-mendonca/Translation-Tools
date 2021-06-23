@@ -188,11 +188,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Get WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project( $wp_version );
+			// Force a update check when requested.
+			$force_check = ! empty( $_GET['force-check'] ); // phpcs:ignore
+
+			// Get installed WordPress core translation project.
+			$translation_project         = Translations_API::get_core_translation_project( $wp_version, $force_check );
 			$translation_project_version = Translations_API::major_version( $translation_project->name );
 
-			$notice_messages = array();
+			$notice_messages   = array();
 			$admin_notice_type = 'info';
 
 			/*
