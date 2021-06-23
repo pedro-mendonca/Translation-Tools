@@ -189,19 +189,41 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
 			// Get WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project();
+			$translation_project = Translations_API::get_core_translation_project( $wp_version );
+			$translation_project_version = Translations_API::major_version( $translation_project->name );
 
 			$notice_messages = array();
+			$admin_notice_type = 'info';
+
+			/*
+			 * Check if translation project is already available for the installed version.
+			 * It's usually available strings hard freeze.
+			 */
+			if ( $wp_version !== $translation_project_version ) {
+
+				$notice_messages[] = '<span class="dashicons dashicons-info" style="color: #d63638;"></span> ' . sprintf(
+					wp_kses_post(
+						/* translators: %s: WordPress version. */
+						__( 'The translation of WordPress %s is not available yet.', 'translation-tools' )
+					),
+					'<strong>' . esc_html( $wp_version ) . '</strong>'
+				) . '<br><br>';
+
+				$admin_notice_type = 'warning';
+
+			}
 
 			foreach ( $locales as $locale ) {
 
-				$translation_version = Translations_API::major_version( $locale->translations['version'] );
+				if ( isset( $locale->translations ) ) {
+					$locale_translations_version = Translations_API::major_version( $locale->translations['version'] );
+				}
 
 				// Set language name to 'native_name'.
 				$formated_name = Options_General::locale_name_format( $locale );
 
 				// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
-				if ( isset( $locale->translations ) && $wp_version === $translation_version ) {
+				if ( isset( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
 
 					$notice_messages[] = sprintf(
 						wp_kses_post(
@@ -245,9 +267,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			}
 
 			$notice_messages[] = '<br>' . sprintf(
-				/* translators: %s: Button label. */
-				esc_html__( 'Click the %s button to force update the latest approved translations.', 'translation-tools' ),
-				'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>'
+				/* translators: 1: Button label. 2: WordPress version number. */
+				esc_html__( 'Click the %1$s button to force update the latest approved translations of WordPress %2$s.', 'translation-tools' ),
+				'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>',
+				'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 			);
 
 			$count   = 0;
@@ -260,7 +283,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			}
 
 			$admin_notice = array(
-				'type'        => 'info',
+				'type'        => $admin_notice_type,
 				'inline'      => isset( $notice_args['inline'] ) ? $notice_args['inline'] : null,
 				'dismissible' => isset( $notice_args['dismissible'] ) ? $notice_args['dismissible'] : null,
 				'message'     => $message,
