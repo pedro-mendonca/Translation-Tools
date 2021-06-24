@@ -200,10 +200,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				 */
 				if ( $wp_version !== $translation_project_version ) {
 
-					$notice_messages[] = '<span class="dashicons dashicons-warning" style="color: #d63638;"></span> ' . sprintf(
+					$notice_messages[] = sprintf(
 						wp_kses_post(
 							/* translators: %s: WordPress version. */
-							__( 'The translation of WordPress %s is not available yet.', 'translation-tools' )
+							__( 'WordPress %s is not available for translation yet.', 'translation-tools' )
 						),
 						'<strong>' . esc_html( $wp_version ) . '</strong>'
 					) . '<br><br>';
