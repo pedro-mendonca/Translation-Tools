@@ -101,19 +101,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 
 		/**
 		 * Constructor.
-		 *
-		 * @param string $wp_locale   WordPress Locale to test.
 		 */
-		public function __construct( $wp_locale ) {
-
-			if ( $wp_locale ) {
-
-				// Set $wp_locale.
-				$this->wp_locale = $wp_locale;
-
-				// Add Locale sufix to test ID.
-				$this->test_id = $this->test_id . '-' . $wp_locale;
-			}
+		public function __construct() {
 
 			// Add Translation Tools tests.
 			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );

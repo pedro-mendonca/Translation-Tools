@@ -28,7 +28,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Tests' ) ) {
 		public function __construct() {
 
 			// Test WordPress translations for every available language.
-			add_action( 'admin_init', array( $this, 'test_wordpress_translations' ) );
+			add_action( 'admin_init', array( $this, 'test_wordpress_translations_locales' ) );
+
 
 		}
 
@@ -42,7 +43,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Tests' ) ) {
 		 *
 		 * @return void
 		 */
-		public function test_wordpress_translations() {
+		public function test_wordpress_translations_locales() {
 
 			/**
 			 * TODO: Check percentage:
@@ -55,7 +56,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Tests' ) ) {
 			foreach ( $wp_locales as $wp_locale ) {
 
 				// Initialize Class file for the Translation Tools Site Health WordPress Translations for a WP_Locale.
-				new Site_Health_Test_WordPress_Translations( $wp_locale );
+				new Site_Health_Test_WordPress_Translations_Locale( $wp_locale );
 
 			}
 

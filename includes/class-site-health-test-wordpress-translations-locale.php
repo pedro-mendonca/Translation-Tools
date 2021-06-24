@@ -1,6 +1,6 @@
 <?php
 /**
- * Class file for the Translation Tools Site Health Test WordPress Translations.
+ * Class file for the Translation Tools Site Health Test WordPress Translations Locale.
  *
  * Documentation about Site Health:
  *  - https://make.wordpress.org/core/2019/04/25/site-health-check-in-5-2/
@@ -8,6 +8,7 @@
  * @package Translation Tools
  *
  * @since 1.3.0
+ * @since 1.4.0    Rename filter 'Site_Health_Test_WordPress_Translations' to 'Site_Health_Test_WordPress_Translations_Locale'.
  */
 
 namespace Translation_Tools;
@@ -17,12 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_Locale' ) ) {
 
 	/**
-	 * Class Site_Health_Test_WordPress_Translations.
+	 * Class Site_Health_Test_WordPress_Translations_Locale.
 	 */
-	class Site_Health_Test_WordPress_Translations extends Site_Health_Test {
+	class Site_Health_Test_WordPress_Translations_Locale extends Site_Health_Test {
 
 
 		/**
@@ -30,7 +31,29 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 		 *
 		 * @var string
 		 */
-		protected $test_id = 'translation-tools-test-wordpress-translations';
+		protected $test_id = 'translation-tools-test-wordpress-translations-locale';
+
+
+		/**
+		 * Constructor.
+		 *
+		 * @param string $wp_locale   WordPress Locale to test.
+		 */
+		public function __construct( $wp_locale ) {
+
+			if ( $wp_locale ) {
+
+				// Set $wp_locale.
+				$this->wp_locale = $wp_locale;
+
+				// Add Locale sufix to test ID.
+				$this->test_id = $this->test_id . '-' . $wp_locale;
+			}
+
+			// Add Translation Tools tests.
+			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
+
+		}
 
 
 		/**
@@ -48,15 +71,21 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
 			// Get installed WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project();
+			$translation_project = Translations_API::get_core_translation_project( $wp_version, false );
 
-			$translation_version = Translations_API::major_version( $locale->translations['version'] );
+			// Get translation project major version.
+			$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
+
+			// Get translation project major version.
+			if ( isset( $locale->translations ) ) {
+				$locale_translations_version = Translations_API::major_version( $locale->translations['version'] );
+			}
 
 			// Set language name to 'native_name'.
 			$formated_name = Options_General::locale_name_format( $locale );
 
 			// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
-			if ( isset( $locale->translations ) && $wp_version === $translation_version ) {
+			if ( isset( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
 
 				$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_GOOD;
 				$this->test_label  = sprintf(
@@ -64,7 +93,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is complete.', 'translation-tools' )
 					),
-					esc_html( $translation_project['data']->name ),
+					esc_html( $wp_version ),
 					esc_html( $formated_name )
 				);
 				$this->test_description .= sprintf(
@@ -88,7 +117,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 					),
-					esc_html( $translation_project['data']->name ),
+					esc_html( $wp_version ),
 					esc_html( $formated_name )
 				);
 				$this->test_description .= sprintf(
