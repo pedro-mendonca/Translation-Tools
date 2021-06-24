@@ -469,7 +469,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					$log_display = is_wp_error( $result['data'] ) ? 'block' : 'none';
 					?>
 
-					<div class="update-messages hide-if-js" id="progress-<?php echo intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
+					<div class="update-messages hide-if-js" id="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
 						<p>
 							<?php
 							foreach ( $result['log'] as $result_log_item ) {
@@ -497,7 +497,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					} else {
 						?>
 
-						<div class="updated js-update-details" data-update-details="progress-<?php echo intval( $project_count ); ?>">
+						<div class="updated js-update-details" data-update-details="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>">
 							<p>
 								<?php
 								printf(
