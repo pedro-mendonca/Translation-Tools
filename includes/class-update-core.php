@@ -200,7 +200,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				 */
 				if ( $wp_version !== $translation_project_version ) {
 
-					$notice_messages[] = '<span class="dashicons dashicons-info" style="color: #d63638;"></span> ' . sprintf(
+					$notice_messages[] = '<span class="dashicons dashicons-warning" style="color: #d63638;"></span> ' . sprintf(
 						wp_kses_post(
 							/* translators: %s: WordPress version. */
 							__( 'The translation of WordPress %s is not available yet.', 'translation-tools' )
@@ -295,6 +295,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					$error_message
 				);
 				$admin_notice_type = 'error';
+				$admin_notice_icon = true;
 
 			}
 
@@ -312,6 +313,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				'type'        => $admin_notice_type,
 				'inline'      => isset( $notice_args['inline'] ) ? $notice_args['inline'] : null,
 				'dismissible' => isset( $notice_args['dismissible'] ) ? $notice_args['dismissible'] : null,
+				'update-icon' => isset( $admin_notice_icon ) ? $admin_notice_icon : null,
 				'message'     => $message,
 			);
 			$this->notices->notice_message( $admin_notice );
