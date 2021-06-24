@@ -280,7 +280,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					/* translators: 1: Button label. 2: WordPress version number. */
 					esc_html__( 'Click the %1$s button to force update the latest approved translations of WordPress %2$s.', 'translation-tools' ),
 					'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>',
-					'<strong>' . esc_html( $translation_project_version ) . '</strong>',
+					'<strong>' . esc_html( $translation_project_version ) . '</strong>'
 				);
 
 			} else {
