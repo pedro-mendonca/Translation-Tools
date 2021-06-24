@@ -47,7 +47,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Get WordPress core translation project.
+			// Get installed WordPress core translation project.
 			$translation_project = Translations_API::get_core_translation_project();
 
 			$translation_version = Translations_API::major_version( $locale->translations['version'] );
@@ -64,7 +64,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is complete.', 'translation-tools' )
 					),
-					esc_html( $translation_project->name ),
+					esc_html( $translation_project['data']->name ),
 					esc_html( $formated_name )
 				);
 				$this->test_description .= sprintf(
@@ -74,7 +74,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 							/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
 							__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
 						),
-						'<strong>' . esc_html( $translation_project->name ) . '</strong>',
+						'<strong>' . esc_html( $translation_project['data']->name ) . '</strong>',
 						'<strong>' . esc_html( $formated_name ) . '</strong>',
 						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 					)
@@ -88,7 +88,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 					),
-					esc_html( $translation_project->name ),
+					esc_html( $translation_project['data']->name ),
 					esc_html( $formated_name )
 				);
 				$this->test_description .= sprintf(
@@ -113,7 +113,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations' 
 						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
 						__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
 					),
-					'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project->path ) . '/" target="_blank">',
+					'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
 					sprintf(
 						'<span class="screen-reader-text">%s</span></a>',
 						/* translators: Accessibility text. */

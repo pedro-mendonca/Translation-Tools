@@ -9,6 +9,8 @@
 
 namespace Translation_Tools;
 
+use WP_Error;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -75,7 +77,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @param string $wp_version   WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
 		 * @param bool   $force_check  Set to 'true' to force update the transient.
 		 *
-		 * @return object|null         Object of latest or specified WordPress translation sub-project, null if API is unreachable.
+		 * @return array|WP_Error      Array with log and data of latest or specified WordPress translation sub-project, WP_Error if API is unreachable.
 		 */
 		public static function get_core_translation_project( $wp_version = null, $force_check = false ) {
 
@@ -91,13 +93,31 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				// Get WordPress translation project API URL.
 				$source = self::translate_url( 'wp', true );
 
+				// Report message.
+				$result['log'] = sprintf(
+					/* translators: %s: URL. */
+					esc_html__( 'Downloading translations data from %s…', 'translation-tools' ),
+					'<code>' . esc_html( $source ) . '</code>'
+				);
+
 				// Get the translation project data.
 				$response = wp_remote_get( $source );
 
 				// Check if WordPress translation project is reachable.
 				if ( ! is_array( $response ) || 'application/json' !== $response['headers']['content-type'] ) {
-					// Return null if not reachable.
-					return null;
+
+					// Report message.
+					$result['data'] = new WP_Error(
+						'translations-api-unreachable',
+						sprintf(
+							/* translators: %s: URL. */
+							esc_html__( 'The Translate WordPress API is unreachable from %s…', 'translation-tools' ),
+							'<code>' . esc_html( $source ) . '</code>'
+						)
+					);
+
+					return $result;
+
 				}
 
 				// Decode JSON.
@@ -118,7 +138,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			// Fallback to the latest sub-project.
-			$translation_sub_project = $translation_sub_projects[0];
+			$result['data'] = $translation_sub_projects[0];
 
 			foreach ( $translation_sub_projects as $sub_project ) {
 
@@ -126,11 +146,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 				// Check for the WordPress installed major version translation project.
 				if ( $wp_version === $translation_version ) {
-					$translation_sub_project = $sub_project;
+					$result['data'] = $sub_project;
 				}
 			}
 
-			return $translation_sub_project;
+			return $result;
 
 		}
 
@@ -241,7 +261,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
 						'format'          => 'po',
 					),
-					self::translate_url( 'wp', false ) . $translation_project->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
+					self::translate_url( 'wp', false ) . $translation_project['data']->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
 				)
 			);
 
