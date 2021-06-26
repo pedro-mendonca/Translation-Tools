@@ -70,16 +70,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @since 1.2.2
 		 * @since 1.2.3  Use transient to store WordPress core translation project for 24h.
-		 * @since 1.4.0  Add $wp_version parameter to allow custom query for WP major version.
+		 * @since 1.4.0  Add $wp_major_version parameter to allow custom query for WP major version.
 		 *               Add support to $force_check to force update transient.
 		 *               Return a specified project or fallback to the latest WordPress core translation sub-project.
 		 *
-		 * @param string $wp_version   WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
+		 * @param string $wp_major_version   WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
 		 * @param bool   $force_check  Set to 'true' to force update the transient. Defaults to false.
 		 *
 		 * @return array|WP_Error      Array with log and data of latest or specified WordPress translation sub-project, WP_Error if API is unreachable.
 		 */
-		public static function get_core_translation_project( $wp_version = null, $force_check = false ) {
+		public static function get_core_translation_project( $wp_major_version = null, $force_check = false ) {
 
 			// Set the transient name.
 			$translation_project_transient = 'wordpress_translation_project';
@@ -140,9 +140,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			// Check if major version is provided.
-			if ( null === $wp_version ) {
+			if ( null === $wp_major_version ) {
 				// Get currently installed WordPress major version ( e.g.: '5.5' ).
-				$wp_version = self::major_version( get_bloginfo( 'version' ) );
+				$wp_major_version = self::major_version( get_bloginfo( 'version' ) );
 			}
 
 			// Fallback to the latest sub-project.
@@ -153,7 +153,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				$translation_version = self::major_version( $sub_project->name );
 
 				// Check for the WordPress installed major version translation project.
-				if ( $wp_version === $translation_version ) {
+				if ( $wp_major_version === $translation_version ) {
 					$result['data'] = $sub_project;
 				}
 			}
@@ -168,15 +168,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @since 1.2.2
 		 *
-		 * @param string $version  The version number (e.g.: 5.5.x).
+		 * @param string $wp_version  The version number (e.g.: 5.5.x).
 		 *
 		 * @return string          Returns major version (e.g.: 5.5).
 		 */
-		public static function major_version( $version ) {
+		public static function major_version( $wp_version ) {
 
-			$major_version = substr( $version, 0, 3 );
+			$wp_major_version = substr( $wp_version, 0, 3 );
 
-			return $major_version;
+			return $wp_major_version;
 		}
 
 
@@ -247,10 +247,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		public static function translation_path( $project, $locale ) {
 
 			// Get current WordPress major version ( e.g.: '5.5' ).
-			$wp_version = self::major_version( get_bloginfo( 'version' ) );
+			$wp_major_version = self::major_version( get_bloginfo( 'version' ) );
 
 			// Get WordPress translation project, currently installed version, fallback to latest existent, no force update.
-			$translation_project = self::get_core_translation_project( $wp_version, false );
+			$translation_project = self::get_core_translation_project( $wp_major_version, false );
 
 			$translation_path = esc_url_raw(
 				add_query_arg(

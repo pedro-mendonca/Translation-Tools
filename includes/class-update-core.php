@@ -174,13 +174,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		public function updates_wp_translation_notice_message( $notice_args ) {
 
 			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
+			$wp_major_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
 			// Force a update check when requested.
 			$force_check = ! empty( $_GET['force-check'] ); // phpcs:ignore
 
 			// Get installed WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project( $wp_version, $force_check );
+			$translation_project = Translations_API::get_core_translation_project( $wp_major_version, $force_check );
 
 			$notice_messages   = array();
 			$admin_notice_type = 'info';
@@ -198,14 +198,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				 * Check if translation project is already available for the installed version.
 				 * It's usually available strings hard freeze.
 				 */
-				if ( $wp_version !== $translation_project_version ) {
+				if ( $wp_major_version !== $translation_project_version ) {
 
 					$notice_messages[] = sprintf(
 						wp_kses_post(
 							/* translators: %s: WordPress version. */
 							__( 'WordPress %s is not available for translation yet.', 'translation-tools' )
 						),
-						'<strong>' . esc_html( $wp_version ) . '</strong>'
+						'<strong>' . esc_html( $wp_major_version ) . '</strong>'
 					) . '<br><br>';
 
 					$admin_notice_type = 'warning';

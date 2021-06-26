@@ -98,7 +98,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		 */
 		protected $force_check = true;
 
-
 		/**
 		 * The required dependency test and status to enable the current Test.
 		 * Based on https://developer.wordpress.org/reference/classes/wp_site_health/perform_test
@@ -115,6 +114,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			'status' => '',
 		);
 
+		/**
+		 * Get WordPress install major version ( e.g.: '5.8' ).
+		 *
+		 * @var string
+		 */
+		protected $wp_major_version = null;
+
 
 		/**
 		 * Constructor.
@@ -123,6 +129,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 
 			// Add new Site Health test.
 			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
+
+			$this->wp_major_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
 		}
 

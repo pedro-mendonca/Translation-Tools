@@ -58,6 +58,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 		 */
 		public function __construct( $wp_locale ) {
 
+			// Load parent construct.
+			parent::__construct();
+
 			if ( $wp_locale ) {
 
 				// Set $wp_locale.
@@ -66,9 +69,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				// Add Locale sufix to test ID.
 				$this->test_id = $this->test_id . '_' . $wp_locale;
 			}
-
-			// Add Translation Tools tests.
-			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
 
 		}
 
@@ -84,11 +84,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 
 			$locale = Translations_API::locale( $this->wp_locale );
 
-			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
-
 			// Get installed WordPress core translation project, don't need to force check because the required API Test just updated the transient.
-			$translation_project = Translations_API::get_core_translation_project( $wp_version, false );
+			$translation_project = Translations_API::get_core_translation_project( $this->wp_major_version, false );
 
 			// Get translation project major version.
 			$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
