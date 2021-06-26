@@ -126,50 +126,50 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					)
 				);
 
-			} else {
+				return;
 
-				$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_RECOMMENDED;
-				$this->test_label  = sprintf(
-					wp_kses_post(
-						/* translators: 1: WordPress version. 2: Locale name. */
-						__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
-					),
-					esc_html( $translation_project_version ),
-					esc_html( $formated_name )
-				);
-				$this->test_description = sprintf(
-					'<p>%s</p>',
-					sprintf(
-						wp_kses_post(
-							/* translators: 1: Locale name. 2: Opening link tag <a href="[link]">. 3: Closing link tag </a>. */
-							__( '<strong>Translate WordPress to %1$s:</strong> It looks like you understand %1$s. Did you know you can help translate WordPress and its plugins/themes in your language? %2$sVisit this page%3$s to get started.', 'translation-tools' )
-						),
-						esc_html( $formated_name ),
-						'<a href="https://make.wordpress.org/polyglots/handbook/translating/first-steps/" target="_blank">',
-						sprintf(
-							'<span class="screen-reader-text">%s</span></a>',
-							/* translators: Accessibility text. */
-							esc_html__( '(opens in a new tab)', 'translation-tools' )
-						)
-					)
-				);
+			}
 
-				$this->test_actions = sprintf(
+			$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_RECOMMENDED;
+			$this->test_label  = sprintf(
+				wp_kses_post(
+					/* translators: 1: WordPress version. 2: Locale name. */
+					__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
+				),
+				esc_html( $translation_project_version ),
+				esc_html( $formated_name )
+			);
+			$this->test_description = sprintf(
+				'<p>%s</p>',
+				sprintf(
 					wp_kses_post(
-						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
-						__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
+						/* translators: 1: Locale name. 2: Opening link tag <a href="[link]">. 3: Closing link tag </a>. */
+						__( '<strong>Translate WordPress to %1$s:</strong> It looks like you understand %1$s. Did you know you can help translate WordPress and its plugins/themes in your language? %2$sVisit this page%3$s to get started.', 'translation-tools' )
 					),
-					'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
+					esc_html( $formated_name ),
+					'<a href="https://make.wordpress.org/polyglots/handbook/translating/first-steps/" target="_blank">',
 					sprintf(
 						'<span class="screen-reader-text">%s</span></a>',
 						/* translators: Accessibility text. */
 						esc_html__( '(opens in a new tab)', 'translation-tools' )
-					),
-					'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
-					'<strong>' . esc_html( $formated_name ) . '</strong>'
-				);
+					)
+				)
+			);
 
-			}
+			$this->test_actions = sprintf(
+				wp_kses_post(
+					/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
+					__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
+				),
+				'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
+				sprintf(
+					'<span class="screen-reader-text">%s</span></a>',
+					/* translators: Accessibility text. */
+					esc_html__( '(opens in a new tab)', 'translation-tools' )
+				),
+				'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
+				'<strong>' . esc_html( $formated_name ) . '</strong>'
+			);
 
 		}
 

@@ -92,32 +92,32 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_V
 					)
 				);
 
-			} else {
-
-				$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_CRITICAL;
-				$this->test_label  = sprintf(
-					/* translators: %s: WordPress version. */
-					__( 'WordPress %s is not available for translation yet.', 'translation-tools' ),
-					esc_html( $wp_version )
-				);
-				$this->test_description = sprintf(
-					'<p>%s</p>',
-					sprintf(
-						wp_kses_post(
-							/* translators: 1: WordPress version. 2: URL link. */
-							__( 'WordPress %1$s translation project is not available yet on %2$s.', 'translation-tools' )
-						),
-						'<strong>' . esc_html( $wp_version ) . '</strong>',
-						sprintf(
-							'<a href="%1$s" target="_blank">%1$s<span class="screen-reader-text">%2$s</span></a>',
-							esc_url( Translations_API::translate_url( 'wp', false ) ),
-							/* translators: Accessibility text. */
-							esc_html__( '(opens in a new tab)', 'translation-tools' )
-						)
-					)
-				);
+				return;
 
 			}
+
+			$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_CRITICAL;
+			$this->test_label  = sprintf(
+				/* translators: %s: WordPress version. */
+				__( 'WordPress %s is not available for translation yet.', 'translation-tools' ),
+				esc_html( $wp_version )
+			);
+			$this->test_description = sprintf(
+				'<p>%s</p>',
+				sprintf(
+					wp_kses_post(
+						/* translators: 1: WordPress version. 2: URL link. */
+						__( 'WordPress %1$s translation project is not available yet on %2$s.', 'translation-tools' )
+					),
+					'<strong>' . esc_html( $wp_version ) . '</strong>',
+					sprintf(
+						'<a href="%1$s" target="_blank">%1$s<span class="screen-reader-text">%2$s</span></a>',
+						esc_url( Translations_API::translate_url( 'wp', false ) ),
+						/* translators: Accessibility text. */
+						esc_html__( '(opens in a new tab)', 'translation-tools' )
+					)
+				)
+			);
 
 		}
 
