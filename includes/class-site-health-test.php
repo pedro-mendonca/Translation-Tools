@@ -171,7 +171,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 
 			$this->test_badge = array(
 				'label' => __( 'Translations', 'translation-tools' ),
-				'color' => 'blue',
+				'color' => 'wp-polyglots-pink',
 			);
 
 		}
@@ -197,9 +197,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		protected function add_test_footer() {
 			$this->test_actions .= sprintf(
 				'%s%s%s',
-				'<p style="font-size: 12px; color: #555; text-align: right"><em>',
-				esc_html__( 'Report by plugin Translation Tools', 'translation-tools' ),
-				'</em></p>'
+				'<p style="font-size: 12px; color: rgba(195, 34, 131, 0.8); text-align: right">',
+				/* translators: Plugin name, do not translate. */
+				esc_html__( 'Translation Tools', 'translation-tools' ),
+				'</p>'
 			);
 		}
 

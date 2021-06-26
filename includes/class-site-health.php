@@ -38,6 +38,33 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 			// Add Translation Tools Site Health debug informations.
 			new Site_Health_Debug_Info();
 
+			// Add some simple Polyglots styling to Translations tests.
+			add_action( 'admin_head-site-health.php', array( $this, 'add_site_health_style' ) );
+
+		}
+
+
+		/**
+		 * Add some simple Polyglots styling to Translations tests.
+		 * Load only on 'admin_head-site-health.php'.
+		 * Color based on WP Polyglots badge color:
+		 * https://make.wordpress.org/meta/handbook/documentation/profile-badges/
+		 *  HEX: #c32283
+		 *  RGB: rgb(195, 34, 131)
+		 *  RGB 80%: rgba(195, 34, 131, 0.8)
+		 *
+		 * @since 1.4.0
+		 *
+		 * @return void
+		 */
+		public function add_site_health_style() {
+			?>
+			<style>
+			.health-check-accordion-trigger .badge.wp-polyglots-pink {
+				border: 1px solid #c32283;
+			}
+			</style>
+			<?php
 		}
 
 
