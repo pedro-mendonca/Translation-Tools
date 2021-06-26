@@ -116,6 +116,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 						)
 					);
 
+					// Delete transient.
+					delete_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
+
 					return $result;
 
 				}
@@ -126,8 +129,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				// Get the translation sub-projects.
 				$translation_sub_projects = $response->sub_projects;
 
-				// Set WordPress core translation project data transient for 24h.
-				set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_sub_projects, DAY_IN_SECONDS );
+				// Set WordPress core translation project data transient for 1h.
+				set_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient, $translation_sub_projects, HOUR_IN_SECONDS );
 
 			}
 
