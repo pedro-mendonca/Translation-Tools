@@ -105,8 +105,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			<div class="translation-tools-update-core-info">
 
 				<?php
-				// Add form with action button to update WordPress core translation.
-				echo wp_kses( $this->form_update_wordpress_translation(), $this->globals->allowed_html() );
 
 				// Show the Translation Tools admin notice for WordPress core translation status.
 				$notice_args = array();
@@ -175,81 +173,133 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 */
 		public function updates_wp_translation_notice_message( $notice_args ) {
 
-			// Get site and user core update Locales.
-			$wp_locales = self::core_update_locales();
-
-			$locales = array();
-
-			foreach ( $wp_locales as $wp_locale ) {
-				// Get Locale data.
-				$locales[] = Translations_API::locale( $wp_locale );
-			}
-
 			// Get WordPress major version ( e.g.: '5.5' ).
-			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
+			$wp_major_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Get WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project();
+			// Force a update check when requested.
+			$force_check = ! empty( $_GET['force-check'] ); // phpcs:ignore
 
-			$notice_messages = array();
+			// Get installed WordPress core translation project.
+			$translation_project = Translations_API::get_core_translation_project( $wp_major_version, $force_check );
 
-			foreach ( $locales as $locale ) {
+			$notice_messages   = array();
+			$admin_notice_type = 'info';
 
-				$translation_version = Translations_API::major_version( $locale->translations['version'] );
+			// Check if API is available.
+			if ( ! is_wp_error( $translation_project['data'] ) ) {
 
-				// Set language name to 'native_name'.
-				$formated_name = Options_General::locale_name_format( $locale );
+				// Add form with action button to update WordPress core translation.
+				echo wp_kses( $this->form_update_wordpress_translation(), $this->globals->allowed_html() );
 
-				// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
-				if ( isset( $locale->translations ) && $wp_version === $translation_version ) {
+				// Get translation project major version.
+				$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
+
+				/*
+				 * Check if translation project is already available for the installed version.
+				 * It's usually available strings hard freeze.
+				 */
+				if ( $wp_major_version !== $translation_project_version ) {
 
 					$notice_messages[] = sprintf(
 						wp_kses_post(
-							/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
-							__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
+							/* translators: %s: WordPress version. */
+							__( 'WordPress %s is not available for translation yet.', 'translation-tools' )
 						),
-						'<strong>' . esc_html( $translation_project->name ) . '</strong>',
-						'<strong>' . esc_html( $formated_name ) . '</strong>',
-						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
-					);
+						'<strong>' . esc_html( $wp_major_version ) . '</strong>'
+					) . '<br><br>';
 
-				} else {
-
-					$notice_messages[] = sprintf(
-						'%s %s',
-						sprintf(
-							wp_kses_post(
-								/* translators: 1: WordPress version. 2: Locale name. */
-								__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
-							),
-							'<strong>' . esc_html( $translation_project->name ) . '</strong>',
-							'<strong>' . esc_html( $formated_name ) . '</strong>'
-						),
-						sprintf(
-							wp_kses_post(
-								/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
-								__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
-							),
-							'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project->path ) . '/" target="_blank">',
-							sprintf(
-								'<span class="screen-reader-text">%s</span></a>',
-								/* translators: Accessibility text. */
-								esc_html__( '(opens in a new tab)', 'translation-tools' )
-							),
-							'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
-							'<strong>' . esc_html( $formated_name ) . '</strong>'
-						)
-					);
+					$admin_notice_type = 'warning';
 
 				}
+
+				// Get site and user core update Locales.
+				$wp_locales = self::core_update_locales();
+
+				$locales = array();
+
+				foreach ( $wp_locales as $wp_locale ) {
+					// Get Locale data.
+					$locales[] = Translations_API::locale( $wp_locale );
+				}
+
+				foreach ( $locales as $locale ) {
+
+					if ( isset( $locale->translations ) ) {
+						$locale_translations_version = Translations_API::major_version( $locale->translations['version'] );
+					}
+
+					// Set language name to 'native_name'.
+					$formated_name = Options_General::locale_name_format( $locale );
+
+					// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
+					if ( isset( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
+
+						$notice_messages[] = sprintf(
+							wp_kses_post(
+								/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
+								__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
+							),
+							'<strong>' . esc_html( $translation_project_version ) . '</strong>',
+							'<strong>' . esc_html( $formated_name ) . '</strong>',
+							'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
+						);
+
+					} else {
+
+						$notice_messages[] = sprintf(
+							'%s %s',
+							sprintf(
+								wp_kses_post(
+									/* translators: 1: WordPress version. 2: Locale name. */
+									__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
+								),
+								'<strong>' . esc_html( $translation_project_version ) . '</strong>',
+								'<strong>' . esc_html( $formated_name ) . '</strong>'
+							),
+							sprintf(
+								wp_kses_post(
+									/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
+									__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )
+								),
+								'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
+								sprintf(
+									'<span class="screen-reader-text">%s</span></a>',
+									/* translators: Accessibility text. */
+									esc_html__( '(opens in a new tab)', 'translation-tools' )
+								),
+								'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
+								'<strong>' . esc_html( $formated_name ) . '</strong>'
+							)
+						);
+
+					}
+				}
+
+				// Admin notice footer.
+				$notice_messages[] = '<br>' . sprintf(
+					/* translators: 1: Button label. 2: WordPress version number. */
+					esc_html__( 'Click the %1$s button to force update the latest approved translations of WordPress %2$s.', 'translation-tools' ),
+					'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>',
+					'<strong>' . esc_html( $translation_project_version ) . '</strong>'
+				);
+
+			} else {
+
+				// API is not available.
+				$error_message     = $translation_project['data']->get_error_message();
+				$notice_messages[] = sprintf(
+					wp_kses_post(
+						/* translators: %s: Error message. */
+						__( '<strong>Error:</strong> %s', 'translation-tools' )
+					),
+					$error_message
+				);
+				$admin_notice_type = 'error';
+				$admin_notice_icon = true;
+
 			}
 
-			$notice_messages[] = '<br>' . sprintf(
-				/* translators: %s: Button label. */
-				esc_html__( 'Click the %s button to force update the latest approved translations.', 'translation-tools' ),
-				'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>'
-			);
-
+			// Admin notice render.
 			$count   = 0;
 			$message = '';
 			foreach ( $notice_messages as $notice_message ) {
@@ -260,9 +310,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			}
 
 			$admin_notice = array(
-				'type'        => 'info',
+				'type'        => $admin_notice_type,
 				'inline'      => isset( $notice_args['inline'] ) ? $notice_args['inline'] : null,
 				'dismissible' => isset( $notice_args['dismissible'] ) ? $notice_args['dismissible'] : null,
+				'update-icon' => isset( $admin_notice_icon ) ? $admin_notice_icon : null,
 				'message'     => $message,
 			);
 			$this->notices->notice_message( $admin_notice );
@@ -420,7 +471,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					$log_display = is_wp_error( $result['data'] ) ? 'block' : 'none';
 					?>
 
-					<div class="update-messages hide-if-js" id="progress-<?php echo intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
+					<div class="update-messages hide-if-js" id="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
 						<p>
 							<?php
 							foreach ( $result['log'] as $result_log_item ) {
@@ -448,7 +499,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					} else {
 						?>
 
-						<div class="updated js-update-details" data-update-details="progress-<?php echo intval( $project_count ); ?>">
+						<div class="updated js-update-details" data-update-details="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>">
 							<p>
 								<?php
 								printf(

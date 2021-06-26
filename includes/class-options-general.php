@@ -38,14 +38,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			add_filter( 'core_version_check_locale', array( $this, 'core_version_check_locale' ) );
 
 			// Add Site Language description.
-			add_action( 'load-options-general.php', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language' ) );
 			// Add Site Language css.
-			add_action( 'load-options-general.php', array( $this, 'settings_site_language_css' ) );
+			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language_css' ) );
 
 			// Add Profile and User Edit Language description.
-			add_action( 'personal_options', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language' ) );
 			// Add Profile and User Edit Language css.
-			add_action( 'personal_options', array( $this, 'settings_site_language_css' ) );
+			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language_css' ) );
 
 			// Add Translation Stats Language css.
 			add_action( 'settings_page_translation-stats', array( $this, 'settings_site_language_css' ) );
