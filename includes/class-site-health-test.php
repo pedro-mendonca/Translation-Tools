@@ -92,11 +92,20 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		protected $test_id = null;
 
 		/**
-		 * The WordPress Locale translations to test.
+		 * The required dependency test and status to enable the current Test.
+		 * Based on https://developer.wordpress.org/reference/classes/wp_site_health/perform_test
 		 *
-		 * @var string
+		 * @var array $required_test {
+		 *     Array containing the required test and statuses.
+		 *
+		 *     @type string $test     The name of test required to run previously.
+		 *     @type string $status   The status of the test, which can be a value of `good`, `recommended` or `critical`.
+		 * }
 		 */
-		protected $wp_locale = null;
+		protected $required_test = array(
+			'test'   => '',
+			'status' => '',
+		);
 
 
 		/**
@@ -104,25 +113,75 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		 */
 		public function __construct() {
 
-			// Add Translation Tools tests.
+			// Add new Site Health test.
 			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
 
 		}
 
 
 		/**
-		 * Add a Site Health test.
+		 * Add new Site Health test.
 		 *
 		 * @since 1.3.0
+		 * @since 1.4.0   Add support for required parent Tests.
 		 *
-		 * @param array $tests  Tests array.
+		 * @param array $tests   Tests array.
 		 *
-		 * @return array  Return tests.
+		 * @return array   Return filtered tests.
 		 */
 		public function add_site_health_test( $tests ) {
 
+			// Get required test and status.
+			$required_test = $this->get_required_test();
+
+			$required_test_id = $required_test['test'];
+
+			// Check if exist a required Test.
+			if ( empty( $required_test_id ) ) { // Do if a previous Test is not required.
+
+				$tests = $this->add_test( $tests );
+
+			} elseif ( array_key_exists( $required_test_id, $tests['direct'] ) ) { // Do if a previous Test is not required and exist in Tests array.
+
+				$required_status = $required_test['status'];
+				$current_status  = $tests['direct'][ $required_test_id ]['test'][0]->test_status;
+
+				// Check if exist a required Test status.
+				if ( empty( $required_status ) ) { // Do if previous Test status is not required.
+
+					$tests = $this->add_test( $tests );
+
+				} elseif ( $required_status === $current_status ) { // Do if previous Test status matches the required status.
+
+					$tests = $this->add_test( $tests );
+
+				}
+			}
+
+			return $tests;
+		}
+
+
+		/**
+		 * Add new Site Health test.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param array $tests   Tests array.
+		 *
+		 * @return array   Return filtered tests.
+		 */
+		public function add_test( $tests ) {
+
+			// Set the default values for Translation Tools Site Health tests.
+			$this->test_defaults();
+
+			// Run the test, force check.
+			$force_check = true;
+			$this->run_test( $force_check );
+
 			$tests['direct'][ $this->test_id ] = array(
-				'test' => array( $this, 'test_result' ),
+				'test' => array( $this, 'get_test_result' ),
 			);
 
 			return $tests;
@@ -130,23 +189,26 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 
 
 		/**
-		 * The result of the Test as an array.
+		 * The result of the Test as an array, with defaults, r.
+		 * Get defaults, run the test add footer.
 		 *
-		 * @since 1.3.0
+		 * @since 1.4.0
 		 *
-		 * @return array  The test result.
+		 * @return array   The complete Site Health test result.
 		 */
-		public function test_result() {
+		public function get_test_result() {
 
-			// Add the default values for Translation Tools Site Health tests.
-			$this->load_test_defaults();
+			// Set the default values for Translation Tools Site Health tests.
+			$this->test_defaults();
 
-			// Run the actual test.
-			$this->run_test();
+			// Run the test, don't force check.
+			$force_check = false;
+			$this->run_test( $force_check );
 
 			// Add text footer.
 			$this->add_test_footer();
 
+			// Set test result.
 			$result = array(
 				'label'       => $this->test_label,
 				'status'      => $this->test_status,
@@ -154,6 +216,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 				'description' => $this->test_description,
 				'actions'     => $this->test_actions,
 				'test'        => $this->test_id,
+				'require'     => $this->get_required_test(),
 			);
 
 			return $result;
@@ -161,14 +224,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 
 
 		/**
-		 * Add the default values for Translation Tools Site Health tests.
+		 * The default values for Translation Tools Site Health tests.
 		 *
-		 * @since 1.3.0
+		 * @since 1.4.0
 		 *
 		 * @return void
 		 */
-		public function load_test_defaults() {
+		public function test_defaults() {
 
+			// Set default Test values.
 			$this->test_badge = array(
 				'label' => __( 'Translations', 'translation-tools' ),
 				'color' => 'wp-polyglots-pink',
@@ -181,14 +245,18 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		 * Runs the test and returns the result.
 		 *
 		 * @since 1.3.0
+		 * @since 1.4.0   Add support to $force_check to force update transient.
+		 *
+		 * @param bool $force_check   Set to 'true' to force update the transient. Defaults to true.
 		 *
 		 * @return void
 		 */
-		abstract public function run_test();
+		abstract public function run_test( $force_check = false );
 
 
 		/**
 		 * Add a Translation Tools footer text to the bottom of the Site Health test.
+		 * Color setting from add_site_health_style().
 		 *
 		 * @since 1.3.0
 		 *
@@ -202,6 +270,35 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 				esc_html__( 'Translation Tools', 'translation-tools' ),
 				'</p>'
 			);
+		}
+
+
+		/**
+		 * Get the required Test and ensure usable values are set.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @return array   The proper formatted required test.
+		 */
+		protected function get_required_test() {
+
+			// Check if Test parent is set.
+			if ( ! is_array( $this->required_test ) ) {
+				$this->required_test = array();
+			}
+
+			// Check if Test parent ID is set.
+			if ( empty( $this->required_test['test'] ) ) {
+				$this->required_test['test'] = '';
+			}
+
+			// Check if Test parent status is set.
+			if ( empty( $this->required_test['status'] ) ) {
+				$this->required_test['status'] = '';
+			}
+
+			return $this->required_test;
+
 		}
 
 	}

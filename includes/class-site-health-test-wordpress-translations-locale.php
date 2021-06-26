@@ -31,7 +31,24 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 		 *
 		 * @var string
 		 */
-		protected $test_id = 'translation-tools-test-wordpress-translations-locale';
+		protected $test_id = 'translation_tools_test_wordpress_translations_locale';
+
+		/**
+		 * The required dependency test and status to enable the current Test.
+		 *
+		 * @var array
+		 */
+		protected $required_test = array(
+			'test'   => 'translation_tools_test_wordpress_translations_api',
+			'status' => self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_GOOD,
+		);
+
+		/**
+		 * The WordPress Locale translations to test.
+		 *
+		 * @var string
+		 */
+		protected $wp_locale = null;
 
 
 		/**
@@ -47,7 +64,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				$this->wp_locale = $wp_locale;
 
 				// Add Locale sufix to test ID.
-				$this->test_id = $this->test_id . '-' . $wp_locale;
+				$this->test_id = $this->test_id . '_' . $wp_locale;
 			}
 
 			// Add Translation Tools tests.
@@ -59,19 +76,24 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 		/**
 		 * Run test for WordPress translations.
 		 *
-		 * @since 1.3.0
+		 * @since 1.4.0
+		 *
+		 * @param bool $force_check   Set to 'true' to force update the transient. Defaults to false.
 		 *
 		 * @return void.
 		 */
-		public function run_test() {
+		public function run_test( $force_check = false ) {
 
 			$locale = Translations_API::locale( $this->wp_locale );
 
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Get installed WordPress core translation project.
-			$translation_project = Translations_API::get_core_translation_project( $wp_version, false );
+			// Don't need to force check because the required API Test just updated the transient.
+			$force_check = false;
+
+			// Get installed WordPress core translation project, force update by default.
+			$translation_project = Translations_API::get_core_translation_project( $wp_version, $force_check );
 
 			// Get translation project major version.
 			$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
@@ -93,17 +115,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is complete.', 'translation-tools' )
 					),
-					esc_html( $wp_version ),
+					esc_html( $translation_project_version ),
 					esc_html( $formated_name )
 				);
-				$this->test_description .= sprintf(
+				$this->test_description = sprintf(
 					'<p>%s</p>',
 					sprintf(
 						wp_kses_post(
 							/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
 							__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
 						),
-						'<strong>' . esc_html( $translation_project['data']->name ) . '</strong>',
+						'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 						'<strong>' . esc_html( $formated_name ) . '</strong>',
 						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 					)
@@ -117,10 +139,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 						/* translators: 1: WordPress version. 2: Locale name. */
 						__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 					),
-					esc_html( $wp_version ),
+					esc_html( $translation_project_version ),
 					esc_html( $formated_name )
 				);
-				$this->test_description .= sprintf(
+				$this->test_description = sprintf(
 					'<p>%s</p>',
 					sprintf(
 						wp_kses_post(
@@ -137,7 +159,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					)
 				);
 
-				$this->test_actions .= sprintf(
+				$this->test_actions = sprintf(
 					wp_kses_post(
 						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name. */
 						__( 'Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!', 'translation-tools' )

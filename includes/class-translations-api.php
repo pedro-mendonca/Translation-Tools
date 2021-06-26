@@ -75,7 +75,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *               Return a specified project or fallback to the latest WordPress core translation sub-project.
 		 *
 		 * @param string $wp_version   WordPress core major version (e.g.: 5.5.x). Defaults to installed version.
-		 * @param bool   $force_check  Set to 'true' to force update the transient.
+		 * @param bool   $force_check  Set to 'true' to force update the transient. Defaults to false.
 		 *
 		 * @return array|WP_Error      Array with log and data of latest or specified WordPress translation sub-project, WP_Error if API is unreachable.
 		 */
@@ -108,11 +108,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 					// Report message.
 					$result['data'] = new WP_Error(
-						'translations-api-unreachable',
+						'translations-api-unavailable',
 						sprintf(
 							/* translators: %s: URL. */
-							esc_html__( 'The Translate WordPress API is unreachable from %s…', 'translation-tools' ),
-							'<code>' . esc_html( $source ) . '</code>'
+							esc_html__( 'WordPress Translation API is not available on %s.', 'translation-tools' ),
+							sprintf(
+								'<a href="%1$s" target="_blank">%1$s<span class="screen-reader-text">%2$s</span></a>',
+								esc_url( $source ),
+								/* translators: Accessibility text. */
+								esc_html__( '(opens in a new tab)', 'translation-tools' )
+							)
 						)
 					);
 
