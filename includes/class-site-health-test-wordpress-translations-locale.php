@@ -123,6 +123,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					)
 				);
 
+				$this->test_actions = sprintf(
+					/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+					esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
+					'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
+					sprintf(
+						'<span class="screen-reader-text">%s</span></a>',
+						/* translators: Accessibility text. */
+						esc_html__( '(opens in a new tab)', 'translation-tools' )
+					)
+				);
+
 				return;
 
 			}
@@ -166,6 +177,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				),
 				'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
 				'<strong>' . esc_html( $formated_name ) . '</strong>'
+			);
+
+			$this->test_actions .= '<br><br>' . sprintf(
+				/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+				esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
+				'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
+				sprintf(
+					'<span class="screen-reader-text">%s</span></a>',
+					/* translators: Accessibility text. */
+					esc_html__( '(opens in a new tab)', 'translation-tools' )
+				)
 			);
 
 		}
