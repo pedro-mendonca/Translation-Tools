@@ -78,7 +78,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_V
 						/* translators: %s: WordPress version. */
 						__( 'WordPress %s is available for translation.', 'translation-tools' )
 					),
-					esc_html( $wp_version ),
+					esc_html( $wp_version )
 				);
 				$this->test_description = sprintf(
 					'<p>%s</p>',
