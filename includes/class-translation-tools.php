@@ -127,9 +127,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 				// Variables to send to JavaScript.
 				$vars = array(
-					'available_languages' => $available_languages,                                // Get installed languages.
-					'all_languages'       => Options_General::all_languages(),             // Get all languages.
-					'current_screen'      => get_current_screen()->id,                            // Get current screen.
+					'available_languages' => $available_languages,                 // Get installed languages.
+					'all_languages'       => Options_General::all_languages(),     // Get all languages.
+					'current_screen'      => get_current_screen()->id,             // Get current screen.
 					'compatible_plugins'  => Compatible::get_compatible_plugins(), // Get compatible plugins data.
 				);
 
