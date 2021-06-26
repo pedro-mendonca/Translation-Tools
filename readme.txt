@@ -107,6 +107,18 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 == Changelog ==
 
+= 1.4.0 =
+*   Tested up to WP 5.8
+*   More Site Health WordPress translations tests!
+*   Site Health test to check if the WordPress Translation API is available from your site
+*   Site Health test to report if the installed WordPress is already available for translation, useful for beta testing
+*   Refactor Site Health tests to allow dependency between tests. ( e.g. Only run a test if another test has the status 'good' )
+*   The Site Health Translations tests now have the #WPPolyglots Pink Color for usability
+*   New warning notice in the updates screen when your WordPress version is not available for translation yet, useful for beta testing
+*   Force checking the updates screen ('force-check') now force updates the WordPress core translation data
+*   The WordPress core translation transient data now expire in 1 hour
+*   Fix issue with the 'More details' report ID on downloading the Locales translation projects
+
 = 1.3.3 =
 *   Tested up to WP 5.7
 *   Fix Health Check message i18n
