@@ -5,6 +5,23 @@ on:
     branches: [ master, dev ]
   pull_request:
     branches: [ master, dev ]
+    paths:
+      # Any change to a PHP, JavaScript or CSS/SASS file should run checks.
+      - '**.js'
+      - '**.php'
+      - '**.*css'
+      # These files configure NPM. Changes could affect the outcome.
+      - 'package*.json'
+      # These files configure Composer. Changes could affect the outcome.
+      - 'composer.*'
+      # This file configures ESLint. Changes could affect the outcome.
+      - '.eslintrc.json'
+      # This file configures Stylelint. Changes could affect the outcome.
+      - '.stylelintrc.json'
+      # This file configures PHPCS. Changes could affect the outcome.
+      - 'phpcs.xml'
+      # Changes to workflow files should always verify all workflows are successful.
+      - '.github/workflows/*.yml'
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
 
@@ -44,7 +61,7 @@ jobs:
           composer --version
 
       - name: Check syntax error in sources
-        run: find -L . -path ./vendor -prune -o -name \*.php -print0 | xargs -0 -n 1 -P 4 php -l
+        run: find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
