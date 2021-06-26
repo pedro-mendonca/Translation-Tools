@@ -48,11 +48,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_V
 		 *
 		 * @since 1.4.0
 		 *
-		 * @param bool $force_check   Set to 'true' to force update the transient. Defaults to false.
-		 *
 		 * @return void.
 		 */
-		public function run_test( $force_check = false ) {
+		public function run_test() {
 
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );

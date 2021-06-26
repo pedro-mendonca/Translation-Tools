@@ -92,6 +92,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		protected $test_id = null;
 
 		/**
+		 * Force check the test and update the Transient.
+		 *
+		 * @var bool
+		 */
+		protected $force_check = true;
+
+
+		/**
 		 * The required dependency test and status to enable the current Test.
 		 * Based on https://developer.wordpress.org/reference/classes/wp_site_health/perform_test
 		 *
@@ -177,8 +185,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			$this->test_defaults();
 
 			// Run the test, force check.
-			$force_check = true;
-			$this->run_test( $force_check );
+			$this->run_test();
 
 			$tests['direct'][ $this->test_id ] = array(
 				'test' => array( $this, 'get_test_result' ),
@@ -201,9 +208,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			// Set the default values for Translation Tools Site Health tests.
 			$this->test_defaults();
 
-			// Run the test, don't force check.
-			$force_check = false;
-			$this->run_test( $force_check );
+			// Run the test, don't force check to avoid second HTTP request on the callback run.
+			$this->force_check = false;
+			$this->run_test();
 
 			// Add text footer.
 			$this->add_test_footer();
@@ -245,13 +252,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 		 * Runs the test and returns the result.
 		 *
 		 * @since 1.3.0
-		 * @since 1.4.0   Add support to $force_check to force update transient.
-		 *
-		 * @param bool $force_check   Set to 'true' to force update the transient. Defaults to true.
 		 *
 		 * @return void
 		 */
-		abstract public function run_test( $force_check = false );
+		abstract public function run_test();
 
 
 		/**
