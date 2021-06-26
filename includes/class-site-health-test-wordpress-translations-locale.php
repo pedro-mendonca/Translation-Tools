@@ -89,11 +89,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Don't need to force check because the required API Test just updated the transient.
-			$force_check = false;
-
-			// Get installed WordPress core translation project, force update by default.
-			$translation_project = Translations_API::get_core_translation_project( $wp_version, $force_check );
+			// Get installed WordPress core translation project, don't need to force check because the required API Test just updated the transient.
+			$translation_project = Translations_API::get_core_translation_project( $wp_version, false );
 
 			// Get translation project major version.
 			$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
