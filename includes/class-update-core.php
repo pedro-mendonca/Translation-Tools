@@ -185,7 +185,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			$notice_messages   = array();
 			$admin_notice_type = 'info';
 
-			// Check if API is reachable.
+			// Check if API is available.
 			if ( ! is_wp_error( $translation_project['data'] ) ) {
 
 				// Add form with action button to update WordPress core translation.
@@ -239,7 +239,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
 								__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
 							),
-							'<strong>' . esc_html( $translation_project['data']->name ) . '</strong>',
+							'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 							'<strong>' . esc_html( $formated_name ) . '</strong>',
 							'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 						);
@@ -253,7 +253,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 									/* translators: 1: WordPress version. 2: Locale name. */
 									__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
 								),
-								'<strong>' . esc_html( $translation_project['data']->name ) . '</strong>',
+								'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 								'<strong>' . esc_html( $formated_name ) . '</strong>'
 							),
 							sprintf(
@@ -285,7 +285,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			} else {
 
-				// API is unreachable.
+				// API is not available.
 				$error_message     = $translation_project['data']->get_error_message();
 				$notice_messages[] = sprintf(
 					wp_kses_post(
