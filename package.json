@@ -3,7 +3,7 @@
 	"lockfileVersion": 1,
 	"name": "translation-tools",
 	"description": "Translation tools for your WordPress install.",
-	"version": "1.3.3",
+	"version": "1.4.0",
 	"devDependencies": {
 		"@wordpress/scripts": "^16.1.2",
 		"eslint": "^7.29.0",
