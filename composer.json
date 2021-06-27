@@ -18,7 +18,7 @@
 	"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
 		"wp-coding-standards/wpcs": "^2.3.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1.1",
-		"szepeviktor/phpstan-wordpress": "^0.7.5"
+		"szepeviktor/phpstan-wordpress": "^0.7.6"
 	},
 	"config": {
 		"optimize-autoloader": true
@@ -33,7 +33,11 @@
 		"format": "phpcbf -v --standard=phpcs.xml",
 		"compat": "phpcs -v --standard=phpcompat.xml",
 		"analyse": "phpstan analyse -c phpstan.neon --memory-limit=1G",
-		"scripts-list": "composer run-script --list"
+		"scripts-list": "composer run-script --list",
+		"build": [
+			"composer install --no-dev",
+			"composer archive --file=translation-tools --format=zip"
+		]
 	},
 	"scripts-descriptions": {
 		"test": "Runs all available code tests (PHP_CodeSniffer and PHPStan).",
@@ -42,6 +46,19 @@
 		"format": "Runs the PHP code sniffer and automatically fix errors.",
 		"compat": "Runs the PHPCompatibilityWP code sniffer.",
 		"analyse": "Runs the PHPStan code static analysis.",
-		"scripts-list": "List all Composer scripts."
-	}
+		"scripts-list": "List all Composer scripts.",
+		"build": "Remove dev dependencies, build zip archive."
+	},
+	"archive": {
+		"exclude": [
+			"composer.*",
+			"!/vendor"
+		]
+	},
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/pedro-mendonca"
+		}
+	]
 }
