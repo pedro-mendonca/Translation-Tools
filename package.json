@@ -6,6 +6,7 @@
 	"version": "1.3.3",
 	"devDependencies": {
 		"@wordpress/eslint-plugin": "^9.0.6",
+		"@wordpress/scripts": "^16.1.2",
 		"eslint": "^7.29.0",
 		"npm-check-updates": "^11.7.1",
 		"remark-lint": "^8.0.0",
@@ -23,7 +24,9 @@
 		"build:update-core.js": "uglifyjs js/ttools-update-core.js --compress drop_console=true -o js/ttools-update-core.min.js",
 		"lint": "eslint .",
 		"lint-fix": "eslint . --fix",
-		"update": "npm-check-updates"
+		"update": "npm-check-updates",
+		"lint:css": "wp-scripts lint-style ./css/*.*css",
+		"lint:js": "wp-scripts lint-js ./js/*.js"
 	},
 	"repository": {
 		"type": "git",
