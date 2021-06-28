@@ -35,6 +35,7 @@
 		"analyse": "phpstan analyse -c phpstan.neon --memory-limit=1G",
 		"scripts-list": "composer run-script --list",
 		"build": [
+			"@test",
 			"composer install --no-dev",
 			"composer archive --file=translation-tools --format=zip"
 		]
