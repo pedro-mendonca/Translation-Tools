@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translation Tools\n"
 "Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
-"POT-Creation-Date: 2021-06-26 04:26+0100\n"
-"PO-Revision-Date: 2021-06-26 04:33+0100\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2021-06-28 10:47+0100\n"
 "Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language: pt_PT\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Textdomain-Support: yes\n"
@@ -21,15 +21,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
-
-#: class-site-health-test.php:255 includes/class-site-health-debug-info.php:92
-#: includes/class-site-health-test.php:237
-msgid "Translations"
-msgstr "Traduções"
-
-#: class-site-health-test.php:283 includes/class-site-health-debug-info.php:96
-msgid "Report by plugin Translation Tools"
-msgstr "Relatório pelo plugin Translation Tools"
 
 #: includes/class-compatible-preferred-languages.php:129
 msgid "Site Preferred Languages"
@@ -65,28 +56,29 @@ msgstr[1] "<strong>%l</strong> não têm pacotes de idioma."
 
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
 #: includes/class-options-general.php:257
+#: includes/class-site-health-test-wordpress-translations-locale.php:128
+#: includes/class-site-health-test-wordpress-translations-locale.php:192
 #, php-format
 msgid "To update the WordPress translations %1$sclick here%2$s."
 msgstr "Para actualizar a tradução do WordPress %1$sclique aqui%2$s."
 
-#. translators: Accessibility text.
-#: includes/class-options-general.php:262
-#: includes/class-options-general.php:272
-#: includes/class-site-health-test-wordpress-translations-api.php:69
-#: includes/class-site-health-test-wordpress-translations-api.php:89
-#: includes/class-site-health-test-wordpress-translations-locale.php:157
-#: includes/class-site-health-test-wordpress-translations-locale.php:171
-#: includes/class-site-health-test-wordpress-translations-version.php:95
-#: includes/class-site-health-test-wordpress-translations-version.php:120
-#: includes/class-translations-api.php:119 includes/class-update-core.php:268
-msgid "(opens in a new tab)"
-msgstr "(abre num novo separador)"
-
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
-#: includes/class-options-general.php:267
+#: includes/class-options-general.php:263
 #, php-format
 msgid "Learn more about %1$sLanguage Packs%2$s."
 msgstr "Saiba mais sobre %1$spacotes de idioma%2$s."
+
+#. translators: Accessibility text.
+#: includes/class-options-general.php:268
+#: includes/class-site-health-test-wordpress-translations-api.php:64
+#: includes/class-site-health-test-wordpress-translations-api.php:86
+#: includes/class-site-health-test-wordpress-translations-locale.php:170
+#: includes/class-site-health-test-wordpress-translations-locale.php:184
+#: includes/class-site-health-test-wordpress-translations-version.php:87
+#: includes/class-site-health-test-wordpress-translations-version.php:114
+#: includes/class-translations-api.php:119 includes/class-update-core.php:268
+msgid "(opens in a new tab)"
+msgstr "(abre num novo separador)"
 
 #: includes/class-site-health-debug-info.php:61
 msgid "Site Language"
@@ -96,108 +88,129 @@ msgstr "Idioma do site"
 msgid "User Language"
 msgstr "Idioma do utilizador"
 
+#: includes/class-site-health-debug-info.php:92
+#: includes/class-site-health-test.php:252
+msgid "Translations"
+msgstr "Traduções"
+
 #: includes/class-site-health-debug-info.php:95
 msgid "Details about your WordPress site and user languages."
 msgstr "Informações sobre os idiomas do site e do utilizador do seu WordPress."
 
-#: includes/class-site-health-test-wordpress-translations-api.php:57
+#: includes/class-site-health-debug-info.php:96
+msgid "Report by plugin Translation Tools"
+msgstr "Relatório pelo plugin Translation Tools"
+
+#: includes/class-site-health-test-wordpress-translations-api.php:52
 msgid "WordPress Translation API is available."
 msgstr "A WordPress Translation API está disponível."
 
 #. translators: %s: API URL.
-#: includes/class-site-health-test-wordpress-translations-api.php:63
+#: includes/class-site-health-test-wordpress-translations-api.php:58
 #, php-format
 msgid "WordPress Translation API is available on %s."
 msgstr "A WordPress Translation API está disponível em %s."
 
-#: includes/class-site-health-test-wordpress-translations-api.php:77
+#: includes/class-site-health-test-wordpress-translations-api.php:74
 msgid "WordPress Translation API is not available."
 msgstr "A WordPress Translation API não está disponível."
 
 #. translators: %s: API URL.
 #. translators: %s: URL.
-#: includes/class-site-health-test-wordpress-translations-api.php:83
+#: includes/class-site-health-test-wordpress-translations-api.php:80
 #: includes/class-translations-api.php:114
 #, php-format
 msgid "WordPress Translation API is not available on %s."
 msgstr "A WordPress Translation API não está disponível em %s."
 
 #. translators: 1: WordPress version. 2: Locale name.
-#: includes/class-site-health-test-wordpress-translations-locale.php:116
+#: includes/class-site-health-test-wordpress-translations-locale.php:108
 #, php-format
-msgid "The translation of WordPress %1$s for %2$s is complete."
-msgstr "A tradução do WordPress %1$s para %2$s está completa."
+msgid "The translation of WordPress %1$s for %2$s has Language Packs."
+msgstr "A tradução do WordPress %1$s para %2$s tem pacotes de idioma."
 
 #. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
-#: includes/class-site-health-test-wordpress-translations-locale.php:126
+#: includes/class-site-health-test-wordpress-translations-locale.php:118
 #: includes/class-update-core.php:240
 #, php-format
-msgid "The translation of WordPress %1$s for %2$s was updated on %3$s."
-msgstr "A tradução do WordPress %1$s para %2$s foi actualizada em %3$s."
+msgid "The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s."
+msgstr "A tradução do WordPress %1$s para %2$s tem pacote de idioma actualizado em %3$s."
 
 #. translators: 1: WordPress version. 2: Locale name.
-#: includes/class-site-health-test-wordpress-translations-locale.php:140
+#: includes/class-site-health-test-wordpress-translations-locale.php:141
 #: includes/class-update-core.php:254
 #, php-format
-msgid "The translation of WordPress %1$s for %2$s is not complete."
-msgstr "A tradução do WordPress %1$s para %2$s está incompleta."
+msgid "The translation of WordPress %1$s for %2$s has no Language Pack yet."
+msgstr "A tradução do WordPress %1$s para %2$s ainda não tem pacote de idioma."
 
-#. translators: 1: Locale name. 2: Opening link tag <a href="[link]">. 3: Closing link tag </a>.
+#. translators: %s: Locale name.
 #: includes/class-site-health-test-wordpress-translations-locale.php:150
 #, php-format
-msgid "<strong>Translate WordPress to %1$s:</strong> It looks like you understand %1$s. Did you know you can help translate WordPress and its plugins/themes in your language? %2$sVisit this page%3$s to get started."
-msgstr "<strong>Traduza o WordPress para %1$s:</strong> Parece que compreende %1$s. Sabia que pode ajudar a traduzir o WordPress, plugins e temas para o seu idioma? %2$sVisite esta página%3$s para começar."
+msgid "Translate WordPress to %s!"
+msgstr "Traduza o WordPress para %1$s!"
+
+#. translators: %s: Locale name.
+#: includes/class-site-health-test-wordpress-translations-locale.php:158
+#, php-format
+msgid "It looks like you understand %s. You can help translate WordPress and its plugins/themes in your language."
+msgstr "Parece que compreende %s. Pode ajudar a traduzir o WordPress, plugins e temas para o seu idioma."
+
+#. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>.
+#: includes/class-site-health-test-wordpress-translations-locale.php:164
+#, php-format
+msgid "To get started, please %1$svisit this page%2$s"
+msgstr "Para começar, por favor %1$svisite esta página%2$s"
 
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
-#: includes/class-site-health-test-wordpress-translations-locale.php:165
+#: includes/class-site-health-test-wordpress-translations-locale.php:178
 #: includes/class-update-core.php:262
 #, php-format
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr "Por favor, registe-se em %1$sTranslating WordPress%2$s e junte-se à %3$sequipa de tradução%2$s para ajudar a traduzir o WordPress para %4$s!"
 
 #. translators: %s: WordPress version.
-#: includes/class-site-health-test-wordpress-translations-version.php:79
+#: includes/class-site-health-test-wordpress-translations-version.php:71
 #, php-format
 msgid "WordPress %s is available for translation."
 msgstr "O WordPress %s está disponível para tradução."
 
 #. translators: 1: WordPress version. 2: URL link.
-#: includes/class-site-health-test-wordpress-translations-version.php:88
+#: includes/class-site-health-test-wordpress-translations-version.php:80
 #, php-format
 msgid "WordPress %1$s translation project is available on %2$s."
 msgstr "O projecto de tradução do WordPress %1$s está disponível em %2$s."
 
 #. translators: %s: WordPress version.
-#: includes/class-site-health-test-wordpress-translations-version.php:105
+#: includes/class-site-health-test-wordpress-translations-version.php:99
 #: includes/class-update-core.php:206
 #, php-format
 msgid "WordPress %s is not available for translation yet."
 msgstr "O WordPress %s ainda não está disponível para tradução."
 
 #. translators: 1: WordPress version. 2: URL link.
-#: includes/class-site-health-test-wordpress-translations-version.php:113
+#: includes/class-site-health-test-wordpress-translations-version.php:107
 #, php-format
 msgid "WordPress %1$s translation project is not available yet on %2$s."
 msgstr "O projecto de tradução do WordPress %1$s ainda não está disponível em %2$s."
 
 #. translators: Plugin name, do not translate.
 #. Plugin Name of the plugin/theme
-#: includes/class-site-health-test.php:269
+#: includes/class-site-health-test.php:282
 msgid "Translation Tools"
 msgstr "Translation Tools"
 
-#: includes/class-site-health.php:87
+#: includes/class-site-health.php:90
 msgid "WordPress default language, has no translation."
 msgstr "Idioma por omissão do WordPress, não tem tradução."
 
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:93
+#: includes/class-site-health.php:96
 #, php-format
 msgid "%s has Language Packs."
 msgstr "%s tem pacotes de idioma."
 
 #. translators: %s: Locale name.
-#: includes/class-site-health.php:101
+#: includes/class-site-health.php:104
 #, php-format
 msgid "%s has no Language Packs."
 msgstr "%s não tem pacotes de idioma."

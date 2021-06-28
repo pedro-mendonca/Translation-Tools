@@ -105,7 +105,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				$this->test_label  = sprintf(
 					wp_kses_post(
 						/* translators: 1: WordPress version. 2: Locale name. */
-						__( 'The translation of WordPress %1$s for %2$s is complete.', 'translation-tools' )
+						__( 'The translation of WordPress %1$s for %2$s has Language Packs.', 'translation-tools' )
 					),
 					esc_html( $translation_project_version ),
 					esc_html( $formated_name )
@@ -115,7 +115,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					sprintf(
 						wp_kses_post(
 							/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
-							__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
+							__( 'The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s.', 'translation-tools' )
 						),
 						'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 						'<strong>' . esc_html( $formated_name ) . '</strong>',
@@ -127,11 +127,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
 					esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
 					'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
-					sprintf(
-						'<span class="screen-reader-text">%s</span></a>',
-						/* translators: Accessibility text. */
-						esc_html__( '(opens in a new tab)', 'translation-tools' )
-					)
+					'</a>'
 				);
 
 				return;
@@ -142,22 +138,34 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 			$this->test_label  = sprintf(
 				wp_kses_post(
 					/* translators: 1: WordPress version. 2: Locale name. */
-					__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
+					__( 'The translation of WordPress %1$s for %2$s has no Language Pack yet.', 'translation-tools' )
 				),
 				esc_html( $translation_project_version ),
 				esc_html( $formated_name )
 			);
 			$this->test_description = sprintf(
-				'<p>%s</p>',
+				'<p><strong>%s</strong></p>',
+				sprintf(
+					/* translators: %s: Locale name. */
+					__( 'Translate WordPress to %s!', 'translation-tools' ),
+					esc_html( $formated_name )
+				)
+			);
+			$this->test_description .= sprintf(
+				'<p>%s<br>%s</p>',
+				sprintf(
+					/* translators: %s: Locale name. */
+					__( 'It looks like you understand %s. You can help translate WordPress and its plugins/themes in your language.', 'translation-tools' ),
+					'<strong>' . esc_html( $formated_name ) . '</strong>'
+				),
 				sprintf(
 					wp_kses_post(
-						/* translators: 1: Locale name. 2: Opening link tag <a href="[link]">. 3: Closing link tag </a>. */
-						__( '<strong>Translate WordPress to %1$s:</strong> It looks like you understand %1$s. Did you know you can help translate WordPress and its plugins/themes in your language? %2$sVisit this page%3$s to get started.', 'translation-tools' )
+						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
+						__( 'To get started, please %1$svisit this page%2$s', 'translation-tools' )
 					),
-					esc_html( $formated_name ),
 					'<a href="https://make.wordpress.org/polyglots/handbook/translating/first-steps/" target="_blank">',
 					sprintf(
-						'<span class="screen-reader-text">%s</span></a>',
+						' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 						/* translators: Accessibility text. */
 						esc_html__( '(opens in a new tab)', 'translation-tools' )
 					)
@@ -171,7 +179,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				),
 				'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
 				sprintf(
-					'<span class="screen-reader-text">%s</span></a>',
+					' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 					/* translators: Accessibility text. */
 					esc_html__( '(opens in a new tab)', 'translation-tools' )
 				),
@@ -183,11 +191,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
 				esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
 				'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
-				sprintf(
-					'<span class="screen-reader-text">%s</span></a>',
-					/* translators: Accessibility text. */
-					esc_html__( '(opens in a new tab)', 'translation-tools' )
-				)
+				'</a>'
 			);
 
 		}

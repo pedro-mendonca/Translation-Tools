@@ -237,7 +237,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 						$notice_messages[] = sprintf(
 							wp_kses_post(
 								/* translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created. */
-								__( 'The translation of WordPress %1$s for %2$s was updated on %3$s.', 'translation-tools' )
+								__( 'The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s.', 'translation-tools' )
 							),
 							'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 							'<strong>' . esc_html( $formated_name ) . '</strong>',
@@ -251,7 +251,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 							sprintf(
 								wp_kses_post(
 									/* translators: 1: WordPress version. 2: Locale name. */
-									__( 'The translation of WordPress %1$s for %2$s is not complete.', 'translation-tools' )
+									__( 'The translation of WordPress %1$s for %2$s has no Language Pack yet.', 'translation-tools' )
 								),
 								'<strong>' . esc_html( $translation_project_version ) . '</strong>',
 								'<strong>' . esc_html( $formated_name ) . '</strong>'
@@ -263,7 +263,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								),
 								'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
 								sprintf(
-									'<span class="screen-reader-text">%s</span></a>',
+									' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external" style="text-decoration: none;"></span></a>',
 									/* translators: Accessibility text. */
 									esc_html__( '(opens in a new tab)', 'translation-tools' )
 								),
