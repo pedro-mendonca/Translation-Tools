@@ -127,11 +127,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
 					esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
 					'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
-					sprintf(
-						'<span class="screen-reader-text">%s</span></a>',
-						/* translators: Accessibility text. */
-						esc_html__( '(opens in a new tab)', 'translation-tools' )
-					)
+					'</a>'
 				);
 
 				return;
@@ -157,7 +153,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					esc_html( $formated_name ),
 					'<a href="https://make.wordpress.org/polyglots/handbook/translating/first-steps/" target="_blank">',
 					sprintf(
-						'<span class="screen-reader-text">%s</span></a>',
+						' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 						/* translators: Accessibility text. */
 						esc_html__( '(opens in a new tab)', 'translation-tools' )
 					)
@@ -171,7 +167,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				),
 				'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
 				sprintf(
-					'<span class="screen-reader-text">%s</span></a>',
+					' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 					/* translators: Accessibility text. */
 					esc_html__( '(opens in a new tab)', 'translation-tools' )
 				),
@@ -183,11 +179,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
 				esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
 				'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
-				sprintf(
-					'<span class="screen-reader-text">%s</span></a>',
-					/* translators: Accessibility text. */
-					esc_html__( '(opens in a new tab)', 'translation-tools' )
-				)
+				'</a>'
 			);
 
 		}

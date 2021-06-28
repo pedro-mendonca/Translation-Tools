@@ -263,7 +263,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								),
 								'<a href="https://translate.wordpress.org/locale/' . esc_html( $locale->locale_slug ) . '/' . esc_html( $translation_project['data']->path ) . '/" target="_blank">',
 								sprintf(
-									'<span class="screen-reader-text">%s</span></a>',
+									' <span class="screen-reader-text">%s</span><span aria-hidden="true" class="dashicons dashicons-external" style="text-decoration: none;"></span></a>',
 									/* translators: Accessibility text. */
 									esc_html__( '(opens in a new tab)', 'translation-tools' )
 								),
