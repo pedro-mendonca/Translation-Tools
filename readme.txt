@@ -5,7 +5,7 @@ Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 9. Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
 
 == Changelog ==
+
+= 1.4.1 =
+*   Improve notices wording about Language Packs availability
+*   Fix notice links accessibility
 
 = 1.4.0 =
 *   Tested up to WP 5.8
