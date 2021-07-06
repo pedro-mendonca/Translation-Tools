@@ -25,30 +25,39 @@
 	},
 	"scripts": {
 		"test": [
-			"@lint",
-			"@analyse"
+			"@lint:php",
+			"@analyse:php",
+			"@lint:js"
 		],
 		"phpcs-i": "phpcs -i",
-		"lint": "phpcs -v --standard=phpcs.xml",
-		"format": "phpcbf -v --standard=phpcs.xml",
-		"compat": "phpcs -v --standard=phpcompat.xml",
-		"analyse": "phpstan analyse -c phpstan.neon --memory-limit=1G",
+		"lint:php": "phpcs -v --standard=phpcs.xml",
+		"format:php": "phpcbf -v --standard=phpcs.xml",
+		"compat:php": "phpcs -v --standard=phpcompat.xml",
+		"analyse:php": "phpstan analyse -c phpstan.neon --memory-limit=1G",
+		"lint:js": "npm run lint:js",
+		"build:js": "npm run build:js",
 		"scripts-list": "composer run-script --list",
 		"build": [
-			"@test",
+			"@lint:php",
+			"@analyse:php",
+			"@lint:js",
+			"@build:js",
 			"composer install --no-dev",
-			"composer archive --file=translation-tools --format=zip"
+			"composer archive --file=translation-tools --format=zip",
+			"composer install"
 		]
 	},
 	"scripts-descriptions": {
-		"test": "Runs all available code tests (PHP_CodeSniffer and PHPStan).",
+		"test": "Runs all available code tests (PHP_CodeSniffer, PHPStan and JS lint).",
 		"phpcs-i": "Log PHPCS debug information.",
-		"lint": "Runs the PHP code sniffer.",
-		"format": "Runs the PHP code sniffer and automatically fix errors.",
-		"compat": "Runs the PHPCompatibilityWP code sniffer.",
-		"analyse": "Runs the PHPStan code static analysis.",
+		"lint:php": "Runs the PHP code sniffer.",
+		"format:php": "Runs the PHP code sniffer and automatically fix errors.",
+		"compat:php": "Runs the PHPCompatibilityWP code sniffer.",
+		"analyse:php": "Runs the PHPStan code static analysis.",
+		"lint:js": "Run npm JS lint.",
+		"build:js": "npm run JS uglify and build.",
 		"scripts-list": "List all Composer scripts.",
-		"build": "Remove dev dependencies, build zip archive."
+		"build": "Lint and test PHP, lint and build JS, remove dev dependencies, build zip archive, install dev dependencies."
 	},
 	"archive": {
 		"exclude": [

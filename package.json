@@ -16,12 +16,11 @@
 		"uglify-js": "^3.13.10"
 	},
 	"scripts": {
-		"build": "npm run build:js",
 		"build:js": "npm run build:options-general.js && npm run build:update-core.js",
 		"build:options-general.js": "uglifyjs js/ttools-options-general.js --compress drop_console=true -o js/ttools-options-general.min.js",
 		"build:update-core.js": "uglifyjs js/ttools-update-core.js --compress drop_console=true -o js/ttools-update-core.min.js",
-		"lint": "eslint .",
-		"lint-fix": "eslint . --fix",
+		"eslint": "eslint .",
+		"eslint-fix": "eslint . --fix",
 		"update": "npm-check-updates",
 		"lint:css": "wp-scripts lint-style ./css/*.*css",
 		"lint:js": "wp-scripts lint-js ./js/*.js"
