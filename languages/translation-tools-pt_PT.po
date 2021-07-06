@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Translation Tools\n"
 "Report-Msgid-Bugs-To: https://github.com/pedro-mendonca/Translation-Tools/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-06-28 10:47+0100\n"
+"PO-Revision-Date: 2021-06-28 11:40+0100\n"
 "Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language-Team: Pedro Mendonça <ped.gaspar@gmail.com>\n"
 "Language: pt_PT\n"
@@ -147,7 +147,7 @@ msgstr "A tradução do WordPress %1$s para %2$s ainda não tem pacote de idioma
 #: includes/class-site-health-test-wordpress-translations-locale.php:150
 #, php-format
 msgid "Translate WordPress to %s!"
-msgstr "Traduza o WordPress para %1$s!"
+msgstr "Traduza o WordPress para %s!"
 
 #. translators: %s: Locale name.
 #: includes/class-site-health-test-wordpress-translations-locale.php:158
