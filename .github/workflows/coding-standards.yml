@@ -104,7 +104,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 15
+          node-version: 16
 
       - name: Cache Node modules
         uses: actions/cache@v2.1.6
