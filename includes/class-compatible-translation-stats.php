@@ -2,7 +2,7 @@
 /**
  * Class file for the Translation Tools compatibility with Translation Stats plugin.
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.2.3
  */

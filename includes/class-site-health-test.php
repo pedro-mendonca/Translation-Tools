@@ -8,7 +8,7 @@
  * Inspired by Yoast Site Health checks:
  *  - https://github.com/Yoast/wordpress-seo/blob/trunk/inc/health-check.php
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.3.0
  */

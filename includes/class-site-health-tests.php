@@ -2,7 +2,7 @@
 /**
  * Class file for the Translation Tools Site Health Tests.
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.3.0
  */

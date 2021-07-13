@@ -5,7 +5,7 @@
  * Documentation about Site Health:
  *  - https://make.wordpress.org/core/2019/04/25/site-health-check-in-5-2/
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.3.0
  * @since 1.4.0    Rename filter 'Site_Health_Test_WordPress_Translations' to 'Site_Health_Test_WordPress_Translations_Locale'.

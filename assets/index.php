@@ -4,7 +4,7 @@
  *
  * It exists to stop directory listings on poorly configured servers.
  *
- * @package    Translation Tools
+ * @package Translation_Tools
  */
 
 // Silence is golden.

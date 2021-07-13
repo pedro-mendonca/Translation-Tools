@@ -5,7 +5,7 @@
  * Based on WP-CLi i18n Command JedGenerator.
  * https://github.com/wp-cli/i18n-command/blob/master/src/JedGenerator.php
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.0.0
  */

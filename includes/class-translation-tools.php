@@ -2,7 +2,7 @@
 /**
  * Primary class file for the Translation Tools plugin.
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.0.0
  */
