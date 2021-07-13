@@ -5,7 +5,7 @@
  * Documentation about Site Health:
  *  - https://make.wordpress.org/core/2019/04/25/site-health-check-in-5-2/
  *
- * @package TranslationTools
+ * @package Translation_Tools
  *
  * @since 1.4.0
  */

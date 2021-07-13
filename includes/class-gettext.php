@@ -9,7 +9,7 @@
  * https://github.com/wp-cli/i18n-command/blob/master/src/MakeJsonCommand.php
  * https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/plugins/wporg-gp-customizations/inc/cli/class-language-pack.php#L435
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.0.0
  */

@@ -2,7 +2,7 @@
 /**
  * Translation Tools
  *
- * @package           TranslationTools
+ * @package           Translation_Tools
  * @link              https://github.com/pedro-mendonca/Translation-Tools
  * @author            Pedro Mendonça
  * @copyright         2020 Pedro Mendonça

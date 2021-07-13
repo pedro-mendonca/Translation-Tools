@@ -2,7 +2,7 @@
 /**
  * Class file for the Translation Tools Update Core.
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.0.0
  */

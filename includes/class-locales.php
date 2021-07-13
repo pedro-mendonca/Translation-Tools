@@ -5,7 +5,7 @@
  * Extends GP_Locales from:
  * https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/locales/locales.php
  *
- * @package Translation Tools
+ * @package Translation_Tools
  *
  * @since 1.2.0
  */
