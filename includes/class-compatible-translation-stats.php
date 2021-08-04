@@ -58,13 +58,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Translation_Stats' ) ) {
 		public function translation_stats_settings( $compatible_plugins ) {
 
 			// Check Translation Stats settings.
-			if ( ! defined( 'TSTATS_WP_OPTION' ) ) {
+			if ( ! defined( 'TRANSLATION_STATS_WP_OPTION' ) ) {
 				// If settings not defined, return unfiltered $compatible_plugins array.
 				return $compatible_plugins;
 			}
 
 			// Get Translation Stats settings.
-			$options = get_option( TSTATS_WP_OPTION );
+			$options = get_option( TRANSLATION_STATS_WP_OPTION );
 
 			// Check Translation Stats language setting.
 			if ( ! isset( $options['settings']['translation_language'] ) ) {

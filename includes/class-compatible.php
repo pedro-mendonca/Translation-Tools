@@ -50,7 +50,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 				'translation-stats/translation-stats.php' => array(
 					'name'             => 'Translation Stats',
 					'required_version' => '1.1.0',
-					'tested_version'   => '1.1.2',
+					'tested_version'   => '1.2.0',
 				),
 			);
 
