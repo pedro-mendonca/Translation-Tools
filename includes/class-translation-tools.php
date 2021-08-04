@@ -99,7 +99,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 			}
 
-			// Check for General Settings page, Profile page and User Edit page.
+			// Check for General Settings page, Profile page, User Edit page and Translation Stats plugin settings.
 			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 
 				wp_register_script(
