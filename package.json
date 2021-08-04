@@ -13,7 +13,7 @@
 		"sass-lint": "^1.13.1",
 		"scss": "^0.2.4",
 		"stylelint": "^13.13.1",
-		"uglify-js": "^3.13.10"
+		"uglify-js": "^3.14.1"
 	},
 	"scripts": {
 		"build:js": "npm run build:options-general.js && npm run build:update-core.js",
