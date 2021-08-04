@@ -7,17 +7,17 @@ parameters:
 		- translation-tools.php
 		- uninstall.php
 		- includes/
-		- lib/
+		- assets/
 	bootstrapFiles:
-		# Plugin main file.
-		- translation-tools.php
+		# PHPStan bootstrap file.
+		- tests/phpstan/bootstrap.php
 	ignoreErrors:
-		# Missing functions from compatible plugins:
-		- "#Function preferred_languages_#"
 		# GlotPress locales file.
 		-
-			path: lib/wp.org/locales.php
+			path: assets/lib/locales/locales.php
 			message: '#typehint specified\.$#'
 			count: 35
+		# Missing functions from compatible plugins:
+		- "#Function preferred_languages_#"
 	# TODO Tell PHPStan what is inside arrays.
 	checkMissingIterableValueType: false
