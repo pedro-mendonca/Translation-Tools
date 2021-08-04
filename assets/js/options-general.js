@@ -1,5 +1,5 @@
 jQuery( document ).ready( function( $ ) {
-	console.log( 'Loaded ttools-options-general.js' );
+	console.log( 'Loaded options-general.js' );
 
 	console.log( 'Current screen is "' + ttools.current_screen + '"' );
 

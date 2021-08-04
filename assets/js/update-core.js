@@ -1,5 +1,5 @@
 jQuery( document ).ready( function( $ ) {
-	console.log( 'Loaded ttools-update-core.js' );
+	console.log( 'Loaded update-core.js' );
 
 	// Load Ajax on each loading div.
 	$( 'div.translation-tools-loading.update-core' ).each( function() {
