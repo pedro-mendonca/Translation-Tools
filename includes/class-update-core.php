@@ -23,13 +23,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 
 		/**
-		 * Globals.
-		 *
-		 * @var object
-		 */
-		protected $globals;
-
-		/**
 		 * Notices.
 		 *
 		 * @var object
@@ -48,9 +41,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Globals.
-			$this->globals = new Globals();
 
 			// Instantiate Translation Tools Notices.
 			$this->notices = new Notices();
@@ -189,7 +179,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			if ( ! is_wp_error( $translation_project['data'] ) ) {
 
 				// Add form with action button to update WordPress core translation.
-				echo wp_kses( $this->form_update_wordpress_translation(), $this->globals->allowed_html() );
+				echo wp_kses( $this->form_update_wordpress_translation(), Utils::allowed_html() );
 
 				// Get translation project major version.
 				$translation_project_version = Translations_API::major_version( $translation_project['data']->name );

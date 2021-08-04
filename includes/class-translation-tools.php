@@ -79,12 +79,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			// Check for updates page.
 			if ( 'update-core.php' === $hook ) {
 
-				// Provide minified version if SCRIPT_DEBUG is not set to true.
-				$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 				wp_register_script(
 					'translation-tools-update-core',
-					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-update-core' . $suffix . '.js',
+					Utils::get_asset_url( 'js/update-core.js', true ),
 					array(
 						'jquery',
 					),
@@ -105,12 +102,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			// Check for General Settings page, Profile page and User Edit page.
 			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 
-				// Provide minified version if SCRIPT_DEBUG is not set to true.
-				$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 				wp_register_script(
 					'translation-tools-options-general',
-					TRANSLATION_TOOLS_DIR_URL . 'js/ttools-options-general' . $suffix . '.js',
+					Utils::get_asset_url( 'js/options-general.js', true ),
 					array(
 						'jquery',
 					),
