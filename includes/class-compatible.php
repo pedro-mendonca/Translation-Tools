@@ -54,9 +54,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 				),
 			);
 
-			$compatible_plugins_data = apply_filters( 'translation_tools_compatible_plugins', $compatible_plugins );
-
-			return $compatible_plugins_data;
+			return apply_filters( 'translation_tools_compatible_plugins', $compatible_plugins );
 
 		}
 
@@ -95,8 +93,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 				return false;
 			}
 
-			// Check if plugin is installed version is older than the compatible version.
-			if ( $installed_plugins[ $plugin_file ]['Version'] < $compatible_plugins[ $plugin_file ]['required_version'] ) {
+			// Return false if the plugin installed version is older than the compatible version.
+			if ( version_compare( $installed_plugins[ $plugin_file ]['Version'], $compatible_plugins[ $plugin_file ]['required_version'], '<' ) ) {
+				return false;
+			}
+
+			// Return false if the plugin installed version is not tested.
+			if ( version_compare( $installed_plugins[ $plugin_file ]['Version'], $compatible_plugins[ $plugin_file ]['tested_version'], '>' ) ) {
 				return false;
 			}
 
