@@ -93,6 +93,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				// Get WordPress translation project API URL.
 				$source = self::translate_url( 'wp', true );
 
+				// Define variable.
+				$result = array();
+
 				// Report message.
 				$result['log'] = sprintf(
 					/* translators: %s: URL. */
