@@ -5,7 +5,7 @@
  * @package Translation_Tools
  *
  * @since 1.0.0
- * @since 1.4.2   Renamed from Globals to Utils.
+ * @since 1.5.0   Renamed from Globals to Utils.
  */
 
 namespace Translation_Tools;
@@ -28,7 +28,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 		 *
 		 * Inspired by Yoast (https://github.com/Yoast/wordpress-seo/blob/f174ad88636f9115a8c25f66daafbf84c747679b/inc/class-wpseo-utils.php#L716).
 		 *
-		 * @since 1.4.2
+		 * @since 1.5.0
 		 *
 		 * @return bool
 		 */
@@ -43,7 +43,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 			/**
 			 * Filter the Translation Tools development mode status.
 			 *
-			 * @since 1.4.2
+			 * @since 1.5.0
 			 *
 			 * @param bool $development_mode   Set development mode to true or false.
 			 */
@@ -55,7 +55,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 		/**
 		 * Get asset URL, according the minification status.
 		 *
-		 * @since 1.4.2
+		 * @since 1.5.0
 		 *
 		 * @param string $asset    Name of asset excluding the extension.
 		 * @param bool   $minify   Determine if the asset has a minified version.
@@ -92,7 +92,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 		 * Returns array of allowed HTML elements for use in wp_kses().
 		 *
 		 * @since 1.0.0
-		 * @since 1.4.2   Moved to Utils class.
+		 * @since 1.5.0   Moved to Utils class.
 		 *
 		 * @return array  Array of allowed HTML elements.
 		 */
