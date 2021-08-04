@@ -1,10 +1,11 @@
 <?php
 /**
- * Class file for the Translation Tools Globals.
+ * Class file for the Translation Tools Utils.
  *
  * @package Translation_Tools
  *
  * @since 1.0.0
+ * @since 1.4.2   Renamed from Globals to Utils.
  */
 
 namespace Translation_Tools;
@@ -14,22 +15,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( __NAMESPACE__ . '\Globals' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 
 	/**
-	 * Class Globals.
+	 * Class Utils.
 	 */
-	class Globals {
+	class Utils {
 
 
 		/**
 		 * Returns array of allowed HTML elements for use in wp_kses().
 		 *
 		 * @since 1.0.0
+		 * @since 1.4.2   Moved to Utils class.
 		 *
 		 * @return array  Array of allowed HTML elements.
 		 */
-		public function allowed_html() {
+		public static function allowed_html() {
+
 			$allowed_html = array(
 				'a'      => array(
 					'href'   => array(),
