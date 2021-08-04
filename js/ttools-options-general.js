@@ -184,7 +184,6 @@ jQuery( document ).ready( function( $ ) {
 	 * Relocate description data and show.
 	 *
 	 * @since 1.1.0
-	 *
 	 * @param {string} origin - ID of the source to relocate.
 	 * @param {string} target - ID of the target where to relocate after.
 	 */
@@ -202,7 +201,6 @@ jQuery( document ).ready( function( $ ) {
 	 * Remove Locale option from the available languages installed group.
 	 *
 	 * @since 1.1.0
-	 *
 	 * @param {string} selectID - Select field ID.
 	 * @param {string} value    - Option value.
 	 */
@@ -218,7 +216,6 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @since 1.1.0
 	 * @since 1.2.0  Add option attributes.
-	 *
 	 * @param {string} selectID - Select field ID.
 	 * @param {string} value    - Option value.
 	 */
@@ -239,7 +236,6 @@ jQuery( document ).ready( function( $ ) {
 	 * Rename Locales that have only the value as name from Preferred Languages plugin unordered list items.
 	 *
 	 * @since 1.2.0
-	 *
 	 * @param {string} selectID - Select field ID.
 	 * @param {string} value    - Option value.
 	 */
@@ -257,7 +253,6 @@ jQuery( document ).ready( function( $ ) {
 	 * Add all Locales the available languages list.
 	 *
 	 * @since 1.2.0
-	 *
 	 * @param {string} selectID - Select field ID.
 	 */
 	function ttoolsAddAllLocales( selectID ) {

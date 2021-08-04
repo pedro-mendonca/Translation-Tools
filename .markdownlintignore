@@ -1,4 +1,3 @@
-*.min.js
 /assets/lib/
 /node_modules/
 /vendor/
