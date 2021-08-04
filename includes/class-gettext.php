@@ -145,6 +145,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			global $wp_filesystem;
 
+			// Define variable.
+			$result = array();
+
 			$result['log'] = array();
 
 			$result['data'] = true;

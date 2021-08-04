@@ -183,6 +183,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				return;
 			}
 
+			// Define variable.
+			$locales_with_lang_packs = array();
+
+			// Define variable.
+			$locales_with_no_lang_packs = array();
+
 			foreach ( $wp_locales as $wp_locale ) {
 
 				// Get Locale data.

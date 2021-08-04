@@ -333,6 +333,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				return;
 			}
 
+			// Define variable.
+			$update_locales = array();
+
 			foreach ( $wp_locales as $wp_locale ) {
 				// Get Locale data.
 				$locale = Translations_API::locale( $wp_locale );

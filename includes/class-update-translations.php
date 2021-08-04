@@ -60,6 +60,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 */
 		public function update_translation( $destination, $project, $wp_locale ) {
 
+			// Define variable.
+			$result = array();
+
 			// Set array of log entries.
 			$result['log'] = array();
 
@@ -131,6 +134,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			// Set translation data path.
 			$source = Translations_API::translation_path( $project, $locale );
 
+			// Define variable.
+			$result = array();
+
 			// Report message.
 			$result['log'] = sprintf(
 				/* translators: %s: URL. */
@@ -185,6 +191,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.po';
 
+			// Define variable.
+			$result = array();
+
 			// Report message.
 			$result['log'] = sprintf(
 				/* translators: %s: File name. */
@@ -230,6 +239,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.po';
+
+			// Define variable.
+			$result = array();
 
 			// Report message.
 			$result['log'] = sprintf(
@@ -277,6 +289,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.mo';
+
+			// Define variable.
+			$result = array();
 
 			// Report message.
 			$result['log'] = sprintf(
