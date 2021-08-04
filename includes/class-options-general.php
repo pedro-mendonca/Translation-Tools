@@ -373,8 +373,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 			/**
 			 * Filter to show Locales codes in the language select fields.
-			 * Defaults to true if WP_DEBUG is true
-			 * Defaults to false. Defaults to true if WP_DEBUG is true.
+			 * True if Development Mode is enabled. Defaults to false.
 			 *
 			 * Output example: 'Português [pt_PT]'.
 			 *
@@ -382,18 +381,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			 *
 			 * @since 1.2.3
 			 */
-			$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', defined( 'WP_DEBUG' ) && true === WP_DEBUG ? true : false );
+			$show_locale_codes = apply_filters( 'translation_tools_show_locale_codes', Utils::is_development_mode() ? true : false );
 
 			/**
 			 * Filter to highlight Locales with no language packs in the language select fields.
-			 * Defaults to true if WP_DEBUG is true
-			 * Defaults to false. Defaults to true if WP_DEBUG is true.
+			 * True if Development Mode is enabled. Defaults to false.
 			 *
 			 * Filter example: add_filter( 'translation_tools_show_locale_colors', '__return_true' );
 			 *
 			 * @since 1.2.3
 			 */
-			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', defined( 'WP_DEBUG' ) && true === WP_DEBUG ? true : false );
+			$show_locale_colors = apply_filters( 'translation_tools_show_locale_colors', Utils::is_development_mode() ? true : false );
 
 			$name_format = array(
 				'show_locale_codes'  => $show_locale_codes,
