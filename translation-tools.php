@@ -43,10 +43,14 @@ $translation_tools_data = get_plugin_data( __FILE__, false, false );
 
 
 // Set Translation Tools plugin version.
-define( 'TRANSLATION_TOOLS_VERSION', $translation_tools_data['Version'] );
+if ( ! defined( 'TRANSLATION_TOOLS_VERSION' ) ) {
+	define( 'TRANSLATION_TOOLS_VERSION', $translation_tools_data['Version'] );
+}
 
 // Set Translation Tools required PHP version. Needed for PHP compatibility check for WordPress < 5.1.
-define( 'TRANSLATION_TOOLS_REQUIRED_PHP', $translation_tools_data['RequiresPHP'] );
+if ( ! defined( 'TRANSLATION_TOOLS_REQUIRED_PHP' ) ) {
+	define( 'TRANSLATION_TOOLS_REQUIRED_PHP', $translation_tools_data['RequiresPHP'] );
+}
 
 // Set Translation Tools settings database version.
 // define( 'TRANSLATION_TOOLS_SETTINGS_VERSION', '1.1' ); // phpcs:ignore.
@@ -76,7 +80,7 @@ define( 'TRANSLATION_TOOLS_FILE', plugin_basename( __FILE__ ) );
  *
  * Updated on 2020-06-28.
  */
-require_once 'lib/wp.org/locales.php';
+require_once 'assets/lib/locales/locales.php';
 
 
 /**
