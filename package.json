@@ -7,7 +7,6 @@
 	"devDependencies": {
 		"@wordpress/scripts": "^17.1.0",
 		"eslint": "^7.32.0",
-		"npm-check-updates": "^11.8.3",
 		"remark-lint": "^8.0.0",
 		"remark-preset-lint-recommended": "^5.0.0",
 		"sass-lint": "^1.13.1",
@@ -21,7 +20,6 @@
 		"build:update-core.js": "uglifyjs js/ttools-update-core.js --compress drop_console=true -o js/ttools-update-core.min.js",
 		"eslint": "eslint .",
 		"eslint-fix": "eslint . --fix",
-		"update": "npm-check-updates",
 		"lint:css": "wp-scripts lint-style ./css/*.*css",
 		"lint:js": "wp-scripts lint-js ./js/*.js"
 	},
