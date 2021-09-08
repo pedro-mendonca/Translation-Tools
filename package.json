@@ -5,7 +5,7 @@
 	"description": "Translation tools for your WordPress install.",
 	"version": "1.4.0",
 	"devDependencies": {
-		"@wordpress/scripts": "^17.1.0",
+		"@wordpress/scripts": "^18.0.0",
 		"eslint": "^7.32.0",
 		"npm-check-updates": "^11.8.5",
 		"remark-lint": "^8.0.0",
