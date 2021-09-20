@@ -23,6 +23,7 @@
 		"@wordpress/scripts": "^18.0.1",
 		"node-sass": "^6.0.1",
 		"sass-lint": "^1.13.1",
+		"scss": "^0.2.4",
 		"uglify-js": "^3.14.2"
 	},
 	"scripts": {
