@@ -1,4 +1,4 @@
-*.min.js
+*.min.css
 /assets/lib/
 /node_modules/
 /vendor/

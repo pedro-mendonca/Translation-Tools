@@ -2,42 +2,35 @@
 	"requires": true,
 	"lockfileVersion": 1,
 	"name": "translation-tools",
+	"version": "1.4.2",
 	"description": "Translation tools for your WordPress install.",
-	"version": "1.4.0",
-	"devDependencies": {
-		"@wordpress/scripts": "^18.0.1",
-		"eslint": "^7.32.0",
-		"npm-check-updates": "^11.8.5",
-		"remark-lint": "^9.1.0",
-		"remark-preset-lint-recommended": "^6.1.0",
-		"sass-lint": "^1.13.1",
-		"scss": "^0.2.4",
-		"stylelint": "^13.13.1",
-		"uglify-js": "^3.14.2"
-	},
-	"scripts": {
-		"build:js": "npm run build:options-general.js && npm run build:update-core.js",
-		"build:options-general.js": "uglifyjs js/ttools-options-general.js --compress drop_console=true -o js/ttools-options-general.min.js",
-		"build:update-core.js": "uglifyjs js/ttools-update-core.js --compress drop_console=true -o js/ttools-update-core.min.js",
-		"eslint": "eslint .",
-		"eslint-fix": "eslint . --fix",
-		"update": "npm-check-updates",
-		"lint:css": "wp-scripts lint-style ./css/*.*css",
-		"lint:js": "wp-scripts lint-js ./js/*.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/pedro-mendonca/Translation-Tools.git"
-	},
+	"author": "Pedro Mendonça",
+	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"WordPress",
 		"i18n",
 		"l10n"
 	],
-	"author": "Pedro Mendonça",
-	"license": "GPL-3.0-or-later",
+	"homepage": "https://github.com/pedro-mendonca/Translation-Tools#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pedro-mendonca/Translation-Tools.git"
+	},
 	"bugs": {
 		"url": "https://github.com/pedro-mendonca/Translation-Tools/issues"
 	},
-	"homepage": "https://github.com/pedro-mendonca/Translation-Tools#readme"
+	"devDependencies": {
+		"@wordpress/scripts": "^18.0.1",
+		"node-sass": "^6.0.1",
+		"sass-lint": "^1.13.1",
+		"uglify-js": "^3.14.2"
+	},
+	"scripts": {
+		"compile:js": "npm run compile:js:options-general.js && npm run compile:js:update-core.js",
+		"compile:js:options-general.js": "uglifyjs assets/js/options-general.js --compress drop_console=true -o assets/js/options-general.min.js",
+		"compile:js:update-core.js": "uglifyjs assets/js/update-core.js --compress drop_console=true -o assets/js/update-core.min.js",
+		"lint:js": "wp-scripts lint-js",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
+	}
 }
