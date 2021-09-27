@@ -227,7 +227,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 					sprintf(
 						'%s %s',
 						esc_html__( 'Download failed.', 'translation-tools' ),
-						esc_html__( 'A valid URL was not provided.', 'translation-tools' )
+						esc_html__( 'Translation project not found.', 'translation-tools' )
 					)
 				);
 				return $result;
