@@ -322,6 +322,18 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				'<code>' . esc_html( $file_name ) . '</code>'
 			);
 
+			// Check if .po file exist.
+			if ( ! is_file( $destination . $file_name ) ) {
+
+				// Report message.
+				$result['data'] = new WP_Error(
+					'extract-translations',
+					esc_html__( 'File not found.', 'translation-tools' )
+				);
+
+				return $result;
+			}
+
 			$translations = Translations::fromPoFile( $destination . $file_name );
 
 			if ( ! is_object( $translations ) ) {
