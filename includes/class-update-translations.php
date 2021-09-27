@@ -95,7 +95,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 				// Download file from WordPress.org translation table.
 				$download = $this->download_translations( $type, $project, $locale );
-				array_push( $result['log'], $download['log'] );
+				// Multiple logs if some subprojects fail.
+				foreach ( $download['log'] as $download_log ) {
+					array_push( $result['log'], $download_log );
+				}
 				$result['data'] = $download['data'];
 				if ( is_wp_error( $result['data'] ) ) {
 					return $result;
@@ -178,20 +181,43 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		public function download_translations( $type, $project, $locale ) {
 
 			// Set translation data path.
-			$source = Translations_API::translation_path( $type, $project, $locale );
+			$sources = Translations_API::translation_path( $type, $project, $locale );
 
 			// Define variable.
 			$result = array();
 
-			// Report message.
-			$result['log'] = sprintf(
-				/* translators: %s: URL. */
-				esc_html__( 'Downloading translation from %s…', 'translation-tools' ),
-				'<code>' . esc_html( $source ) . '</code>'
-			);
+			// Define log array.
+			$result['log'] = array();
+
+			// Define variable.
+			$response = '';
 
 			// Get the translation data.
-			$response = wp_remote_get( $source );
+			foreach ( $sources as $source ) {
+
+				// Report message.
+				$result['log'][] = sprintf(
+					/* translators: %s: URL. */
+					esc_html__( 'Downloading translation from %s…', 'translation-tools' ),
+					'<code>' . esc_html( $source ) . '</code>'
+				);
+
+				$response = wp_remote_get( $source );
+
+				if ( ! is_array( $response ) || 'application/octet-stream' !== $response['headers']['content-type'] ) {
+
+					// Report message.
+					$result['log'][] = esc_html__( 'Translation project not found.', 'translation-tools' );
+
+					// Translation project not found, try the next one.
+					continue;
+
+				}
+
+				// Translation project found, skip the rest of the sources.
+				break;
+
+			}
 
 			if ( ! is_array( $response ) || 'application/octet-stream' !== $response['headers']['content-type'] ) {
 
@@ -234,7 +260,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		public function generate_po( $destination, $project, $locale, $response ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
-			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
+			$domain    = $project['Domain'] ? $project['Domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.po';
 
 			// Define variable.
@@ -283,7 +309,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		public function extract_translations( $destination, $project, $locale ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
-			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
+			$domain    = $project['Domain'] ? $project['Domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.po';
 
 			// Define variable.
@@ -333,7 +359,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		public function generate_mo( $destination, $project, $locale, $translations ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
-			$domain    = $project['domain'] ? $project['domain'] . '-' : '';
+			$domain    = $project['Domain'] ? $project['Domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.mo';
 
 			// Define variable.

@@ -423,24 +423,27 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 */
 		public function update_core_content_load() {
 
+			$type = 'wp';
+
 			$result = array();
 
 			$projects = Translations_API::get_wordpress_subprojects();
 
 			$wp_locales = self::core_update_locales();
 
-			WP_Filesystem();
-			global $wp_filesystem;
-			// Destination of translation files.
-			$destination = $wp_filesystem->wp_lang_dir();
-
 			// Loop all the installed Locales.
 			foreach ( $wp_locales as $wp_locale ) {
 
 				$project_count = 0;
 
-				// Loop all the WordPress core sub-projects.
-				foreach ( $projects as $project ) {
+				// Loop all the translation projects.
+				foreach ( $projects as $slug => $project ) {
+
+					// Add project key as Slug.
+					$project['Slug'] = $slug;
+
+					// Check if custom 'Domain' is set, as for WordPress core. Defaults to project 'Slug'.
+					$project['Domain'] = isset( $project['Domain'] ) ? $project['Domain'] : $slug; // Project domain.
 
 					$project_count ++;
 					?>
@@ -450,7 +453,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 						printf(
 							/* translators: 1: Translation name. 2: WordPress Locale. 3: Number of the translation. 4: Total number of translations being updated. */
 							esc_html__( 'Updating translations for %1$s (%2$s) (%3$d/%4$d)', 'translation-tools' ),
-							'<em>' . esc_html( $project['name'] ) . '</em>',
+							'<em>' . esc_html( $project['Name'] ) . '</em>',
 							esc_html( $wp_locale ),
 							intval( $project_count ),
 							intval( count( $projects ) )
@@ -459,12 +462,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					</h4>
 
 					<?php
-					$result = $this->update_translations->update_translation( $destination, $project, $wp_locale );
+					$result = $this->update_translations->update_translation( $type, $project, $wp_locale, true, true, true );
 
 					$log_display = is_wp_error( $result['data'] ) ? 'block' : 'none';
 					?>
 
-					<div class="update-messages hide-if-js" id="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
+					<div class="update-messages hide-if-js" id="progress-<?php echo esc_attr( $type ) . '-' . esc_attr( $wp_locale ) . '-' . intval( $project_count ); ?>" style="display: <?php echo esc_attr( $log_display ); ?>;">
 						<p>
 							<?php
 							foreach ( $result['log'] as $result_log_item ) {
@@ -483,7 +486,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 							'message' => sprintf(
 								/* translators: 1: Title of an update. 2: Error message. */
 								esc_html__( 'An error occurred while updating %1$s: %2$s', 'translation-tools' ),
-								'<em>' . esc_html( $project['name'] ) . '</em>',
+								'<em>' . esc_html( $project['Name'] ) . '</em>',
 								'<strong>' . esc_html( $error_message ) . '</strong>'
 							),
 						);
@@ -492,13 +495,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					} else {
 						?>
 
-						<div class="updated js-update-details" data-update-details="progress-<?php echo esc_html( $wp_locale ) . '-' . intval( $project_count ); ?>">
+						<div class="updated js-update-details" data-update-details="progress-<?php echo esc_attr( $type ) . '-' . esc_attr( $wp_locale ) . '-' . intval( $project_count ); ?>">
 							<p>
 								<?php
 								printf(
 									/* translators: %s: Project name. */
 									esc_html__( '%s updated successfully.', 'translation-tools' ),
-									'<em>' . esc_html( $project['name'] ) . '</em>'
+									'<em>' . esc_html( $project['Name'] ) . '</em>'
 								);
 								?>
 								<button type="button" class="hide-if-no-js button-link js-update-details-toggle" aria-expanded="false"><?php esc_attr_e( 'Show details.', 'translation-tools' ); ?></button>

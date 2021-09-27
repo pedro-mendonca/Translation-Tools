@@ -34,30 +34,36 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 */
 		public static function get_wordpress_subprojects() {
 
+			// Get current WordPress major version ( e.g.: '5.5' ).
+			$wp_major_version = self::major_version( get_bloginfo( 'version' ) );
+
+			// Get WordPress translation project, currently installed version, fallback to latest existent, no force update.
+			$translation_project = self::get_core_translation_project( $wp_major_version, false );
+
+			// Get the WordPress translation project version slug ( e.g.: 'dev', '5.8.x', 5.7.x, etc. ).
+			$project_slug = $translation_project['data']->slug;
+
+			// All the WordPress core translation projects, the key is the project/subproject slug.
 			$subprojects = array(
-				array(
-					'slug'   => '',
+				$project_slug                    => array(
 					/* translators: Subproject name in translate.wordpress.org, do not translate! */
-					'name'   => _x( 'Development', 'Subproject name', 'translation-tools' ),
-					'domain' => '',
+					'Name'   => _x( 'Development', 'Subproject name', 'translation-tools' ),
+					'Domain' => '',
 				),
-				array(
-					'slug'   => 'admin/',
+				$project_slug . '/admin'         => array(
 					/* translators: Subproject name in translate.wordpress.org, do not translate! */
-					'name'   => _x( 'Administration', 'Subproject name', 'translation-tools' ),
-					'domain' => 'admin',
+					'Name'   => _x( 'Administration', 'Subproject name', 'translation-tools' ),
+					'Domain' => 'admin',
 				),
-				array(
-					'slug'   => 'admin/network/',
+				$project_slug . '/admin/network' => array(
 					/* translators: Subproject name in translate.wordpress.org, do not translate! */
-					'name'   => _x( 'Network Admin', 'Subproject name', 'translation-tools' ),
-					'domain' => 'admin-network',
+					'Name'   => _x( 'Network Admin', 'Subproject name', 'translation-tools' ),
+					'Domain' => 'admin-network',
 				),
-				array(
-					'slug'   => 'cc/',
+				$project_slug . '/cc'            => array(
 					/* translators: Subproject name in translate.wordpress.org, do not translate! */
-					'name'   => _x( 'Continents & Cities', 'Subproject name', 'translation-tools' ),
-					'domain' => 'continents-cities',
+					'Name'   => _x( 'Continents & Cities', 'Subproject name', 'translation-tools' ),
+					'Domain' => 'continents-cities',
 				),
 			);
 
@@ -248,38 +254,70 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
 		 *
-		 * @return string|null      File path to get source.
+		 * @return array            Array of file paths (primary and alternative) to get source.
 		 */
 		public static function translation_path( $type, $project, $locale ) {
 
-			// Get current WordPress major version ( e.g.: '5.5' ).
-			$wp_major_version = self::major_version( get_bloginfo( 'version' ) );
+			// Set empty array.
+			$translation_paths = array();
 
-			// Get WordPress translation project, currently installed version, fallback to latest existent, no force update.
-			$translation_project = self::get_core_translation_project( $wp_major_version, false );
-
-			$translation_path = esc_url_raw(
-				add_query_arg(
-					array(
-						/**
-						 * Filter the status of the translations strings to get.
-						 * Examples of useful status:
-						 *   - 'current'                                       Gets all currently translated strings (Default).
-						 *   - 'current_or_fuzzy'                              Gets all currently translated and fuzzy strings.
-						 *   - 'current_or_waiting'                            Gets all currently translated and waiting strings.
-						 *   - 'current_or_waiting_or_fuzzy'                   Gets all currently translated, fuzzy and waiting strings.
-						 *   - 'current_or_waiting_or_fuzzy_or_untranslated'   Gets all currently translated, fuzzy, waiting and untranslated strings.
-						 *
-						 * @since 1.2.3
-						 */
-						'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
-						'format'          => 'po',
-					),
-					self::translate_url( 'wp', false ) . $translation_project['data']->slug . '/' . $project['slug'] . $locale->locale_slug . '/export-translations'
-				)
+			// Add 'stable' or 'dev' subproject to plugin path.
+			$plugin_subprojects = array(
+				'stable',
+				'dev',
 			);
 
-			return $translation_path;
+			/**
+			 * Filter the Plugins subprojects default order. Defaults to 'Stable' first and 'Development' second.
+			 * Return false to reverse order.
+			 *
+			 * @since 1.5.0
+			 */
+			$plugin_subprojects = apply_filters( 'translation_tools_plugin_stable_first', true ) ? $plugin_subprojects : array_reverse( $plugin_subprojects );
+
+			$types = array(
+				'wp'      => false,
+				'plugins' => $plugin_subprojects,
+				'themes'  => false,
+			);
+
+			if ( ! empty( $types[ $type ] ) ) {
+
+				foreach ( $types[ $type ] as $subproject ) {
+					$project_paths[] = $project['Slug'] . '/' . $subproject;
+				}
+			} else {
+
+				$project_paths[] = $project['Slug'];
+
+			}
+
+			foreach ( $project_paths as $project_path ) {
+
+				$translation_paths[] = esc_url_raw(
+					add_query_arg(
+						array(
+							/**
+							 * Filter the status of the translations strings to get.
+							 * Examples of useful status:
+							 *   - 'current'                                       Gets all currently translated strings (Default).
+							 *   - 'current_or_fuzzy'                              Gets all currently translated and fuzzy strings.
+							 *   - 'current_or_waiting'                            Gets all currently translated and waiting strings.
+							 *   - 'current_or_waiting_or_fuzzy'                   Gets all currently translated, fuzzy and waiting strings.
+							 *   - 'current_or_waiting_or_fuzzy_or_untranslated'   Gets all currently translated, fuzzy, waiting and untranslated strings.
+							 *
+							 * @since 1.2.3
+							 */
+							'filters[status]' => apply_filters( 'translation_tools_get_wp_translations_status', 'current' ),
+							'format'          => 'po',
+						),
+						self::translate_url( $type, false ) . $project_path . '/' . $locale->locale_slug . '/export-translations'
+					)
+				);
+
+			}
+
+			return $translation_paths;
 		}
 
 

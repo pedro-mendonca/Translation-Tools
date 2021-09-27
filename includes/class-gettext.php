@@ -69,7 +69,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			// Set the file naming convention. ( e.g.: {domain}-{locale}-{hash}.json ).
 			// If $include_domain is set to false, use file name convention ${locale}-${md5}.json.
-			$domain         = $project['domain'] && $include_domain ? $project['domain'] . '-' : '';
+			$domain         = $project['Domain'] && $include_domain ? $project['Domain'] . '-' : '';
 			$base_file_name = $domain . $locale->wp_locale;
 
 			foreach ( $translations as $translation ) {
