@@ -72,6 +72,90 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 
 		/**
+		 * Get the list of installed Plugins hosted on WordPress.org.
+		 *
+		 * @since 1.5.0
+		 *
+		 * @return array $plugins   Returns an array of Plugins, with 'slug' as key, 'Name' and language file 'Domain'.
+		 */
+		public static function get_wordpress_plugins() {
+
+			// Get installed plugins.
+			$installed_plugins = get_plugins(); // Key is theme slug.
+
+			$plugins = array();
+
+			foreach ( $installed_plugins as $file => $installed_plugin ) {
+
+				// Check if plugin exist in WordPress.org updates list.
+				$update_plugins = get_site_transient( 'update_plugins' );
+
+				// Merge plugins with updates with plugins with no updates.
+				$wporg_plugins = array_merge( $update_plugins->response, $update_plugins->no_update );
+
+				if ( array_key_exists( $file, $wporg_plugins ) ) {
+					$plugins[ $wporg_plugins[ $file ]->slug ] = array(
+						// Set translation project name.
+						'Name' => $installed_plugin['Name'],
+					);
+				}
+			}
+
+			/**
+			 * Filter the Plugins list to update translations and generate language files.
+			 *
+			 * @since 1.5.0
+			 */
+			$plugins = apply_filters( 'translation_tools_update_plugins_list', $plugins );
+
+			return $plugins;
+
+		}
+
+
+		/**
+		 * Get the list of installed themes hosted on WordPress.org.
+		 *
+		 * @since 1.5.0
+		 *
+		 * @return array $themes   Returns an array of Themes, with 'slug' as key, 'Name' and language file 'Domain'.
+		 */
+		public static function get_wordpress_themes() {
+
+			// Get installed themes.
+			$installed_themes = wp_get_themes(); // Key is theme slug.
+
+			$themes = array();
+
+			foreach ( $installed_themes as $slug => $installed_theme ) {
+
+				// Check if theme exist in WordPress.org updates list.
+				$update_themes = get_site_transient( 'update_themes' );
+
+				// Merge themes with updates with plugins with no updates.
+				$wporg_themes = array_merge( $update_themes->response, $update_themes->no_update );
+
+				if ( array_key_exists( $slug, $wporg_themes ) ) {
+					$themes[ $slug ] = array(
+						// Set translation project name.
+						'Name' => $installed_theme->name,
+					);
+				}
+			}
+
+			/**
+			 * Filter the Themes list to update translations and generate language files.
+			 *
+			 * @since 1.5.0
+			 */
+			$themes = apply_filters( 'translation_tools_update_themes_list', $themes );
+
+			return $themes;
+
+		}
+
+
+		/**
 		 * Get WordPress core translation sub-project data.
 		 *
 		 * @since 1.2.2
