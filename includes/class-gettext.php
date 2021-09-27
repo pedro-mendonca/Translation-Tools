@@ -152,6 +152,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			$result['data'] = true;
 
+			// Check if JavaScript translations exist to generate '.json' files.
+			if ( empty( $mapping ) ) {
+
+				// Report message.
+				$result['log'][] = sprintf(
+					/* translators: %s: File type. */
+					esc_html__( 'No JavaScript translations found. No %s file was generated.', 'translation-tools' ),
+					'<code>.json</code>'
+				);
+
+				return $result;
+			}
+
 			foreach ( $mapping as $file => $translations ) {
 
 				$hash             = md5( $file );
@@ -209,6 +222,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 						'source' => $file,
 					)
 				);
+
 				if ( ! $success ) {
 
 					// Report message.
