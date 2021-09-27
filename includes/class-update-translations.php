@@ -51,17 +51,22 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 * Download .po file, extract with Gettext to generate .po and .json files.
 		 *
 		 * @since 1.0.0
+		 * @since 1.5.0  Removed $destination parameter.
+		 *               New $type parameter.
 		 *
-		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
-		 * @param array  $project       Project array.
-		 * @param string $wp_locale     WP Locale ( e.g.: 'pt_PT' ).
+		 * @param string $type             Type of translation project ( e.g.: 'wp', 'plugins', 'themes' ).
+		 * @param array  $project          Project array.
+		 * @param string $wp_locale        WP Locale ( e.g.: 'pt_PT' ).
 		 *
 		 * @return array|WP_Error       Array on success, WP_Error on failure.
 		 */
-		public function update_translation( $destination, $project, $wp_locale ) {
+		public function update_translation( $type, $project, $wp_locale ) {
 
 			// Define variable.
 			$result = array();
+
+			// Destination of translation files.
+			$destination = Translations_API::get_translation_destination( $type );
 
 			// Set array of log entries.
 			$result['log'] = array();
@@ -70,7 +75,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$locale = Translations_API::locale( $wp_locale );
 
 			// Download file from WordPress.org translation table.
-			$download = $this->download_translations( $project, $locale );
+			$download = $this->download_translations( $type, $project, $locale );
 			array_push( $result['log'], $download['log'] );
 			$result['data'] = $download['data'];
 			if ( is_wp_error( $result['data'] ) ) {
@@ -123,16 +128,18 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *  - .po files included in the language packs don't include strings that are exclusive to JavaScript source files, those strings are included in the .json files.
 		 *
 		 * @since 1.0.0
+		 * @since 1.5.0  New $type parameter.
 		 *
+		 * @param string $type      Type of translation project ( e.g.: 'wp', 'plugins', 'themes' ).
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
 		 *
 		 * @return array|WP_Error   Array on success, WP_Error on failure.
 		 */
-		public function download_translations( $project, $locale ) {
+		public function download_translations( $type, $project, $locale ) {
 
 			// Set translation data path.
-			$source = Translations_API::translation_path( $project, $locale );
+			$source = Translations_API::translation_path( $type, $project, $locale );
 
 			// Define variable.
 			$result = array();

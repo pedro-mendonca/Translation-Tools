@@ -184,7 +184,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 
 		/**
-		 * Get the translate site URL.
+		 * Get the Translate WordPress site URL.
 		 *
 		 * Example for WordPress.org plugins URL (normal URL, not API URL):
 		 * $url = Translations_API::translate_url( 'plugins', false );
@@ -241,13 +241,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 * @since 1.2.3  Rename filter 'ttools_get_wp_translations_status' to 'translation_tools_get_wp_translations_status'.
+		 * @since 1.5.0  New $type parameter.
+		 *               Returns an array of filepath and alternative, useful for plugins ( 'Stable', 'Dev' ).
 		 *
+		 * @param string $type      Type of translation project ( e.g.: 'wp', 'plugins', 'themes' ).
 		 * @param array  $project   Project array.
 		 * @param object $locale    Locale object.
 		 *
 		 * @return string|null      File path to get source.
 		 */
-		public static function translation_path( $project, $locale ) {
+		public static function translation_path( $type, $project, $locale ) {
 
 			// Get current WordPress major version ( e.g.: '5.5' ).
 			$wp_major_version = self::major_version( get_bloginfo( 'version' ) );
@@ -312,6 +315,48 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			return $current_locale;
+		}
+
+
+		/**
+		 * Get the local path of the translation file.
+		 *
+		 * @since 1.5.0
+		 *
+		 * @param string $project   Set the translation project local destination.
+		 *
+		 * @return string|null      File path to get source.
+		 */
+		public static function get_translation_destination( $project = null ) {
+
+			WP_Filesystem();
+			global $wp_filesystem;
+
+			// Get the destination of translation files.
+			$destination = $wp_filesystem->wp_lang_dir();
+
+			/**
+			 * Filters the translation files local path destination.
+			 *
+			 * @since 1.5.0
+			 */
+			$destination = apply_filters( 'translation_tools_translation_destination', $destination );
+
+			// WordPress local translation projects destinations.
+			$wp_project_types = array(
+				'wp'      => '',        // WordPress core translations destination.
+				'plugins' => 'plugins/', // Plugins translations destination.
+				'themes'  => 'themes/',  // Themes translations destination.
+			);
+
+			// Check if project is one of the known ones.
+			if ( array_key_exists( $project, $wp_project_types ) ) {
+				// Add project destination to translate local path.
+				$destination .= $wp_project_types[ $project ];
+			}
+
+			return $destination;
+
 		}
 
 	}
