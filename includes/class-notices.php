@@ -46,7 +46,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Notices' ) ) {
 				'css-class'   => isset( $args['css-class'] ) ? ' ' . $args['css-class'] : '',                    // Some extra CSS classes.
 				'update-icon' => isset( $args['update-icon'] ) && $args['update-icon'] ? true : '',              // Show update message icons. Defaults to false.
 				'message'     => isset( $args['message'] ) ? $args['message'] : '',                              // Message to show.
-				'extra-html'  => isset( $args['extra-html'] ) ? $args['extra-html'] : '',                        // Some extra HTMLto show.
+				'extra-html'  => isset( $args['extra-html'] ) ? $args['extra-html'] : '',                        // Some extra HTML to show.
 			);
 			if ( $notice['update-icon'] ) {
 				switch ( $args['type'] ) {
