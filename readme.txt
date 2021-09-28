@@ -107,6 +107,19 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 == Changelog ==
 
+= 1.5.0 =
+*   Update your Plugins and Themes translations! (.po, .mo and .json)
+*   Update action now loads on custom update-core dedicated page
+*   Code refactoring to extend the update of .po/.mo/.json files to Plugins and Themes
+*   Detailed report about translation project used in the updated
+*   New filter to customize/reverse the priority of the WP.org Plugins translation projects (defaults to 'Stable' > 'Development')
+*   New filter to customize the Plugins and Themes translations to update
+*   New filter to disable translations download and generate .json files from your current .po files
+*   New filter do disable the update of the .json files from the JavaScript translations
+*   GitHub release process optimization
+*   Assets folders optimization
+*   Debug mode improvements
+
 = 1.4.1 =
 *   Improve notices wording about Language Packs availability
 *   Fix notice links accessibility
