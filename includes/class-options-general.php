@@ -261,7 +261,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					sprintf(
 						/* translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. */
 						esc_html__( 'To update the WordPress translations %1$sclick here%2$s.', 'translation-tools' ),
-						'<a href="' . esc_url( admin_url( 'update-core.php?ttools=force_update_core' ) ) . '">',
+						'<a href="' . esc_url( wp_nonce_url( admin_url( 'update-core.php?action=force-translation-upgrade' ), 'translation-tools-update', 'translation_tools_nonce' ) ) . '">',
 						'</a>'
 					),
 					sprintf(
