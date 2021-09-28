@@ -2,32 +2,36 @@ jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded update-core.js' );
 
 	// Load Ajax on each loading div.
-	$( 'div.translation-tools-loading.update-core' ).each( function() {
-		ttoolsWordPressCoreLoadAjax();
+	$( 'div.translation-tools-loading' ).each( function() {
+		var type = $( this ).closest( 'div.translation-tools-section' ).attr( 'data-type' );
+		ttoolsUpdateTranslations( type );
 	} );
 
 	/**
-	 * Load WordPress core translations.
+	 * Load section translations.
 	 *
-	 * @since 1.0.0
+	 * @since 1.5.0
+	 * @param {string} type Updates section type ID.
 	 */
-	function ttoolsWordPressCoreLoadAjax() {
+	function ttoolsUpdateTranslations( type ) {
 		$.ajax( {
 
 			url: ttools.ajaxurl,
 			type: 'GET',
 			data: {
-				action: 'update_core_content_load',
+				// Universal action with 'section' passed in $_GET.
+				action: 'update_section_translations',
+				section: type,
 			},
 			beforeSend: function() {
-				console.log( 'Start WordPress translation update.' );
+				console.log( 'Start ' + type + ' section translations update.' );
 			},
 
 		} ).done( function( ttoolsResponse ) {
-			$( 'div.translation-tools-loading.update-core' ).removeClass( 'notice notice-warning notice-alt inline update-message updating-message' );
-			$( 'div.translation-tools-loading.update-core' ).html( ttoolsResponse );
+			$( 'div.translation-tools-section[data-type=' + type + '] div.translation-tools-loading' ).removeClass( 'notice notice-warning notice-alt inline update-message updating-message' );
+			$( 'div.translation-tools-section[data-type=' + type + '] div.translation-tools-loading' ).html( ttoolsResponse );
 
-			console.log( 'End WordPress translation update.' );
+			console.log( 'End ' + type + ' section translations update.' );
 		} ).fail( function() {
 			console.log( 'Translation Tools Ajax Error.' );
 		} );
