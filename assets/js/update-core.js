@@ -20,7 +20,7 @@ jQuery( document ).ready( function( $ ) {
 			type: 'GET',
 			data: {
 				// Universal action with 'section' passed in $_GET.
-				action: 'update_section_translations',
+				action: 'force_upgrade_translations_section',
 				section: type,
 			},
 			beforeSend: function() {
