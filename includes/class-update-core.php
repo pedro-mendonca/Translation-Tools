@@ -48,11 +48,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			// Instantiate Translation Tools Update Translations.
 			$this->update_translations = new Update_Translations();
 
-			// Add WordPress translation info and update button to updates page.
-			add_action( 'core_upgrade_preamble', array( $this, 'updates_wp_translation_notice' ) );
+			// Add WordPress translations info and WordPress/Plugins/Themes update buttons to update-core page.
+			add_action( 'core_upgrade_preamble', array( $this, 'update_core_bottom_section' ) );
 
-			// Load WordPress translation updater.
-			add_action( 'wp_ajax_update_core_content_load', array( $this, 'update_core_content_load' ) );
+			// Add update-core custom update action page.
+			add_action( 'update-core-custom_force-translation-upgrade', array( $this, 'action_force_translation_upgrade' ) );
+
+			// Ajax load translations updater section.
+			add_action( 'wp_ajax_force_upgrade_translations_section', array( $this, 'force_upgrade_translations_section' ) );
 
 			// Filter 'update_core' transient to prevent update of previous WordPress version language pack.
 			add_filter( 'pre_set_site_transient_update_core', array( $this, 'remove_previous_wp_translation' ) );
@@ -61,13 +64,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 
 		/**
-		 * Add WordPress core info and update button on the Updates page bottom.
+		 * Add WordPress core info and update buttons on the Updates page bottom.
 		 *
 		 * @since 1.0.0
+		 * @since 1.5.0   Renamed 'updates_wp_translation_notice' to 'update_core_bottom_section'.
 		 *
 		 * @return void
 		 */
-		public function updates_wp_translation_notice() {
+		public function update_core_bottom_section() {
 
 			// Check user capability to install languages.
 			if ( ! current_user_can( 'install_languages' ) && ! current_user_can( 'update_languages' ) ) {
@@ -96,59 +100,124 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 				<?php
 
-				// Show the Translation Tools admin notice for WordPress core translation status.
-				$notice_args = array();
-				$this->updates_wp_translation_notice_message( $notice_args );
+				// Show the Translation Tools admin notice for WordPress core translation status and update buttons.
+				$this->update_core_bottom_section_content();
 				?>
 
 			</div>
 
 			<?php
-
-			if ( ! isset( $_GET['ttools'] ) ) { // phpcs:ignore
-				return;
-			}
-
-			$url_var = $_GET['ttools']; // phpcs:ignore
-
-			// Check for correct URL parameter.
-			if ( 'force_update_core' !== $url_var ) {
-				return;
-			}
-
-			$this->update_core_content();
-
 		}
 
 
 		/**
-		 * Add form with action button to update WordPress core translation.
+		 * Set custom update-core action page.
 		 *
-		 * @since 1.0.0
+		 * @since 1.5.0
 		 *
-		 * @return string  HTML of button to update core translation.
+		 * @return void
 		 */
-		public function form_update_wordpress_translation() {
+		public function action_force_translation_upgrade() {
 
-			// Show force update WordPress translation button.
-			$form_action = 'update-core.php?ttools=force_update_core';
-			ob_start();
+			// Check user capability to install languages.
+			if ( ! current_user_can( 'install_languages' ) ) {
+				return;
+			}
+
+			// Check nonce.
+			check_admin_referer( 'translation-tools-update', 'translation_tools_nonce' );
+
+			// Load admin header.
+			require_once ABSPATH . 'wp-admin/admin-header.php';
 			?>
 
-			<form method="post" action="<?php echo esc_url( $form_action ); ?>" name="upgrade-wordpress-translation" class="upgrade">
-				<?php wp_nonce_field( 'upgrade-wordpress-translation' ); ?>
+			<div class="wrap">
+
+				<h1><?php esc_html_e( 'Update Translations', 'translation-tools' ); ?></h1>
+
+				<?php
+
+				// Get site and user core update Locales.
+				$wp_locales = self::core_update_locales();
+
+				// If Locales array is empty, do nothing.
+				if ( empty( $wp_locales ) ) {
+					return;
+				}
+
+				// Define variable.
+				$update_locales = array();
+
+				// Format Locales. Don't use $wp_locale because it conflicts with global $wp_locale (WP_Locale object) loaded above on 'wp-admin/admin-header.php'.
+				foreach ( $wp_locales as $wordpress_locale ) {
+					// Get Locale data.
+					$locale = Translations_API::locale( $wordpress_locale );
+
+					// Get the formated Locale name.
+					$formated_name = Options_General::locale_name_format( $locale );
+
+					$update_locales[] = $formated_name;
+				}
+
+				// Check for wich translation to update on POST data. Defaults to WordPress translations for update links on General Settings and User Settings.
+				if ( ! isset( $_POST['update-translations'] ) ) { // phpcs:ignore
+					$update_translations = 'wp';
+				} else {
+					$update_translations = $_POST['update-translations']; // phpcs:ignore.
+				}
+
+				$types = array(
+					'wp'      => esc_html__( 'WordPress translations', 'translation-tools' ),
+					'plugins' => esc_html__( 'Plugins translations', 'translation-tools' ),
+					'themes'  => esc_html__( 'Themes translations', 'translation-tools' ),
+				);
+
+				foreach ( $types as $type => $title ) {
+
+					// Check if type is selected, or 'all'.
+					if ( 'all' === $update_translations || $type === $update_translations ) {
+
+						// Show updates section.
+						?>
+						<div class="translation-tools-section" data-type="<?php echo esc_attr( $type ); ?>">
+							<h2><?php echo esc_html( $title ); ?></h2>
+							<?php
+
+							$admin_notice = array(
+								'type'        => 'warning-spin',
+								'notice-alt'  => false,
+								'inline'      => true,
+								'update-icon' => true,
+								'css-class'   => 'translation-tools-loading update-' . $type,
+								'message'     => sprintf(
+									'%s %s',
+									esc_html__( 'The update process is starting. This process may take a while on some hosts, so please be patient.', 'translation-tools' ),
+									wp_sprintf(
+										/* translators: %l: Coma separated list of Locales. */
+										__( 'Downloading translations for <strong>%l</strong>.', 'translation-tools' ),
+										$update_locales
+									)
+								),
+							);
+							$this->notices->notice_message( $admin_notice );
+							?>
+
+						</div>
+						<?php
+					}
+				}
+				?>
+
 				<p>
-					<input type="submit" name="force_update_core" class="button button-primary" value="<?php esc_attr_e( 'Update WordPress Translations', 'translation-tools' ); ?>">
+					<a href="<?php echo esc_url( self_admin_url( 'update-core.php' ) ); ?>" target="_parent"><?php esc_html_e( 'Go to WordPress Updates page', 'translation-tools' ); ?></a>
 				</p>
-			</form>
+
+			</div>
 
 			<?php
-			$form = ob_get_clean();
-			// Check that string isn't empty.
-			if ( $form ) {
-				return $form;
-			}
-			return '';
+			// Load admin footer.
+			require_once ABSPATH . 'wp-admin/admin-footer.php';
+
 		}
 
 
@@ -156,17 +225,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 * WordPress updates translation info message.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @param array $notice_args  Arguments for admin notice.
+		 * @since 1.5.0   Renamed from 'updates_wp_translation_notice_message' to 'update_core_bottom_section_content'.
+		 *                Removed $notice_args.
 		 *
 		 * @return void
 		 */
-		public function updates_wp_translation_notice_message( $notice_args ) {
+		public function update_core_bottom_section_content() {
 
 			// Get WordPress major version ( e.g.: '5.5' ).
 			$wp_major_version = Translations_API::major_version( get_bloginfo( 'version' ) );
 
-			// Force a update check when requested.
+			// Force an update check when requested.
 			$force_check = ! empty( $_GET['force-check'] ); // phpcs:ignore
 
 			// Get installed WordPress core translation project.
@@ -178,8 +247,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			// Check if API is available.
 			if ( ! is_wp_error( $translation_project['data'] ) ) {
 
-				// Add form with action button to update WordPress core translation.
-				echo wp_kses( $this->form_update_wordpress_translation(), Utils::allowed_html() );
+				// Add form with action button to update WordPress, Plugins and Themes translations.
+				$this->update_core_bottom_section_form();
 
 				// Get translation project major version.
 				$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
@@ -301,8 +370,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			$admin_notice = array(
 				'type'        => $admin_notice_type,
-				'inline'      => isset( $notice_args['inline'] ) ? $notice_args['inline'] : null,
-				'dismissible' => isset( $notice_args['dismissible'] ) ? $notice_args['dismissible'] : null,
 				'update-icon' => isset( $admin_notice_icon ) ? $admin_notice_icon : null,
 				'message'     => $message,
 			);
@@ -312,58 +379,58 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 
 		/**
-		 * Load WordPress core update loading placeholder.
+		 * Add form with action buttons to update WordPress, Plugins and Themes translations.
 		 *
-		 * @since 1.0.0
+		 * @since 1.5.0
 		 *
 		 * @return void
 		 */
-		public function update_core_content() {
+		public function update_core_bottom_section_form() {
 
-			// Check user capability to install languages.
-			if ( ! current_user_can( 'install_languages' ) ) {
-				return;
-			}
-
-			// Get site and user core update Locales.
-			$wp_locales = self::core_update_locales();
-
-			// If Locales array is empty, do nothing.
-			if ( empty( $wp_locales ) ) {
-				return;
-			}
-
-			// Define variable.
-			$update_locales = array();
-
-			foreach ( $wp_locales as $wp_locale ) {
-				// Get Locale data.
-				$locale = Translations_API::locale( $wp_locale );
-
-				// Get the formated Locale name.
-				$formated_name = Options_General::locale_name_format( $locale );
-
-				$update_locales[] = $formated_name;
-			}
-
-			$admin_notice = array(
-				'type'        => 'warning-spin',
-				'notice-alt'  => false,
-				'inline'      => false,
-				'update-icon' => true,
-				'css-class'   => 'translation-tools-loading update-core',
-				'message'     => sprintf(
-					'%s %s',
-					esc_html__( 'The update process is starting. This process may take a while on some hosts, so please be patient.', 'translation-tools' ),
-					wp_sprintf(
-						/* translators: %l: Coma separated list of Locales. */
-						__( 'Downloading translations for <strong>%l</strong>.', 'translation-tools' ),
-						$update_locales
-					)
-				),
+			// Set Form Action url query arguments.
+			$form_action = esc_url_raw(
+				add_query_arg(
+					array(
+						'action' => 'force-translation-upgrade',
+					),
+					'update-core.php'
+				)
 			);
-			$this->notices->notice_message( $admin_notice );
+			?>
 
+			<style>
+			div.translation-tools-update-core-info p:not(:first-child) button {
+				margin-right: 0.5em;
+				margin-top: 0.5em;
+			}
+			div.translation-tools-update-core-info p button span.dashicons {
+				vertical-align: text-top;
+				font-size: large;
+			}
+			</style>
+
+			<form method="post" action="<?php echo esc_url( $form_action ); ?>" name="force-update-translations" class="upgrade">
+				<?php
+				// Add nonce check.
+				wp_nonce_field( 'translation-tools-update', 'translation_tools_nonce' );
+				?>
+				<p>
+					<button type="submit" name="update-translations" class="button button-primary" value="all">
+						<?php esc_attr_e( 'Update All Translations', 'translation-tools' ); ?>
+					</button>
+					<button type="submit" name="update-translations" class="button button-secondary" value="wp">
+						<span class="dashicons dashicons-wordpress"></span> <?php esc_attr_e( 'Update WordPress Translations', 'translation-tools' ); ?>
+					</button>
+					<button type="submit" name="update-translations" class="button button-secondary" value="plugins">
+						<span class="dashicons dashicons-admin-plugins"></span> <?php esc_attr_e( 'Update Plugins Translations', 'translation-tools' ); ?>
+					</button>
+					<button type="submit" name="update-translations" class="button button-secondary" value="themes">
+						<span class="dashicons dashicons-admin-appearance"></span> <?php esc_attr_e( 'Update Themes Translations', 'translation-tools' ); ?>
+					</button>
+				</p>
+			</form>
+
+			<?php
 		}
 
 
@@ -415,20 +482,85 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 
 		/**
-		 * Load WordPress core update content.
+		 * Ajax load translations updater section.
 		 *
-		 * @since 1.0.0
+		 * @since 1.5.0
 		 *
 		 * @return void
 		 */
-		public function update_core_content_load() {
+		public function force_upgrade_translations_section() {
 
-			$type = 'wp';
+			// Check for GET data.
+			if ( ! isset( $_GET['section'] ) ) { // phpcs:ignore
+				return;
+			}
+
+			// Get section ID.
+			$section = $_GET['section']; // phpcs:ignore
+
+			switch ( $section ) {
+
+				case 'wp':
+					// Update WordPress translation subprojects.
+					$this->force_upgrade_translations_section_content( 'wp', Translations_API::get_wordpress_subprojects() );
+					?>
+
+					<p>
+						<?php
+						esc_html_e( 'WordPress translations updates have been completed.', 'translation-tools' );
+						?>
+					</p>
+					<?php
+					break;
+
+				case 'plugins':
+					// Update Plugins translation projects.
+					$this->force_upgrade_translations_section_content( 'plugins', Translations_API::get_wordpress_plugins() );
+					?>
+
+					<p>
+						<?php
+						esc_html_e( 'Plugins translations updates have been completed.', 'translation-tools' );
+						?>
+					</p>
+
+					<?php
+					break;
+
+				case 'themes':
+					// Update Themes translation projects.
+					$this->force_upgrade_translations_section_content( 'themes', Translations_API::get_wordpress_themes() );
+					?>
+
+					<p>
+						<?php
+						esc_html_e( 'Themes translations updates have been completed.', 'translation-tools' );
+						?>
+					</p>
+					<?php
+					break;
+
+			}
+			wp_die();
+
+		}
+
+
+		/**
+		 * Load updating translations section content.
+		 *
+		 * @since 1.5.0
+		 *
+		 * @param string $type       Type of translation project ( e.g.: 'wp', 'themes', 'plugins' ).
+		 * @param array  $projects   Projects to update.
+		 *
+		 * @return void
+		 */
+		public function force_upgrade_translations_section_content( $type, $projects ) {
 
 			$result = array();
 
-			$projects = Translations_API::get_wordpress_subprojects();
-
+			// Get site and user core update Locales.
 			$wp_locales = self::core_update_locales();
 
 			// Loop all the installed Locales.
@@ -512,16 +644,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					}
 				}
 			}
-			?>
-
-			<p>
-				<?php
-				esc_html_e( 'All updates have been completed.', 'translation-tools' );
-				?>
-			</p>
-
-			<?php
-			wp_die();
 
 		}
 
