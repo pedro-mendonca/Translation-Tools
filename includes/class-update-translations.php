@@ -202,8 +202,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 					'<code>' . esc_html( $source ) . '</code>'
 				);
 
-				// Increase remote request timeout from default 5 to 10 seconds.
-				$args['timeout'] = 10;
+				/**
+				 * Filters the timeout value for translation projects HTTP requests. Default is increased to 15 seconds.
+				 * If your're having timeouts on big translation projects and or very slow internet connections, feel free to increase this value.
+				 *
+				 * @since 1.5.3
+				 */
+				$args['timeout'] = apply_filters( 'translation_tools_download_timeout', 15 );
 
 				// Get the translation project data.
 				$response = wp_remote_get( $source, $args );
