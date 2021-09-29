@@ -43,14 +43,14 @@ msgid "No JavaScript translations found. No %s file was generated."
 msgstr ""
 
 #. translators: %s: File name.
-#: includes/class-gettext.php:176 includes/class-update-translations.php:272
-#: includes/class-update-translations.php:383
+#: includes/class-gettext.php:176 includes/class-update-translations.php:312
+#: includes/class-update-translations.php:423
 #, php-format
 msgid "Saving file %s…"
 msgstr ""
 
-#: includes/class-gettext.php:231 includes/class-update-translations.php:284
-#: includes/class-update-translations.php:395
+#: includes/class-gettext.php:231 includes/class-update-translations.php:324
+#: includes/class-update-translations.php:435
 msgid "Could not create file."
 msgstr ""
 
@@ -88,7 +88,7 @@ msgstr ""
 #: includes/class-site-health-test-wordpress-translations-locale.php:184
 #: includes/class-site-health-test-wordpress-translations-version.php:87
 #: includes/class-site-health-test-wordpress-translations-version.php:114
-#: includes/class-translations-api.php:212 includes/class-update-core.php:381
+#: includes/class-translations-api.php:220 includes/class-update-core.php:327
 msgid "(opens in a new tab)"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 #. translators: %s: API URL.
 #. translators: %s: URL.
 #: includes/class-site-health-test-wordpress-translations-api.php:80
-#: includes/class-translations-api.php:207
+#: includes/class-translations-api.php:215
 #, php-format
 msgid "WordPress Translation API is not available on %s."
 msgstr ""
@@ -143,14 +143,14 @@ msgstr ""
 
 #. translators: 1: WordPress version. 2: Locale name. 3: Date the language pack was created.
 #: includes/class-site-health-test-wordpress-translations-locale.php:118
-#: includes/class-update-core.php:353
+#: includes/class-update-core.php:299
 #, php-format
 msgid "The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s."
 msgstr ""
 
 #. translators: 1: WordPress version. 2: Locale name.
 #: includes/class-site-health-test-wordpress-translations-locale.php:141
-#: includes/class-update-core.php:367
+#: includes/class-update-core.php:313
 #, php-format
 msgid "The translation of WordPress %1$s for %2$s has no Language Pack yet."
 msgstr ""
@@ -175,7 +175,7 @@ msgstr ""
 
 #. translators: 1: Opening link tag <a href="[link]">. 2: Closing link tag </a>. 3: Opening link tag <a href="[link]">. 4: Locale name.
 #: includes/class-site-health-test-wordpress-translations-locale.php:178
-#: includes/class-update-core.php:375
+#: includes/class-update-core.php:321
 #, php-format
 msgid "Please register at %1$sTranslating WordPress%2$s and join the %3$sTranslation Team%2$s to help translating WordPress to %4$s!"
 msgstr ""
@@ -194,7 +194,7 @@ msgstr ""
 
 #. translators: %s: WordPress version.
 #: includes/class-site-health-test-wordpress-translations-version.php:99
-#: includes/class-update-core.php:319
+#: includes/class-update-core.php:265
 #, php-format
 msgid "WordPress %s is not available for translation yet."
 msgstr ""
@@ -257,61 +257,69 @@ msgstr ""
 msgid "Downloading translations data from %s…"
 msgstr ""
 
-#: includes/class-update-core.php:88
+#: includes/class-translations-api.php:506
+msgid "Translation project not found."
+msgstr ""
+
+#: includes/class-translations-api.php:517
+msgid "Unknown error."
+msgstr ""
+
+#: includes/class-update-core.php:136
 msgid "Update Translations"
 msgstr ""
 
-#: includes/class-update-core.php:121
+#: includes/class-update-core.php:170
 msgid "WordPress translations"
 msgstr ""
 
-#: includes/class-update-core.php:122
+#: includes/class-update-core.php:171
 msgid "Plugins translations"
 msgstr ""
 
-#: includes/class-update-core.php:123
+#: includes/class-update-core.php:172
 msgid "Themes translations"
 msgstr ""
 
-#: includes/class-update-core.php:145
+#: includes/class-update-core.php:194
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
 msgstr ""
 
 #. translators: %l: Coma separated list of Locales.
-#: includes/class-update-core.php:148
+#: includes/class-update-core.php:197
 msgid "Downloading translations for <strong>%l</strong>."
 msgstr ""
 
-#: includes/class-update-core.php:163
+#: includes/class-update-core.php:212
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: includes/class-update-core.php:260
-msgid "Update All Translations"
+#. translators: 1: Button label. 2: WordPress version number.
+#: includes/class-update-core.php:340
+#, php-format
+msgid "Click the &#8220;%1$s&#8221; button to force update the latest approved translations of WordPress %2$s."
 msgstr ""
 
-#: includes/class-update-core.php:263 includes/class-update-core.php:395
+#: includes/class-update-core.php:341 includes/class-update-core.php:422
 msgid "Update WordPress Translations"
 msgstr ""
 
-#: includes/class-update-core.php:266
+#. translators: %s: Error message.
+#: includes/class-update-core.php:352
+#, php-format
+msgid "<strong>Error:</strong> %s"
+msgstr ""
+
+#: includes/class-update-core.php:419
+msgid "Update All Translations"
+msgstr ""
+
+#: includes/class-update-core.php:425
 msgid "Update Plugins Translations"
 msgstr ""
 
-#: includes/class-update-core.php:269
+#: includes/class-update-core.php:428
 msgid "Update Themes Translations"
-msgstr ""
-
-#. translators: 1: Button label. 2: WordPress version number.
-#: includes/class-update-core.php:394
-#, php-format
-msgid "Click the %1$s button to force update the latest approved translations of WordPress %2$s."
-msgstr ""
-
-#. translators: %s: Error message.
-#: includes/class-update-core.php:406
-#, php-format
-msgid "<strong>Error:</strong> %s"
 msgstr ""
 
 #: includes/class-update-core.php:510
@@ -358,26 +366,29 @@ msgstr ""
 msgid "Downloading translation from %s…"
 msgstr ""
 
-#: includes/class-update-translations.php:210
-#: includes/class-update-translations.php:230
-msgid "Translation project not found."
+#: includes/class-update-translations.php:220
+msgid "File downloaded successfully."
 msgstr ""
 
-#: includes/class-update-translations.php:229
+#: includes/class-update-translations.php:228
+msgid "File download failed."
+msgstr ""
+
+#: includes/class-update-translations.php:269
 msgid "Download failed."
 msgstr ""
 
 #. translators: %s: File name.
-#: includes/class-update-translations.php:321
+#: includes/class-update-translations.php:361
 #, php-format
 msgid "Extracting translations from file %s…"
 msgstr ""
 
-#: includes/class-update-translations.php:331
+#: includes/class-update-translations.php:371
 msgid "File not found."
 msgstr ""
 
-#: includes/class-update-translations.php:344
+#: includes/class-update-translations.php:384
 msgid "Could not extract translations from file."
 msgstr ""
 
