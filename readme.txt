@@ -5,7 +5,7 @@ Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,8 +112,13 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 == Changelog ==
 
-= 1.5.2 =
+= 1.5.3 =
+*   Better report messages about translation project updates
+*   Increase download timeout for slow speed connections
+*   New filter to customize download timeout for big translation projects on slow speed connections
+*   GitHub release process optimization
 
+= 1.5.2 =
 *   Fix i18n issue
 *   Increase download timeout for slow speed connections
 *   GitHub release process optimization

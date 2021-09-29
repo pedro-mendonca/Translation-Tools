@@ -148,6 +148,13 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog
 
+### 1.5.3
+
+* Better report messages about translation project updates
+* Increase download timeout for slow speed connections
+* New filter to customize download timeout for big translation projects on slow speed connections
+* GitHub release process optimization
+
 ### 1.5.2
 
 * Fix i18n issue
@@ -163,7 +170,7 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 * Update your Plugins and Themes translations! (.po, .mo and .json)
 * Update action now loads on custom update-core dedicated page
 * Code refactoring to extend the update of .po/.mo/.json files to Plugins and Themes
-* Detailed report about translation project used in the updated
+* Detailed report about translation project updates
 * New filter to customize/reverse the priority of the WP.org Plugins translation projects (defaults to 'Stable' > 'Development')
 * New filter to customize the Plugins and Themes translations to update
 * New filter to disable translations download and generate .json files from your current .po files
