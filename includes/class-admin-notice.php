@@ -38,7 +38,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 		 *
 		 * @return void
 		 */
-		public function message( $args ) {
+		public static function message( $args ) {
 
 			// Use defaults if properties not set.
 			$notice = array(
