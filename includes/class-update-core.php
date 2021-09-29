@@ -337,8 +337,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				// Admin notice footer.
 				$notice_messages[] = '<br>' . sprintf(
 					/* translators: 1: Button label. 2: WordPress version number. */
-					esc_html__( 'Click the %1$s button to force update the latest approved translations of WordPress %2$s.', 'translation-tools' ),
-					'<strong>&#8220;' . __( 'Update WordPress Translations', 'translation-tools' ) . '&#8221;</strong>',
+					esc_html__( 'Click the &#8220;%1$s&#8221; button to force update the latest approved translations of WordPress %2$s.', 'translation-tools' ),
+					'<strong>' . __( 'Update WordPress Translations', 'translation-tools' ) . '</strong>',
 					'<strong>' . esc_html( $translation_project_version ) . '</strong>'
 				);
 
