@@ -142,6 +142,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog
 
+### 1.5.1
+
+* Add missing vendor files
+
 ### 1.5.0
 
 * Update your Plugins and Themes translations! (.po, .mo and .json)

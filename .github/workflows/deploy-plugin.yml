@@ -14,6 +14,30 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2.3.4
 
+    - name: Set up PHP
+      uses: shivammathur/setup-php@2.14.0
+      with:
+        php-version: '7.4'
+        coverage: none
+      env:
+        fail-fast: false
+
+    - name: Log debug information
+      run: |
+        php --version
+        composer --version
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Install Composer dependencies
+      uses: ramsey/composer-install@v1
+      with:
+        composer-options: "--no-dev"
+
+    - name: Make Composer packages available globally
+      run: echo "${PWD}/vendor/bin" >> $GITHUB_PATH
+
     - name: WordPress.org Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@2.0.0
       env:
