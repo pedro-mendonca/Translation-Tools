@@ -405,7 +405,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			}
 			div.translation-tools-update-core-info p button span.dashicons {
 				vertical-align: text-top;
-				font-size: large;
+				font-size: medium;
 			}
 			</style>
 
@@ -419,7 +419,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 						<?php esc_attr_e( 'Update All Translations', 'translation-tools' ); ?>
 					</button>
 					<button type="submit" name="update-translations" class="button button-secondary" value="wp">
-						<span class="dashicons dashicons-wordpress"></span> <?php esc_attr_e( 'Update WordPress Translations', 'translation-tools' ); ?>
+						<span class="dashicons dashicons-wordpress-alt"></span> <?php esc_attr_e( 'Update WordPress Translations', 'translation-tools' ); ?>
 					</button>
 					<button type="submit" name="update-translations" class="button button-secondary" value="plugins">
 						<span class="dashicons dashicons-admin-plugins"></span> <?php esc_attr_e( 'Update Plugins Translations', 'translation-tools' ); ?>
