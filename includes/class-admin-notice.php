@@ -31,12 +31,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.1.0  Removed the use of 'force_show' => true to ignore the 'show_warnings' setting.
+		 * @since 1.5.4  Renamed from notice_message() to message().
 		 *
 		 * @param array $args  Array of message data.
 		 *
 		 * @return void
 		 */
-		public function notice_message( $args ) {
+		public function message( $args ) {
 
 			// Use defaults if properties not set.
 			$notice = array(
