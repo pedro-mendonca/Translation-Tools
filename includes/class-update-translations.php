@@ -202,7 +202,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 					'<code>' . esc_html( $source ) . '</code>'
 				);
 
-				$response = wp_remote_get( $source );
+				// Increase remote request timeout from default 5 to 10 seconds.
+				$args['timeout'] = 10;
+
+				// Get the translation project data.
+				$response = wp_remote_get( $source, $args );
 
 				if ( ! is_array( $response ) || 'application/octet-stream' !== $response['headers']['content-type'] ) {
 
