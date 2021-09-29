@@ -33,11 +33,11 @@ The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languag
 
 All the features added by Translation Tools are available for Preferred Languages users.
 
-### Update your WordPress translation, on demand ###
+### Update your WordPress, Plugins or Themes translation, on demand ###
 
-If you need to update your WordPress core translation on demand without waiting for a language pack to be generated, this tool allows you to manually update all the needed files for the installed version, with one click, in a few seconds.
+If you need to update your WordPress core, Plugins or Themes translations on demand without waiting for a language pack to be generated, this tool allows you to manually update all the needed files for the installed version, with one click, in a few seconds.
 
-Go to "Update WordPress Translation" on the Updates screen.
+Go to "Translations" on the Updates screen and choose what you want to update.
 
 #### All WordPress core sub-projects ####
 
@@ -78,6 +78,11 @@ Now you can! Just install and activate this plugin to enable every possible Loca
 = My desired Locale doesn't exist in the list =
 If your Locale doesn't exist and you would like to request it, please [click here](https://make.wordpress.org/polyglots/handbook/translating/requesting-a-new-locale/).
 
+= Can I also update Plugins and Themes translations? =
+Yes, you can, since version 1.5.0.
+On the Updates page you can choose to update translations for WordPress, Plugins, Themes, or all at once.
+It will update the .po and .mo files, and also generate the needed .json files for JavaScript translations.
+
 = Is this plugin compatible with the plugin Preferred Languages? =
 Short anwser: yes!
 
@@ -106,6 +111,12 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 9. Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
 
 == Changelog ==
+
+= 1.5.2 =
+
+* Fix i18n issue
+* Increase download timeout for slow speed connections
+* GitHub release process optimization
 
 = 1.5.1 =
 *   Add missing vendor files
