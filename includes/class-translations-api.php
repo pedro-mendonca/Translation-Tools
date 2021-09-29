@@ -199,7 +199,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				 *
 				 * @since 1.5.3
 				 */
-				$args['timeout'] = apply_filters( 'translation_tools_download_timeout', 15 );
+				$args = array(
+					'timeout' => apply_filters( 'translation_tools_download_timeout', 15 ),
+				);
 
 				// Get the translation project data.
 				$response = wp_remote_get( $source, $args );
@@ -372,6 +374,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 				'plugins' => $plugin_subprojects,
 				'themes'  => false,
 			);
+
+			// Define variable.
+			$project_paths = array();
 
 			if ( ! empty( $types[ $type ] ) ) {
 
