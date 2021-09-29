@@ -203,7 +203,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				);
 
 				/**
-				 * Filters the timeout value for translation projects HTTP requests. Default is increased to 15 seconds.
+				 * Filters the timeout limit, in seconds. Default is increased to 15 seconds.
 				 * If your're having timeouts on big translation projects and or very slow internet connections, feel free to increase this value.
 				 *
 				 * @since 1.5.3
