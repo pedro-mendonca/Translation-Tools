@@ -489,6 +489,35 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 		}
 
+
+		/**
+		 * Get the Translate WordPress error.
+		 *
+		 * @since 1.5.3
+		 *
+		 * @param int $error_code   The Set the translation project local destination.
+		 *
+		 * @return string           The error message.
+		 */
+		public static function get_translations_api_error( $error_code = null ) {
+
+			// Known error codes.
+			$errors = array(
+				'404' => esc_html__( 'Translation project not found.', 'translation-tools' ),
+			);
+
+			// Check if error exist in the known errors list.
+			if ( array_key_exists( $error_code, $errors ) ) {
+
+				// Return known error message.
+				return $errors[ $error_code ];
+			}
+
+			// Return unknown error message.
+			return esc_html__( 'Unknown error.', 'translation-tools' );
+
+		}
+
 	}
 
 }
