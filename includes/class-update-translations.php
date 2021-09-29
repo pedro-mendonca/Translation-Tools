@@ -202,28 +202,64 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 					'<code>' . esc_html( $source ) . '</code>'
 				);
 
-				// Increase remote request timeout from default 5 to 10 seconds.
-				$args['timeout'] = 10;
+				/**
+				 * Filters the timeout limit, in seconds. Default is increased to 15 seconds.
+				 * If your're having timeouts on big translation projects and or very slow internet connections, feel free to increase this value.
+				 *
+				 * @since 1.5.3
+				 */
+				$args['timeout'] = apply_filters( 'translation_tools_download_timeout', 15 );
 
 				// Get the translation project data.
 				$response = wp_remote_get( $source, $args );
 
-				if ( ! is_array( $response ) || 'application/octet-stream' !== $response['headers']['content-type'] ) {
+				// Code 200: Tranlation project found successfully. End loop.
+				if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 
-					// Report message.
-					$result['log'][] = esc_html__( 'Translation project not found.', 'translation-tools' );
+					// Log download success message.
+					$result['log'][] = esc_html__( 'File downloaded successfully.', 'translation-tools' );
+
+					// Translation project found, skip the rest of the sources.
+					break;
+
+				} else {
+
+					// Log download fail message.
+					$result['log'][] = esc_html__( 'File download failed.', 'translation-tools' );
+
+				}
+
+				// Error 404. Project not found. Try to get alternative.
+				if ( 404 === wp_remote_retrieve_response_code( $response ) ) {
+
+					// Log translation project not found.
+					$result['log'][] = Translations_API::get_translations_api_error( wp_remote_retrieve_response_code( $response ) );
 
 					// Translation project not found, try the next one.
 					continue;
 
 				}
 
-				// Translation project found, skip the rest of the sources.
-				break;
+				// Unkown WP_Error.
+				if ( is_wp_error( $response ) ) {
 
+					// Get errors.
+					$errors = $response->errors['http_request_failed'];
+
+					// Log every possible unkown error message.
+					foreach ( $errors as $error ) {
+						// Print the WP_Error message.
+						$result['log'][] = $error;
+					}
+
+					// Unkown error, continue to next one.
+					continue;
+
+				}
 			}
 
-			if ( ! is_array( $response ) || 'application/octet-stream' !== $response['headers']['content-type'] ) {
+			// Last response was 404 or WP_Error.
+			if ( 404 === wp_remote_retrieve_response_code( $response ) || is_wp_error( $response ) ) {
 
 				// Report message.
 				$result['data'] = new WP_Error(
@@ -231,7 +267,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 					sprintf(
 						'%s %s',
 						esc_html__( 'Download failed.', 'translation-tools' ),
-						esc_html__( 'Translation project not found.', 'translation-tools' )
+						Translations_API::get_translations_api_error( wp_remote_retrieve_response_code( $response ) )
 					)
 				);
 				return $result;
