@@ -23,13 +23,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 
 		/**
-		 * Notices.
-		 *
-		 * @var object
-		 */
-		protected $notices;
-
-		/**
 		 * Update Translations.
 		 *
 		 * @var object
@@ -41,9 +34,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-
-			// Instantiate Translation Tools Notices.
-			$this->notices = new Notices();
 
 			// Instantiate Translation Tools Update Translations.
 			$this->update_translations = new Update_Translations();
@@ -199,7 +189,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 									)
 								),
 							);
-							$this->notices->notice_message( $admin_notice );
+							Admin_Notice::message( $admin_notice );
 							?>
 
 						</div>
@@ -373,7 +363,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				'update-icon' => isset( $admin_notice_icon ) ? $admin_notice_icon : null,
 				'message'     => $message,
 			);
-			$this->notices->notice_message( $admin_notice );
+			Admin_Notice::message( $admin_notice );
 
 		}
 
@@ -622,7 +612,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								'<strong>' . esc_html( $error_message ) . '</strong>'
 							),
 						);
-						$this->notices->notice_message( $admin_notice );
+						Admin_Notice::message( $admin_notice );
 
 					} else {
 						?>
