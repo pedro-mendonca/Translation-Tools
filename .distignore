@@ -6,6 +6,7 @@ node_modules
 tests
 
 # Exclude files from WP.org
+.distignore
 .editorconfig
 .eslintignore
 .eslintrc.json

@@ -5,6 +5,7 @@
 /tests/                export-ignore
 
 # Exclude files from export
+/.distignore           export-ignore
 /.editorconfig         export-ignore
 /.eslintignore         export-ignore
 /.eslintrc.json        export-ignore
