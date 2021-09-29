@@ -114,9 +114,9 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 = 1.5.2 =
 
-* Fix i18n issue
-* Increase download timeout for slow speed connections
-* GitHub release process optimization
+*   Fix i18n issue
+*   Increase download timeout for slow speed connections
+*   GitHub release process optimization
 
 = 1.5.1 =
 *   Add missing vendor files
