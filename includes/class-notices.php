@@ -1,10 +1,11 @@
 <?php
 /**
- * Class file for the Translation Tools notices.
+ * Class file for the Translation Tools admin notices.
  *
  * @package Translation_Tools
  *
  * @since 1.0.0
+ * @since 1.5.4   Renamed from Notices to Admin_Notice.
  */
 
 namespace Translation_Tools;
@@ -14,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( __NAMESPACE__ . '\Notices' ) ) {
+if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 
 	/**
-	 * Class Notices.
+	 * Class Admin_Notice.
 	 */
-	class Notices {
+	class Admin_Notice {
 
 
 		/**
