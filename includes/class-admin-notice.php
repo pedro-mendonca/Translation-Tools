@@ -86,6 +86,33 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 
 		}
 
+
+		/**
+		 * Check if HTML wrap tag type is supported.
+		 *
+		 * @since 1.5.4
+		 *
+		 * @param string $type   Type of HTML tag to check if is supported.
+		 * @return bool   True if type is supported, defaults to false.
+		 */
+		public static function is_supported( $type ) {
+
+			$types = array(
+				false,
+				'p',
+				'div',
+				'span',
+			);
+
+			// Check if field type exist in the supported types array.
+			if ( in_array( $type, $types, true ) ) {
+				return true;
+			}
+
+			return false;
+
+		}
+
 	}
 
 }
