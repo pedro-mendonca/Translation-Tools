@@ -32,6 +32,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 		 * @since 1.0.0
 		 * @since 1.1.0  Removed the use of 'force_show' => true to ignore the 'show_warnings' setting.
 		 * @since 1.5.4  Renamed from notice_message() to message().
+		 *               Added support for 'wrap' properties, defaults to 'p' tag for backwards compatibility.
 		 *
 		 * @param array $args  Array of message data.
 		 *
@@ -41,15 +42,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 
 			// Use defaults if properties not set.
 			$notice = array(
-				'type'        => isset( $args['type'] ) ? ' notice-' . $args['type'] : '',                       // WordPress core notice types: 'error', 'warning', 'warning-spin', 'success' or 'info'. Defaults to none.
-				'notice-alt'  => isset( $args['notice-alt'] ) && $args['notice-alt'] ? ' notice-alt' : '',       // Show message alternative color scheme with class 'notice-alt': true or false. Defaults no false.
-				'inline'      => isset( $args['inline'] ) && ! $args['inline'] ? '' : ' inline',                 // Defaults to true.
-				'dismissible' => isset( $args['dismissible'] ) && $args['dismissible'] ? ' is-dismissible' : '', // Defaults to false.
-				'css-class'   => isset( $args['css-class'] ) ? ' ' . $args['css-class'] : '',                    // Some extra CSS classes.
-				'update-icon' => isset( $args['update-icon'] ) && $args['update-icon'] ? true : '',              // Show update message icons. Defaults to false.
-				'message'     => isset( $args['message'] ) ? $args['message'] : '',                              // Message to show.
-				'extra-html'  => isset( $args['extra-html'] ) ? $args['extra-html'] : '',                        // Some extra HTML to show.
+				'type'        => isset( $args['type'] ) ? ' notice-' . $args['type'] : '',                             // WordPress core notice types: 'error', 'warning', 'warning-spin', 'success' or 'info'. Defaults to none.
+				'notice-alt'  => isset( $args['notice-alt'] ) && $args['notice-alt'] ? ' notice-alt' : '',             // Show message alternative color scheme with class 'notice-alt': true or false. Defaults no false.
+				'inline'      => isset( $args['inline'] ) && ! $args['inline'] ? '' : ' inline',                       // Defaults to true.
+				'dismissible' => isset( $args['dismissible'] ) && $args['dismissible'] ? ' is-dismissible' : '',       // Defaults to false.
+				'css-class'   => isset( $args['css-class'] ) ? ' ' . $args['css-class'] : '',                          // Some extra CSS classes.
+				'update-icon' => isset( $args['update-icon'] ) && $args['update-icon'] ? true : '',                    // Show update message icons. Defaults to false.
+				'message'     => isset( $args['message'] ) ? $args['message'] : '',                                    // Message to show.
+				'wrap'        => isset( $args['wrap'] ) && self::is_supported( $args['wrap'] ) ? $args['wrap'] : 'p',  // HTML tag to wrap the message. Defaults to 'p' (paragraph).
+				'extra-html'  => isset( $args['extra-html'] ) ? $args['extra-html'] : '',                              // Some extra HTMLto show.
 			);
+
 			if ( $notice['update-icon'] ) {
 				switch ( $args['type'] ) {
 					case 'error':
@@ -73,16 +76,20 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 						break;
 				}
 			}
-			?>
 
+			?>
 			<div class="notice<?php echo esc_attr( $notice['type'] ) . esc_attr( $notice['notice-alt'] ) . esc_attr( $notice['inline'] ) . esc_attr( $notice['update-icon'] ) . esc_attr( $notice['css-class'] ) . esc_attr( $notice['dismissible'] ); ?>">
-				<p><?php echo wp_kses_post( $notice['message'] ); ?></p>
 				<?php
+
+				$opening_tag = $notice['wrap'] ? '<' . esc_html( $notice['wrap'] ) . '>' : '';
+				$closing_tag = $notice['wrap'] ? '</' . esc_html( $notice['wrap'] ) . '>' : '';
+
+				echo wp_kses_post( $opening_tag . $notice['message'] . $closing_tag );
+
 				// Extra HTML.
 				echo wp_kses( $notice['extra-html'], Utils::allowed_html() );
 				?>
 			</div>
-
 			<?php
 
 		}
