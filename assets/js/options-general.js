@@ -1,3 +1,5 @@
+/* global document, ttools */
+
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded options-general.js' );
 
@@ -99,6 +101,9 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.0
 	 */
 	function ttoolsPluginPreferredLanguagesSettings() {
+		// Select field ID.
+		var selectID = '';
+
 		// Add all Locales to the available languages list.
 		ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
 
@@ -148,10 +153,15 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.3
 	 */
 	function ttoolsPluginTranslationStatsSettings() {
+		// Select field ID.
+		var selectID = '';
+
 		// Plugin file.
 		var pluginFile = 'translation-stats/translation-stats.php';
+
 		// Translation Stats language.
 		var translationStatsLanguage = ttools.compatible_plugins[ pluginFile ].settings.translation_language;
+
 		// Add all Locales to the available languages list.
 		ttoolsAddAllLocales( 'select#tstats_settings\\[settings\\]\\[translation_language\\]' );
 
@@ -220,11 +230,11 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleOption( selectID, value ) {
+		// Get language data.
+		var language = ttools.all_languages[ value ];
+
 		// Rename Locales except 'en_US' (with empty value) and 'site-default'.
 		if ( '' !== value && 'site-default' !== value ) {
-			// Get all languages.
-			var language = ttools.all_languages[ value ];
-
 			// Set option name and attributes.
 			$( selectID + ' > option[value="' + value + '"]' ).text( language.name ).attr( 'lang', language.lang ).attr( 'data-has-lang-packs', language.lang_packs );
 
@@ -240,7 +250,7 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleListItem( selectID, value ) {
-		// Get all languages.
+		// Get language data.
 		var language = ttools.all_languages[ value ];
 
 		// Set option name and attributes.
