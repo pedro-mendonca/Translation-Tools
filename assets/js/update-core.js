@@ -1,3 +1,5 @@
+/* global document, ttools */
+
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded update-core.js' );
 
