@@ -158,8 +158,10 @@ jQuery( document ).ready( function( $ ) {
 
 		// Plugin file.
 		var pluginFile = 'translation-stats/translation-stats.php';
+
 		// Translation Stats language.
 		var translationStatsLanguage = ttools.compatible_plugins[ pluginFile ].settings.translation_language;
+
 		// Add all Locales to the available languages list.
 		ttoolsAddAllLocales( 'select#tstats_settings\\[settings\\]\\[translation_language\\]' );
 
@@ -248,7 +250,7 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleListItem( selectID, value ) {
-		// Get all languages.
+		// Get language data.
 		var language = ttools.all_languages[ value ];
 
 		// Set option name and attributes.
