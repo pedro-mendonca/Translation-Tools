@@ -9,6 +9,5 @@
 	"rules": {
 		"no-console": "off",
 		"no-var": "off",
-		"object-shorthand": "off"
 	}
 }
