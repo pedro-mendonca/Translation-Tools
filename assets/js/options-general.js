@@ -228,11 +228,11 @@ jQuery( document ).ready( function( $ ) {
 	 * @param {string} value    - Option value.
 	 */
 	function ttoolsRenameLocaleOption( selectID, value ) {
+		// Get language data.
+		var language = ttools.all_languages[ value ];
+
 		// Rename Locales except 'en_US' (with empty value) and 'site-default'.
 		if ( '' !== value && 'site-default' !== value ) {
-			// Get all languages.
-			var language = ttools.all_languages[ value ];
-
 			// Set option name and attributes.
 			$( selectID + ' > option[value="' + value + '"]' ).text( language.name ).attr( 'lang', language.lang ).attr( 'data-has-lang-packs', language.lang_packs );
 
