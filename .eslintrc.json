@@ -7,7 +7,6 @@
 		"console": true
 	},
 	"rules": {
-		"no-console": "off",
-		"no-var": "off",
+		"no-console": "off"
 	}
 }

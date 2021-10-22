@@ -101,6 +101,9 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.0
 	 */
 	function ttoolsPluginPreferredLanguagesSettings() {
+		// Select field ID.
+		var selectID = '';
+
 		// Add all Locales to the available languages list.
 		ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
 
@@ -150,6 +153,9 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.3
 	 */
 	function ttoolsPluginTranslationStatsSettings() {
+		// Select field ID.
+		var selectID = '';
+
 		// Plugin file.
 		var pluginFile = 'translation-stats/translation-stats.php';
 		// Translation Stats language.
