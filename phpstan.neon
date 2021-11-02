@@ -11,12 +11,11 @@ parameters:
 	bootstrapFiles:
 		# PHPStan bootstrap file.
 		- tests/phpstan/bootstrap.php
+	excludePaths:
+		analyse:
+			# GlotPress Locales file.
+			- assets/lib/locales/locales.php
 	ignoreErrors:
-		# GlotPress locales file.
-		-
-			path: assets/lib/locales/locales.php
-			message: '#typehint specified\.$#'
-			count: 35
 		# Missing functions from compatible plugins:
 		- "#Function preferred_languages_#"
 	# TODO Tell PHPStan what is inside arrays.
