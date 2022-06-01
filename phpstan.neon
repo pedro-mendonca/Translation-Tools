@@ -15,8 +15,5 @@ parameters:
 		analyse:
 			# GlotPress Locales file.
 			- assets/lib/locales/locales.php
-	ignoreErrors:
-		# Missing functions from compatible plugins:
-		- "#Function preferred_languages_#"
 	# TODO Tell PHPStan what is inside arrays.
 	checkMissingIterableValueType: false
