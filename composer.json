@@ -30,10 +30,8 @@
 	},
 	"autoload": {
 		"classmap": [
-			"includes/"
-		],
-		"files": [
-			"assets/lib/locales/locales.php"
+			"includes/",
+			"assets/lib/locales/"
 		]
 	},
 	"scripts": {
