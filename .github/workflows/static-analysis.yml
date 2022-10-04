@@ -47,7 +47,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: none
-          tools: cs2pr, phpstan
+          tools: phpstan
         env:
           fail-fast: false
 
@@ -66,4 +66,4 @@ jobs:
         run: echo "${PWD}/vendor/bin" >> $GITHUB_PATH
 
       - name: Run PHPStan static analysis (PHP ${{ matrix.php-versions }})
-        run: phpstan analyse -c phpstan.neon --error-format=checkstyle --memory-limit=1G | cs2pr
+        run: phpstan analyse --memory-limit=1G
