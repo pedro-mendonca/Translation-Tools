@@ -9,7 +9,7 @@
 
 namespace Translation_Tools;
 
-use Gettext\Translations as Translations;
+use Gettext\Translations;
 use WP_Error;
 
 // Exit if accessed directly.
