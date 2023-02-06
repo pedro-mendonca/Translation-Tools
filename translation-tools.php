@@ -73,61 +73,6 @@ define( 'TRANSLATION_TOOLS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 // Set Translation Tools file path.
 define( 'TRANSLATION_TOOLS_FILE', plugin_basename( __FILE__ ) );
 
-
-/**
- * Require wordpress.org Locales list since translate.wp.org Languages API (https://translate.wordpress.org/api/languages/) was disabled on meta changeset #10056 (https://meta.trac.wordpress.org/changeset/10056).
- * Copy of https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/locales/locales.php
- *
- * Updated on 2020-06-28.
- */
-require_once 'assets/lib/locales/locales.php';
-
-
-/**
- * Register classes autoloader function.
- *
- * @since 1.0.0
- *
- * @param callable(string): void
- */
-spl_autoload_register( __NAMESPACE__ . '\translation_tools_class_autoload' );
-
-
-/**
- * Class autoloader.
- *
- * @since 1.0.0
- * @since 1.2.3  Remove namespace from class name.
- * @since 1.3.2  Check if class exist in project namespace.
- *
- * @param string $class_name  Classe name.
- *
- * @return void
- */
-function translation_tools_class_autoload( $class_name ) {
-
-	$project_namespace = __NAMESPACE__ . '\\';
-
-	// Check if class is in the project namespace.
-	if ( 0 !== strncmp( $project_namespace, $class_name, strlen( $project_namespace ) ) ) {
-		return;
-	}
-
-	// Set class file full path.
-	$class = sprintf(
-		'%sincludes/class-%s.php',
-		TRANSLATION_TOOLS_DIR_PATH,
-		str_replace( '_', '-', strtolower( str_replace( $project_namespace, '', $class_name ) ) )
-	);
-
-	if ( ! is_file( $class ) ) {
-		return;
-	}
-
-	require_once $class;
-}
-
-
 // Include Composer autoload.
 require_once TRANSLATION_TOOLS_DIR_PATH . 'vendor/autoload.php';
 

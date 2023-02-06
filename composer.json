@@ -28,6 +28,12 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
+	"autoload": {
+		"classmap": [
+			"includes/",
+			"assets/lib/locales/"
+		]
+	},
 	"scripts": {
 		"lint": [
 			"@lint:php",
