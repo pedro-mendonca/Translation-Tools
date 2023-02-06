@@ -150,11 +150,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 		public function allowed_pages( $hook ) {
 
 			// Check for Updates page, General Options page and Profile page.
-			if ( 'update-core.php' === $hook || 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
-				return true;
-			}
-
-			return false;
+			return in_array( $hook, array( 'update-core.php', 'options-general.php', 'profile.php', 'user-edit.php', 'settings_page_translation-stats' ), true );
 
 		}
 
