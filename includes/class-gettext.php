@@ -53,6 +53,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
+		 * @since 1.6.0  Use Gettext 5 Translations.
 		 *
 		 * @param string $destination      Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project          Project array.
@@ -104,16 +105,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 				foreach ( $sources as $source ) {
 					if ( ! isset( $mapping[ $source ] ) ) {
-						$mapping[ $source ] = new Translations();
+						$mapping[ $source ] = Translations::create( $domain );
 
 						$mapping[ $source ]->setDomain( $translations->getDomain() );
-						$mapping[ $source ]->setHeader( 'Language', $translations->getLanguage() );
-						$mapping[ $source ]->setHeader( 'PO-Revision-Date', $translations->getHeader( 'PO-Revision-Date' ) );
+						$mapping[ $source ]->getHeaders()->set( 'Language', $translations->getLanguage() );
+						$mapping[ $source ]->getHeaders()->set( 'PO-Revision-Date', $translations->getHeaders( 'PO-Revision-Date' ) );
 						$plural_forms = $translations->getPluralForms();
 
 						if ( $plural_forms ) {
 							list( $count, $rule ) = $plural_forms;
-							$mapping[ $source ]->setPluralForms( $count, $rule );
+							$mapping[ $source ]->getHeaders()->setPluralForm( $count, $rule );
 						}
 					}
 
