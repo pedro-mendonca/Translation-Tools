@@ -342,6 +342,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
+		 * @since 1.6.0  Use Gettext 5 PoLoader.
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
@@ -404,6 +405,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
+		 * @since 1.6.0  Use Gettext 5 MoGenerator.
 		 *
 		 * @param string $destination    Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project        Project array.
