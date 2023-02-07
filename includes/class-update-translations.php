@@ -10,6 +10,7 @@
 namespace Translation_Tools;
 
 use Gettext\Loader\PoLoader;
+use Gettext\Generator\MoGenerator;
 use WP_Error;
 
 // Exit if accessed directly.
@@ -428,7 +429,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			);
 
 			// Generate .mo file.
-			$generate = $translations->toMoFile( $destination . $file_name );
+			$generator = new MoGenerator();
+			$generate  = $generator->generateFile( $translations, $destination . $file_name );
 
 			if ( ! $generate ) {
 
