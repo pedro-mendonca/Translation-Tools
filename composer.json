@@ -12,7 +12,8 @@
 	],
 	"require": {
 		"php": ">=7.4",
-		"gettext/gettext": "^4.8.8"
+		"gettext/gettext": "^5.7.0",
+		"gettext/json": "^1.0.1"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
