@@ -9,7 +9,7 @@
 
 namespace Translation_Tools;
 
-use Gettext\Translations;
+use Gettext\Loader\PoLoader;
 use WP_Error;
 
 // Exit if accessed directly.
@@ -376,7 +376,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				return $result;
 			}
 
-			$translations = Translations::fromPoFile( $destination . $file_name );
+			$loader       = new PoLoader();
+			$translations = $loader->loadFile( $destination . $file_name );
 
 			if ( ! is_object( $translations ) ) {
 
