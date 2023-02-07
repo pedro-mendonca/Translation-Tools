@@ -26,24 +26,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 	class Update_Translations {
 
 
-		/**
-		 * Gettext.
-		 *
-		 * @var object
-		 */
-		protected $gettext;
-
-
-		/**
-		 * Constructor.
-		 */
-		public function __construct() {
-
-			// Instantiate Translation Tools Gettext.
-			$this->gettext = new Gettext();
-
-		}
-
 		// TODO: Message for when the downloaded .po has no strings.
 
 
@@ -145,7 +127,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				}
 
 				// Generate .json files from extracted translations.
-				$generate_jsons = $this->gettext->make_json( $destination, $project, $locale, $translations['data'], $include_domain );
+				$gettext        = new Gettext();
+				$generate_jsons = $gettext->make_json( $destination, $project, $locale, $translations['data'], $include_domain );
 				$result['log']  = array_merge( $result['log'], $generate_jsons['log'] );
 				$result['data'] = $generate_jsons['data'];
 				if ( is_wp_error( $result['data'] ) ) {
