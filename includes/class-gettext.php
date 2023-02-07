@@ -214,7 +214,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					}
 				}
 
-				$success = Gettext_JedGenerator::toFile(
+				$generate = Gettext_JedGenerator::toFile(
 					$translations,
 					$destination_file,
 					array(
@@ -223,7 +223,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					)
 				);
 
-				if ( ! $success ) {
+				if ( ! $generate ) {
 
 					// Report message.
 					$result['data'] = new WP_Error(
