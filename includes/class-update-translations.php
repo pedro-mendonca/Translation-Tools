@@ -300,9 +300,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			);
 
 			// Generate .po file.
-			$success = file_put_contents( $destination . $file_name, $response['body'] ); // phpcs:ignore
+			$generate = file_put_contents( $destination . $file_name, $response['body'] ); // phpcs:ignore
 
-			if ( ! $success ) {
+			if ( ! $generate ) {
 
 				// Report message.
 				$result['data'] = new WP_Error(
