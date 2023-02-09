@@ -98,13 +98,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 				foreach ( $sources as $source ) {
 
-
 					if ( ! array_key_exists( $source, $mapping ) ) {
-
 
 						$mapping[ $source ] = Translations::create();
 
-						//$mapping[ $source ] = Translations::create( $domain );
 						// TODO: Compare with null in Gettext 4.
 						if ( ! is_null( $translations->getDomain() ) ) {
 							$mapping[ $source ]->setDomain( $translations->getDomain() );
@@ -118,7 +115,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 							list( $count, $rule ) = $plural_forms;
 							$mapping[ $source ]->getHeaders()->setPluralForm( $count, $rule );
 						}
-
 					}
 
 					$mapping[ $source ]->add( $translation );
@@ -213,10 +209,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 							if ( ! isset( $json_content_decoded->messages->{ $key } ) ) {
 
 								// Loop all translations, singular and plurals, if exist.
-								foreach ( $existing_translations as $existing_translation ) {
+								foreach ( $existing_translations as $existing_translation ) { // phpcs:ignore.
 									// Add translations from the existing file that don't exist in the current translations.
-									//$translations->insert( null, $key )->setTranslation( $existing_translation );
-									//$translations->add( $existing_translation );
+									// $translations->insert( null, $key )->setTranslation( $existing_translation );
+									// $translations->add( $existing_translation );
 									// TODO: Check add() of Gettext 5.
 								}
 							}

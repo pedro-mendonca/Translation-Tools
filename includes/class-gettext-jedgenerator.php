@@ -133,7 +133,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 					$key = $translation->getContext() . $context_glue . $key;
 				}
 
-				// $translation->hasPluralTranslations( true )
+				// TODO: Check plurals.
+				// $translation->hasPluralTranslations( true ) // phpcs:ignore.
 				if ( self::hasPluralTranslations( $translation ) ) {
 					$message = $translation->getPluralTranslations( $number_of_plurals );
 					array_unshift( $message, $translation->getTranslation() );
@@ -149,10 +150,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 
 
 		/**
+		 * Check if a translation has plural.
 		 *
-		 * @param bool
+		 * @param Translation $translation   Translation object.
+		 *
+		 * @return bool
 		 */
-		private static function hasPluralTranslations( Translation $translation )  {
+		private static function hasPluralTranslations( Translation $translation ) {
 			return implode( '', $translation->getPluralTranslations() ) !== '';
 		}
 
