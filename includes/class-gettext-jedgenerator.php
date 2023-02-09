@@ -12,8 +12,10 @@
 
 namespace Translation_Tools;
 
-use Gettext\Generators\Jed;
+use Gettext\Generator\Generator;
 use Gettext\Translations;
+use Gettext\Headers;
+use Gettext\Translation;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +29,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 	 *
 	 * Adds some more meta data to JED translation files than the default generator.
 	 */
-	class Gettext_JedGenerator extends Jed {
+	class Gettext_JedGenerator extends Generator {
+
+
+		/**
+		 * Options passed to json_encode().
+		 *
+		 * @var int JSON options.
+		 */
+		protected $json_options = 0;
 
 
 		/**
@@ -36,13 +46,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 		 * @param Translations $translations  Array with all translations.
 		 * @param array        $options       Options.
 		 *
-		 * @return string|false
+		 * @return string
 		 */
-		public static function toString( Translations $translations, array $options = array() ) {
+		public function generateString( Translations $translations, array $options = array() ) : string { // phpcs:ignore.
+
 			$data     = '';
-			$options += static::$options;
 			$domain   = $translations->getDomain() ? $translations->getDomain() : 'messages';
 			$messages = static::buildMessages( $translations );
+			$headers  = $translations->getHeaders()->toArray();
 
 			/**
 			 * Set the file structure.
@@ -57,13 +68,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 						'' => array(
 							'domain'       => $domain,
 							'lang'         => $translations->getLanguage() ? $translations->getLanguage() : 'en',
-							'plural-forms' => $translations->getHeader( 'Plural-Forms' ) ? $translations->getHeader( 'Plural-Forms' ) : 'nplurals=2; plural=(n != 1);',
+							'plural-forms' => $headers['Plural-Forms'] ? $headers['Plural-Forms'] : 'nplurals=2; plural=(n != 1);',
 						),
 					);
 					$data          = array(
-						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
+						'translation-revision-date' => $headers['PO-Revision-Date'],
 						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
-						'source'                    => $options['source'],
+						'source'                    => $translations->getHeaders()->get( 'Source' ),
 						'domain'                    => $domain,
 						'locale_data'               => array(
 							$domain => $configuration + $messages,
@@ -74,25 +85,25 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 					$configuration = array(
 						'' => array(
 							'domain'       => $domain,
-							'plural-forms' => $translations->getHeader( 'Plural-Forms' ) ? $translations->getHeader( 'Plural-Forms' ) : 'nplurals=2; plural=(n != 1);',
+							'plural-forms' => $headers['Plural-Forms'] ? $headers['Plural-Forms'] : 'nplurals=2; plural=(n != 1);',
 							'lang'         => $translations->getLanguage() ? $translations->getLanguage() : 'en',
 						),
 					);
 					$data          = array(
-						'translation-revision-date' => $translations->getHeader( 'PO-Revision-Date' ),
+						'translation-revision-date' => $headers['PO-Revision-Date'],
 						'generator'                 => 'Translation Tools/' . TRANSLATION_TOOLS_VERSION,
 						'domain'                    => $domain,
 						'locale_data'               => array(
 							$domain => $configuration + $messages,
 						),
 						'comment'                   => array(
-							'reference' => $options['source'],
+							'reference' => $translations->getHeaders()->get( 'Source' ),
 						),
 					);
 					break;
 			}
 
-			return wp_json_encode( $data, $options['json'] );
+			return wp_json_encode( $data, $this->json_options ); // phpcs:ignore.
 		}
 
 
@@ -104,7 +115,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 		 * @return array
 		 */
 		public static function buildMessages( Translations $translations ) {
-			$plural_forms      = $translations->getPluralForms();
+			$headers           = $translations->getHeaders()->toArray();
+			$plural_forms      = $headers['Plural-Forms'];
 			$number_of_plurals = is_array( $plural_forms ) ? ( $plural_forms[0] - 1 ) : null;
 			$messages          = array();
 			$context_glue      = chr( 4 );
@@ -117,11 +129,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 
 				$key = $translation->getOriginal();
 
-				if ( $translation->hasContext() ) {
+				if ( $translation->getContext() ) {
 					$key = $translation->getContext() . $context_glue . $key;
 				}
 
-				if ( $translation->hasPluralTranslations( true ) ) {
+				// $translation->hasPluralTranslations( true )
+				if ( self::hasPluralTranslations( $translation ) ) {
 					$message = $translation->getPluralTranslations( $number_of_plurals );
 					array_unshift( $message, $translation->getTranslation() );
 				} else {
@@ -133,6 +146,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext_JedGenerator' ) ) {
 
 			return $messages;
 		}
+
+
+		/**
+		 *
+		 * @param bool
+		 */
+		private static function hasPluralTranslations( Translation $translation )  {
+			return implode( '', $translation->getPluralTranslations() ) !== '';
+		}
+
 	}
 
 }

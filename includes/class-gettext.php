@@ -17,7 +17,7 @@
 namespace Translation_Tools;
 
 use Gettext\Translations;
-use Gettext\Generators\Jed as Jed;
+use Gettext\Generator\JsonGenerator;
 use WP_Error;
 
 // Exit if accessed directly.
@@ -32,13 +32,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 	 */
 	class Gettext {
 
-
-		/**
-		 * Options passed to json_encode().
-		 *
-		 * @var int JSON options.
-		 */
-		protected $json_options = 0;
 
 		/**
 		 * Splits a single PO file into multiple JSON files.
@@ -80,7 +73,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					function ( $reference ) {
 
 						// Get only the file name, without the line number.
-						$file = $reference[0];
+						$file = $reference;
 
 						// Check if reference is a minified JavaScript file.
 						if ( substr( $file, - 7 ) === '.min.js' ) {
@@ -97,28 +90,39 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 					},
 					// Get translation references.
-					$translation->getReferences()
+					array_keys( $translation->getReferences()->toArray() )
 				);
 
 				// Remove duplicate source files and empty (null) entries.
 				$sources = array_unique( array_filter( $sources ) );
 
 				foreach ( $sources as $source ) {
-					if ( ! isset( $mapping[ $source ] ) ) {
-						$mapping[ $source ] = Translations::create( $domain );
 
-						$mapping[ $source ]->setDomain( $translations->getDomain() );
-						$mapping[ $source ]->getHeaders()->set( 'Language', $translations->getLanguage() );
-						$mapping[ $source ]->getHeaders()->set( 'PO-Revision-Date', $translations->getHeaders( 'PO-Revision-Date' ) );
-						$plural_forms = $translations->getPluralForms();
+
+					if ( ! array_key_exists( $source, $mapping ) ) {
+
+
+						$mapping[ $source ] = Translations::create();
+
+						//$mapping[ $source ] = Translations::create( $domain );
+						// TODO: Compare with null in Gettext 4.
+						if ( ! is_null( $translations->getDomain() ) ) {
+							$mapping[ $source ]->setDomain( $translations->getDomain() );
+						}
+
+						$mapping[ $source ]->getHeaders()->setLanguage( $translations->getLanguage() );
+						$mapping[ $source ]->getHeaders()->set( 'PO-Revision-Date', $translations->getHeaders()->toArray()['PO-Revision-Date'] );
+						$plural_forms = $translations->getHeaders()->getPluralForm();
 
 						if ( $plural_forms ) {
 							list( $count, $rule ) = $plural_forms;
 							$mapping[ $source ]->getHeaders()->setPluralForm( $count, $rule );
 						}
+
 					}
 
-					$mapping[ $source ][] = $translation;
+					$mapping[ $source ]->add( $translation );
+
 				}
 			}
 
@@ -168,6 +172,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			foreach ( $mapping as $file => $translations ) {
 
+				// Set custom Source header to add in JSON reference.
+				$translations->getHeaders()->set( 'Source', $file );
+
 				$hash             = md5( $file );
 				$destination_file = "{$destination}{$base_file_name}-{$hash}.json";
 
@@ -195,7 +202,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					// TODO: Or merge all .po files, and export all JSON files in one single pass.
 
 					// Decode translations JSON.
-					$json_content_decoded = json_decode( Jed::toString( $translations ) );
+					$json_content_decoded = json_decode( ( new Gettext_JedGenerator() )->generateString( $translations ) );
 
 					// Get existing file translations, to prepare for merge with next pass.
 					$existing_json_content_decoded = json_decode( $wp_filesystem->get_contents( $destination_file ) );
@@ -208,21 +215,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 								// Loop all translations, singular and plurals, if exist.
 								foreach ( $existing_translations as $existing_translation ) {
 									// Add translations from the existing file that don't exist in the current translations.
-									$translations->insert( null, $key )->setTranslation( $existing_translation );
+									//$translations->insert( null, $key )->setTranslation( $existing_translation );
+									//$translations->add( $existing_translation );
+									// TODO: Check add() of Gettext 5.
 								}
 							}
 						}
 					}
 				}
 
-				$generate = Gettext_JedGenerator::toFile(
-					$translations,
-					$destination_file,
-					array(
-						'json'   => $this->json_options,
-						'source' => $file,
-					)
-				);
+				$generator = new Gettext_JedGenerator();
+				$generate  = $generator->generateFile( $translations, $destination_file );
 
 				if ( ! $generate ) {
 
