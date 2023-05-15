@@ -6,6 +6,9 @@ Thumbs.db
 *.sql
 *.tar.gz
 *.zip
+phpcompat.xml
+phpcs.xml
+phpmd.xml
 
 # Node
 /node_modules/
