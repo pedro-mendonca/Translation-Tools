@@ -38,12 +38,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			add_filter( 'core_version_check_locale', array( $this, 'core_version_check_locale' ) );
 
 			// Add Site Language description.
-			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-options-general.php', array( $this, 'settings_language_field_description' ) );
 			// Add Site Language css.
 			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language_css' ) );
 
 			// Add Profile and User Edit Language description.
-			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-profile.php', array( $this, 'settings_language_field_description' ) );
 			// Add Profile and User Edit Language css.
 			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language_css' ) );
 
@@ -170,10 +170,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 * @since 1.2.0  Use user object to get user Locale.
 		 *               Loaded on 'personal_options' hook to allow use of $user.
 		 * @since 1.2.2  Remove $user param.
+		 * @since 1.5.4  Rename from settings_site_language() to settings_language_field_description().
 		 *
 		 * @return void
 		 */
-		public function settings_site_language() {
+		public function settings_language_field_description() {
 
 			// Get site and user core update Locales.
 			$wp_locales = Update_Core::core_update_locales();
