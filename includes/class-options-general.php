@@ -306,7 +306,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					select option[data-has-lang-packs="false"],
 					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
 					#ttools_language_select_description .has-no-lang-packs strong {
-						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
 					}
 				</style>
 				<?php
