@@ -36,9 +36,16 @@ jQuery( document ).ready( function( $ ) {
 		// Select field ID.
 		var selectID = '';
 
+		// Select groups of Installed and Available options. Used always on Site Language, and since WP 6.2 on User Language.
+		var selectInstalledGroup = '';
+		var selectAvailableGroup = '';
+		if ( ttools.current_screen === 'options-general' || ttools.wp_version >= '6.2' ) {
+			selectInstalledGroup = ' > optgroup:eq(0)';
+			selectAvailableGroup = ' > optgroup:eq(1)';
+		}
+
 		switch ( ttools.current_screen ) {
 			case 'options-general':
-
 				selectID = '.options-general-php select#WPLANG';
 				break;
 
@@ -54,25 +61,25 @@ jQuery( document ).ready( function( $ ) {
 		ttoolsAddAllLocales( selectID );
 
 		// Check each option of installed languages on the language select.
-		$( selectID + ' > optgroup:eq(0) > option' ).each( function() {
+		$( selectID + selectInstalledGroup + ' > option' ).each( function() {
 			var value = $( this ).prop( 'value' );
 
 			// Check if the Locale should be on the Installed languages group.
 			if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
 				// Remove Locales that are not installed.
-				ttoolsRemoveLocaleOption( selectID + ' > optgroup:eq(0)', value );
+				ttoolsRemoveLocaleOption( selectID + selectInstalledGroup, value );
 			} else {
 				// Rename Locale and add attributes.
-				ttoolsRenameLocaleOption( selectID + ' > optgroup:eq(0)', value );
+				ttoolsRenameLocaleOption( selectID + selectInstalledGroup, value );
 			}
 		} );
 
 		// Check each option of available languages on the language select.
-		$( selectID + ' > optgroup:eq(1) > option' ).each( function() {
+		$( selectID + selectAvailableGroup + ' > option' ).each( function() {
 			var value = $( this ).prop( 'value' );
 
 			// Rename Locale and add attributes.
-			ttoolsRenameLocaleOption( selectID + ' > optgroup:eq(1)', value );
+			ttoolsRenameLocaleOption( selectID + selectAvailableGroup, value );
 		} );
 
 		// Relocate Site Language description data on Settings page.
