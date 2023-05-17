@@ -303,9 +303,21 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			if ( $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
-					select option[data-has-lang-packs="false"],
-					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+				 	/* Site Language */
+					select#WPLANG option[data-has-lang-packs="false"],
+					 /* User Language */
+					select#locale option[data-has-lang-packs="false"],
+					 /* Language Setting description */
 					#ttools_language_select_description .has-no-lang-packs strong {
+						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+					}
+
+					/* Preferred Languages CSS. */
+					#preferred-languages-root div.preferred-languages div.inactive-locales select {
+						background-color: rgba(255, 255, 255, 1);
+					}
+					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+					#preferred-languages-root div.preferred-languages div.inactive-locales select optgroup option[data-has-lang-packs="false"] {
 						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
 					}
 				</style>
