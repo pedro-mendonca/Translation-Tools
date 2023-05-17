@@ -31,6 +31,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Load Translation Tools default scripts.
 	 *
 	 * @since 1.2.0
+	 * @since 1.6.0   Fixed compatibility with WP < 6.2 user language dropdown without Installed/Available language groups.
 	 */
 	function ttoolsSettings() {
 		// Select field ID.
@@ -68,19 +69,28 @@ jQuery( document ).ready( function( $ ) {
 			if ( ! translationTools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID + selectInstalledGroup, value );
-			} else {
-				// Rename Locale and add attributes.
-				ttoolsRenameLocaleOption( selectID + selectInstalledGroup, value );
+			} else if ( translationTools.current_screen === 'options-general' || translationTools.wp_version >= '6.2' ) {
+				// Remove Locales that are not installed.
+				ttoolsRemoveLocaleOption( selectID + selectAvailableGroup, value );
 			}
 		} );
 
-		// Check each option of available languages on the language select.
-		$( selectID + selectAvailableGroup + ' > option' ).each( function() {
-			var value = $( this ).prop( 'value' );
+		// Format all the language names in the list.
+		if ( selectInstalledGroup === '' && selectAvailableGroup === '' ) {
+			$( selectID + ' > option' ).each( function() {
+				var value = $( this ).prop( 'value' );
 
-			// Rename Locale and add attributes.
-			ttoolsRenameLocaleOption( selectID + selectAvailableGroup, value );
-		} );
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleOption( selectID, value );
+			} );
+		} else {
+			$( selectID + ' > optgroup > option' ).each( function() {
+				var value = $( this ).prop( 'value' );
+
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleOption( selectID + ' > optgroup', value );
+			} );
+		}
 
 		// Relocate Site Language description data on Settings page.
 		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', selectID );
@@ -251,7 +261,7 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	/**
-	 * Add all Locales the available languages list.
+	 * Add all Locales to the available languages list.
 	 *
 	 * @since 1.2.0
 	 * @param {string} selectID - Select field ID.
