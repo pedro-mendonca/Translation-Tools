@@ -1,7 +1,7 @@
 /* global document, translationTools */
 
 jQuery( document ).ready( function( $ ) {
-	console.log( 'Loaded options-general.js' );
+	console.log( 'Loaded language-settings.js' );
 
 	console.log( 'Current screen is "' + translationTools.current_screen + '"' );
 
