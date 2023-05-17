@@ -303,11 +303,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			if ( $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
-				 	/* Site Language */
+					/* Site Language */
 					select#WPLANG option[data-has-lang-packs="false"],
-					 /* User Language */
+					/* User Language */
 					select#locale option[data-has-lang-packs="false"],
-					 /* Language Setting description */
+					/* Language Setting description */
 					#ttools_language_select_description .has-no-lang-packs strong {
 						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
 					}
@@ -340,9 +340,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			// Get Locales.
 			$locales = Locales::locales();
 
-			// Exclude 'en_US' from the Locales array.
-			unset( $locales['en'] );
-
 			$languages = array();
 
 			foreach ( $locales as $locale ) {
@@ -368,7 +365,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					'value'      => $locale->wp_locale, // Option 'value'.
 					'lang'       => $lang,              // Option 'lang' attrib.
 					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
-					'name'       => $formated_name,       // Option text.
+					'name'       => $formated_name,     // Option text.
 				);
 				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
 				$languages[ $locale->wp_locale ] = $language;

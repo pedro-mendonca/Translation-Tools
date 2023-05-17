@@ -119,10 +119,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 				$available_languages = $this->options_general->available_languages();
 				add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 
+				// Get all languages.
+				$all_languages = Options_General::all_languages();
+				// Exclude 'en_US' from the Locales array.
+				unset( $all_languages['en'] );
+
 				// Variables to send to JavaScript.
 				$vars = array(
 					'available_languages' => $available_languages,                      // Get installed languages.
-					'all_languages'       => Options_General::all_languages(),          // Get all languages.
+					'all_languages'       => $all_languages,                            // Get all languages.
 					'current_screen'      => get_current_screen()->id,                  // Get current screen.
 					'compatible_plugins'  => Compatible::get_compatible_plugins(),      // Get compatible plugins data.
 					'wp_version'          => substr( get_bloginfo( 'version' ), 0, 3 ), // Get current WordPress major version.
