@@ -102,50 +102,22 @@ jQuery( document ).ready( function( $ ) {
 	 * @since 1.2.0
 	 */
 	function ttoolsPluginPreferredLanguagesSettings() {
-		// Select field ID.
-		var selectID = '';
-
-		// Add all Locales to the available languages list.
-		ttoolsAddAllLocales( 'select#preferred-languages-inactive-locales' );
-
-		// Check each option of installed languages on General Settings language select.
-		$( 'select#preferred-languages-inactive-locales > optgroup:eq(0) > option' ).each( function() {
-			var value = $( this ).prop( 'value' );
-			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
-
-			// Check if the Locale should be on the Installed languages group.
-			if ( ! translationTools.available_languages.includes( value ) && '' !== value ) {
-				// Remove Locales that are not installed.
-				ttoolsRemoveLocaleOption( selectID, value );
-			} else {
-				// Rename Locale and add attributes.
-				ttoolsRenameLocaleOption( selectID, value );
-			}
-		} );
-
-		// Check each option of available languages on language select.
-		$( 'select#preferred-languages-inactive-locales > optgroup:eq(1) > option' ).each( function() {
-			var value = $( this ).prop( 'value' );
-			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(1)';
-
-			// Rename Locale and add attributes.
-			ttoolsRenameLocaleOption( selectID, value );
-		} );
+		var selectID = '#preferred-languages-root div.preferred-languages ul.active-locales-list';
 
 		// Check each list item of selected languages on language select.
-		$( 'ul#preferred_languages > li' ).each( function() {
+		// TODO: Check where to hack this in PL.
+		$( selectID + ' > li' ).each( function() {
 			var value = $( this ).prop( 'id' );
-			selectID = 'ul#preferred_languages';
 
 			// Don't rename 'en_US' language.
 			if ( 'en_US' !== value ) {
 				// Rename Locale and add attributes.
-				ttoolsRenameLocaleListItem( selectID, value );
+				ttoolsPluginPreferredLanguagesRenameActiveLanguage( selectID, value );
 			}
 		} );
 
 		// Relocate Site Language description data on General Settings page.
-		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', 'select#preferred-languages-inactive-locales' );
+		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '#preferred-languages-root div.preferred-languages div.inactive-locales' );
 	}
 
 	/**
@@ -247,17 +219,18 @@ jQuery( document ).ready( function( $ ) {
 	 * Rename Locales that have only the value as name from Preferred Languages plugin unordered list items.
 	 *
 	 * @since 1.2.0
+	 * @since 1.6.0   Renamed from ttoolsRenameLocaleListItem() to ttoolsPluginPreferredLanguagesRenameActiveLanguage().
 	 * @param {string} selectID - Select field ID.
 	 * @param {string} value    - Option value.
 	 */
-	function ttoolsRenameLocaleListItem( selectID, value ) {
+	function ttoolsPluginPreferredLanguagesRenameActiveLanguage( selectID, value ) {
 		// Get language data.
 		var language = translationTools.all_languages[ value ];
 
 		// Set option name and attributes.
 		$( selectID + ' > li#' + value ).text( language.name ).attr( 'lang', language.lang ).attr( 'data-has-lang-packs', language.lang_packs );
 
-		console.log( 'Rename Locale list item from "' + language.value + '" to "' + language.name + '"' );
+		console.log( 'Rename Preferred Languages Locale list item from "' + language.value + '" to "' + language.name + '"' );
 	}
 
 	/**

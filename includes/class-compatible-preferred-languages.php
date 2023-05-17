@@ -74,11 +74,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			// Get Site languages selected on Preferred Languages plugin.
 			if ( function_exists( 'preferred_languages_get_site_list' ) ) { // Double check for funcion.
 				$pl_site_languages = preferred_languages_get_site_list();
+				$pl_site_languages = $pl_site_languages ? $pl_site_languages : array();
 			}
 
 			// Get current user languages selected on Preferred Languages plugin.
 			if ( function_exists( 'preferred_languages_get_user_list' ) ) { // Double check for funcion.
 				$pl_user_languages = preferred_languages_get_user_list( get_current_user_id() );
+				$pl_user_languages = $pl_user_languages ? $pl_user_languages : array();
 			}
 
 			// Merge Preferred Languages Locales.
@@ -203,9 +205,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 
 			foreach ( $all_languages as $key => $language ) {
 
-				$all_languages[ $key ]['nativeName'] = $formated_languages[ $language['locale'] ]['name'];
 				$all_languages[ $key ]['lang']       = $formated_languages[ $language['locale'] ]['lang'];
-				$all_languages[ $key ]['langPacks']  = $formated_languages[ $language['locale'] ]['lang_packs'];
+				$all_languages[ $key ]['nativeName'] = $formated_languages[ $language['locale'] ]['name'];
+				$all_languages[ $key ]['langPacks']  = $formated_languages[ $language['locale'] ]['lang_packs']; // TODO: For future use.
 
 			}
 

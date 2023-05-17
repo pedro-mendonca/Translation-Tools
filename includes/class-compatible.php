@@ -44,8 +44,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 			$compatible_plugins = array(
 				'preferred-languages/preferred-languages.php' => array(
 					'name'             => 'Preferred Languages',
-					'required_version' => '1.6.0',
-					'tested_version'   => '1.6.0',
+					'required_version' => '2.0.0',
+					'tested_version'   => '2.0.0', // TODO: Still not complete support, missing a hook.
 				),
 				'translation-stats/translation-stats.php' => array(
 					'name'             => 'Translation Stats',
