@@ -39,60 +39,44 @@ jQuery( document ).ready( function( $ ) {
 		switch ( ttools.current_screen ) {
 			case 'options-general':
 
-				// Add all Locales to the available languages list.
-				ttoolsAddAllLocales( '.options-general-php select#WPLANG' );
+				selectID = '.options-general-php select#WPLANG';
+				break;
 
-				// Check each option of installed languages on General Settings language select.
-				$( '#WPLANG > optgroup:eq(0) > option' ).each( function() {
-					var value = $( this ).prop( 'value' );
-					selectID = '.options-general-php select#WPLANG > optgroup:eq(0)';
-
-					// Check if the Locale should be on the Installed languages group.
-					if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
-						// Remove Locales that are not installed.
-						ttoolsRemoveLocaleOption( selectID, value );
-					} else {
-						// Rename Locale and add attributes.
-						ttoolsRenameLocaleOption( selectID, value );
-					}
-				} );
-
-				// Check each option of available languages on General Settings language select.
-				$( '#WPLANG > optgroup:eq(1) > option' ).each( function() {
-					var value = $( this ).prop( 'value' );
-					selectID = '.options-general-php select#WPLANG > optgroup:eq(1)';
-
-					// Rename Locale and add attributes.
-					ttoolsRenameLocaleOption( selectID, value );
-				} );
-
-				// Relocate Site Language description data on General Settings page.
-				ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', '.options-general-php select#WPLANG' );
-
+			case 'profile':
+				selectID = '.profile-php select#locale';
 				break;
 
 			default:
-
-				// Check each option of installed languages on Profile and User Edit language select.
-				$( '#locale > option' ).each( function() {
-					var value = $( this ).prop( 'value' );
-					selectID = 'select#locale';
-
-					// Check if the Locale should be on the Installed languages group.
-					if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
-						// Remove Locales that are not installed.
-						ttoolsRemoveLocaleOption( selectID, value );
-					} else {
-						// Rename Locale and add attributes.
-						ttoolsRenameLocaleOption( selectID, value );
-					}
-				} );
-
-				// Relocate Site Language description data on Profile and User Edit page.
-				ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', 'select#locale' );
-
-				break;
+				return;
 		}
+
+		// Add all Locales to the available languages list.
+		ttoolsAddAllLocales( selectID );
+
+		// Check each option of installed languages on the language select.
+		$( selectID + ' > optgroup:eq(0) > option' ).each( function() {
+			var value = $( this ).prop( 'value' );
+
+			// Check if the Locale should be on the Installed languages group.
+			if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+				// Remove Locales that are not installed.
+				ttoolsRemoveLocaleOption( selectID + ' > optgroup:eq(0)', value );
+			} else {
+				// Rename Locale and add attributes.
+				ttoolsRenameLocaleOption( selectID + ' > optgroup:eq(0)', value );
+			}
+		} );
+
+		// Check each option of available languages on the language select.
+		$( selectID + ' > optgroup:eq(1) > option' ).each( function() {
+			var value = $( this ).prop( 'value' );
+
+			// Rename Locale and add attributes.
+			ttoolsRenameLocaleOption( selectID + ' > optgroup:eq(1)', value );
+		} );
+
+		// Relocate Site Language description data on Settings page.
+		ttoolsRelocateAfterTarget( 'div#ttools_language_select_description', selectID );
 	}
 
 	/**
