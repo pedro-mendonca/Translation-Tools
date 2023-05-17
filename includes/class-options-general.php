@@ -170,7 +170,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 * @since 1.2.0  Use user object to get user Locale.
 		 *               Loaded on 'personal_options' hook to allow use of $user.
 		 * @since 1.2.2  Remove $user param.
-		 * @since 1.5.4  Rename from settings_site_language() to settings_language_field_description().
+		 * @since 1.6.0  Rename from settings_site_language() to settings_language_field_description().
 		 *
 		 * @return void
 		 */
