@@ -2,7 +2,7 @@
 	"requires": true,
 	"lockfileVersion": 1,
 	"name": "translation-tools",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"description": "Translation tools for your WordPress install.",
 	"author": "Pedro Mendonça",
 	"license": "GPL-2.0-or-later",
@@ -27,8 +27,8 @@
 		"uglify-js": "^3.17.4"
 	},
 	"scripts": {
-		"compile:js": "npm run compile:js:options-general.js && npm run compile:js:update-core.js",
-		"compile:js:options-general.js": "uglifyjs assets/js/options-general.js --compress drop_console=true -o assets/js/options-general.min.js",
+		"compile:js": "npm run compile:js:language-settings.js && npm run compile:js:update-core.js",
+		"compile:js:language-settings.js": "uglifyjs assets/js/language-settings.js --compress drop_console=true -o assets/js/language-settings.min.js",
 		"compile:js:update-core.js": "uglifyjs assets/js/update-core.js --compress drop_console=true -o assets/js/update-core.min.js",
 		"lint:js": "wp-scripts lint-js",
 		"lint:md:docs": "wp-scripts lint-md-docs",

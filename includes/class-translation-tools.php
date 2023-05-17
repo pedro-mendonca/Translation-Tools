@@ -93,7 +93,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 				wp_localize_script(
 					'translation-tools-update-core',
-					'ttools',
+					'translationTools',
 					$vars
 				);
 
@@ -103,8 +103,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 
 				wp_register_script(
-					'translation-tools-options-general',
-					Utils::get_asset_url( 'js/options-general.js', true ),
+					'translation-tools-language-settings',
+					Utils::get_asset_url( 'js/language-settings.js', true ),
 					array(
 						'jquery',
 					),
@@ -112,24 +112,30 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 					false
 				);
 
-				wp_enqueue_script( 'translation-tools-options-general' );
+				wp_enqueue_script( 'translation-tools-language-settings' );
 
 				// Get the standard available Locales list.
 				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 				$available_languages = $this->options_general->available_languages();
 				add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 
+				// Get all languages.
+				$all_languages = Options_General::all_languages();
+				// Exclude 'en_US' from the Locales array.
+				unset( $all_languages['en'] );
+
 				// Variables to send to JavaScript.
 				$vars = array(
-					'available_languages' => $available_languages,                 // Get installed languages.
-					'all_languages'       => Options_General::all_languages(),     // Get all languages.
-					'current_screen'      => get_current_screen()->id,             // Get current screen.
-					'compatible_plugins'  => Compatible::get_compatible_plugins(), // Get compatible plugins data.
+					'available_languages' => $available_languages,                      // Get installed languages.
+					'all_languages'       => $all_languages,                            // Get all languages.
+					'current_screen'      => get_current_screen()->id,                  // Get current screen.
+					'compatible_plugins'  => Compatible::get_compatible_plugins(),      // Get compatible plugins data.
+					'wp_version'          => substr( get_bloginfo( 'version' ), 0, 3 ), // Get current WordPress major version.
 				);
 
 				wp_localize_script(
-					'translation-tools-options-general',
-					'ttools',
+					'translation-tools-language-settings',
+					'translationTools',
 					$vars
 				);
 

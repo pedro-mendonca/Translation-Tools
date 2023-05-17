@@ -44,6 +44,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			// Add Preferred Languages plugin User Languages to Translation Tools Site Health data.
 			add_filter( 'translation_tools_site_health_user_language', array( $this, 'preferred_languages_user_languages' ) );
 
+			// Format Preferred Languages list of languages.
+			add_filter( 'preferred_languages_all_languages', array( $this, 'preferred_languages_all_languages' ) );
+
 		}
 
 
@@ -71,11 +74,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			// Get Site languages selected on Preferred Languages plugin.
 			if ( function_exists( 'preferred_languages_get_site_list' ) ) { // Double check for funcion.
 				$pl_site_languages = preferred_languages_get_site_list();
+				$pl_site_languages = $pl_site_languages ? $pl_site_languages : array();
 			}
 
 			// Get current user languages selected on Preferred Languages plugin.
 			if ( function_exists( 'preferred_languages_get_user_list' ) ) { // Double check for funcion.
 				$pl_user_languages = preferred_languages_get_user_list( get_current_user_id() );
+				$pl_user_languages = $pl_user_languages ? $pl_user_languages : array();
 			}
 
 			// Merge Preferred Languages Locales.
@@ -178,6 +183,36 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			}
 
 			return $user_language;
+		}
+
+
+		/**
+		 * Format the Preferred Languages list of Languages.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @param array $all_languages   List of languages.
+		 *
+		 * @return array   Array of Preferred Languages list of languages with formatted names.
+		 */
+		public function preferred_languages_all_languages( $all_languages ) {
+
+			if ( empty( $all_languages ) ) {
+				return $all_languages;
+			}
+
+			$formated_languages = Options_General::all_languages();
+
+			foreach ( $all_languages as $key => $language ) {
+
+				$all_languages[ $key ]['lang']       = $formated_languages[ $language['locale'] ]['lang'];
+				$all_languages[ $key ]['nativeName'] = $formated_languages[ $language['locale'] ]['name'];
+				$all_languages[ $key ]['langPacks']  = $formated_languages[ $language['locale'] ]['lang_packs']; // TODO: For future use.
+
+			}
+
+			return $all_languages;
+
 		}
 
 	}

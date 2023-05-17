@@ -38,12 +38,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			add_filter( 'core_version_check_locale', array( $this, 'core_version_check_locale' ) );
 
 			// Add Site Language description.
-			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-options-general.php', array( $this, 'settings_language_field_description' ) );
 			// Add Site Language css.
 			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language_css' ) );
 
 			// Add Profile and User Edit Language description.
-			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language' ) );
+			add_action( 'admin_head-profile.php', array( $this, 'settings_language_field_description' ) );
 			// Add Profile and User Edit Language css.
 			add_action( 'admin_head-profile.php', array( $this, 'settings_site_language_css' ) );
 
@@ -170,10 +170,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 * @since 1.2.0  Use user object to get user Locale.
 		 *               Loaded on 'personal_options' hook to allow use of $user.
 		 * @since 1.2.2  Remove $user param.
+		 * @since 1.6.0  Rename from settings_site_language() to settings_language_field_description().
 		 *
 		 * @return void
 		 */
-		public function settings_site_language() {
+		public function settings_language_field_description() {
 
 			// Get site and user core update Locales.
 			$wp_locales = Update_Core::core_update_locales();
@@ -302,10 +303,22 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			if ( $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
-					select option[data-has-lang-packs="false"],
-					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+					/* Site Language */
+					select#WPLANG option[data-has-lang-packs="false"],
+					/* User Language */
+					select#locale option[data-has-lang-packs="false"],
+					/* Language Setting description */
 					#ttools_language_select_description .has-no-lang-packs strong {
-						background-color: rgb(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+					}
+
+					/* Preferred Languages CSS. */
+					#preferred-languages-root div.preferred-languages div.inactive-locales select {
+						background-color: rgba(255, 255, 255, 1);
+					}
+					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
+					#preferred-languages-root div.preferred-languages div.inactive-locales select optgroup option[data-has-lang-packs="false"] {
+						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
 					}
 				</style>
 				<?php
@@ -327,14 +340,20 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			// Get Locales.
 			$locales = Locales::locales();
 
-			// Exclude 'en_US' from the Locales array.
-			unset( $locales['en'] );
-
 			$languages = array();
 
 			foreach ( $locales as $locale ) {
+
 				// Set 'lang' option attrib to the first Locale 'lang_code_iso_639' code, empty if none.
-				$lang = isset( $locale->translations ) ? array_values( $locale->translations['iso'] )[0] : '';
+				if ( ! is_null( $locale->lang_code_iso_639_1 ) ) {
+					$lang = $locale->lang_code_iso_639_1;
+				} elseif ( ! is_null( $locale->lang_code_iso_639_2 ) ) {
+					$lang = $locale->lang_code_iso_639_2;
+				} elseif ( ! is_null( $locale->lang_code_iso_639_3 ) ) {
+					$lang = $locale->lang_code_iso_639_3;
+				} else {
+					$lang = '';
+				}
 
 				// Check if Language Packs are available.
 				$lang_packs = isset( $locale->translations ) ? true : false;
@@ -346,7 +365,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					'value'      => $locale->wp_locale, // Option 'value'.
 					'lang'       => $lang,              // Option 'lang' attrib.
 					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
-					'name'       => $formated_name,       // Option text.
+					'name'       => $formated_name,     // Option text.
 				);
 				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
 				$languages[ $locale->wp_locale ] = $language;
