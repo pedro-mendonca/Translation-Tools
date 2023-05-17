@@ -8,7 +8,7 @@
 
 // Set Translation Tools plugin version.
 if ( ! defined( 'TRANSLATION_TOOLS_VERSION' ) ) {
-	define( 'TRANSLATION_TOOLS_VERSION', '1.5.3' );
+	define( 'TRANSLATION_TOOLS_VERSION', '1.6.0' );
 }
 
 // Set Translation Tools required PHP version. Needed for PHP compatibility check for WordPress < 5.1.

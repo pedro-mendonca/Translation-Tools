@@ -97,7 +97,7 @@ It will update the .po and .mo files, and also generate the needed .json files f
 
 Short anwser: yes!  
 The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.  
-Since version 1.2.0, this plugin is compatible with Preferred Languages 1.6.0.  
+Since version 1.6.0, this plugin is compatible with Preferred Languages 2.0.0.  
 All the features added by Translation Tools are available for Preferred Languages users.  
 
 ### Can I help translating this plugin to my own language?
@@ -147,6 +147,18 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
    ![screenshot-9](./.wordpress-org/screenshot-9.png)
 
 ## Changelog
+
+### 1.6.0
+
+* Tested up to WP 6.2
+* Tested up to Preferred Languages 2.0
+* Minimum PHP bumped to 7.4
+* Fixed incorrect list of User Languages on WP < 6.1
+* Updated admin notices, dashicons and CSS
+* Fixed basic compatibility with the plugin Preferred Languages 2.0.0, still some work to do to make the UI seamless
+* Use Composer autoload
+* Rename coding standard rulesets
+* Update dependencies
 
 ### 1.5.3
 

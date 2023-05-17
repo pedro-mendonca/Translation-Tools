@@ -3,9 +3,9 @@ Contributors: pedromendonca
 Donate link: https://github.com/sponsors/pedro-mendonca
 Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.5.3
+Stable tag: 1.6.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,7 +88,7 @@ Short anwser: yes!
 
 The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.
 
-Since version 1.2.0, this plugin is compatible with Preferred Languages 1.6.0.
+Since version 1.6.0, this plugin is compatible with Preferred Languages 2.0.0.
 
 All the features added by Translation Tools are available for Preferred Languages users.
 
@@ -111,6 +111,17 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 9. Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
 
 == Changelog ==
+
+= 1.6.0 =
+*   Tested up to WP 6.2
+*   Tested up to Preferred Languages 2.0
+*   Minimum PHP bumped to 7.4
+*   Fixed incorrect list of User Languages on WP < 6.1
+*   Updated admin notices, dashicons and CSS
+*   Fixed basic compatibility with the plugin Preferred Languages 2.0.0, still some work to do to make the UI seamless
+*   Use Composer autoload
+*   Rename coding standard rulesets
+*   Update dependencies
 
 = 1.5.3 =
 *   Better report messages about translation project updates
