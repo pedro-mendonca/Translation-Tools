@@ -334,8 +334,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$languages = array();
 
 			foreach ( $locales as $locale ) {
+
 				// Set 'lang' option attrib to the first Locale 'lang_code_iso_639' code, empty if none.
-				$lang = isset( $locale->translations ) ? array_values( $locale->translations['iso'] )[0] : '';
+				if ( ! is_null( $locale->lang_code_iso_639_1 ) ) {
+					$lang = $locale->lang_code_iso_639_1;
+				} elseif ( ! is_null( $locale->lang_code_iso_639_2 ) ) {
+					$lang = $locale->lang_code_iso_639_2;
+				} elseif ( ! is_null( $locale->lang_code_iso_639_3 ) ) {
+					$lang = $locale->lang_code_iso_639_3;
+				} else {
+					$lang = '';
+				}
 
 				// Check if Language Packs are available.
 				$lang_packs = isset( $locale->translations ) ? true : false;
