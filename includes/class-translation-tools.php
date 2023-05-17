@@ -93,7 +93,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 				wp_localize_script(
 					'translation-tools-update-core',
-					'ttools',
+					'translationTools',
 					$vars
 				);
 
@@ -103,8 +103,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
 
 				wp_register_script(
-					'translation-tools-options-general',
-					Utils::get_asset_url( 'js/options-general.js', true ),
+					'translation-tools-language-settings',
+					Utils::get_asset_url( 'js/language-settings.js', true ),
 					array(
 						'jquery',
 					),
@@ -112,7 +112,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 					false
 				);
 
-				wp_enqueue_script( 'translation-tools-options-general' );
+				wp_enqueue_script( 'translation-tools-language-settings' );
 
 				// Get the standard available Locales list.
 				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
@@ -129,8 +129,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 				);
 
 				wp_localize_script(
-					'translation-tools-options-general',
-					'ttools',
+					'translation-tools-language-settings',
+					'translationTools',
 					$vars
 				);
 

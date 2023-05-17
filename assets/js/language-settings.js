@@ -1,14 +1,14 @@
-/* global document, ttools */
+/* global document, translationTools */
 
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded options-general.js' );
 
-	console.log( 'Current screen is "' + ttools.current_screen + '"' );
+	console.log( 'Current screen is "' + translationTools.current_screen + '"' );
 
-	console.log( 'Compatible plugins installed: ' + JSON.stringify( ttools.compatible_plugins ) );
+	console.log( 'Compatible plugins installed: ' + JSON.stringify( translationTools.compatible_plugins ) );
 
 	// Detect if plugin Preferred Languages is active.
-	if ( 'preferred-languages/preferred-languages.php' in ttools.compatible_plugins ) {
+	if ( 'preferred-languages/preferred-languages.php' in translationTools.compatible_plugins ) {
 		console.log( 'Plugin Preferred Languages detected.' );
 		// Load plugin Preferred Languages specific scripts.
 		ttoolsPluginPreferredLanguagesSettings();
@@ -19,7 +19,7 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	// Detect if plugin Translation Stats is active.
-	if ( 'translation-stats/translation-stats.php' in ttools.compatible_plugins ) {
+	if ( 'translation-stats/translation-stats.php' in translationTools.compatible_plugins ) {
 		console.log( 'Plugin Translation Stats detected.' );
 		// Load plugin Preferred Languages specific scripts.
 		ttoolsPluginTranslationStatsSettings();
@@ -39,12 +39,12 @@ jQuery( document ).ready( function( $ ) {
 		// Select groups of Installed and Available options. Used always on Site Language, and since WP 6.2 on User Language.
 		var selectInstalledGroup = '';
 		var selectAvailableGroup = '';
-		if ( ttools.current_screen === 'options-general' || ttools.wp_version >= '6.2' ) {
+		if ( translationTools.current_screen === 'options-general' || translationTools.wp_version >= '6.2' ) {
 			selectInstalledGroup = ' > optgroup:eq(0)';
 			selectAvailableGroup = ' > optgroup:eq(1)';
 		}
 
-		switch ( ttools.current_screen ) {
+		switch ( translationTools.current_screen ) {
 			case 'options-general':
 				selectID = '.options-general-php select#WPLANG';
 				break;
@@ -65,7 +65,7 @@ jQuery( document ).ready( function( $ ) {
 			var value = $( this ).prop( 'value' );
 
 			// Check if the Locale should be on the Installed languages group.
-			if ( ! ttools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
+			if ( ! translationTools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID + selectInstalledGroup, value );
 			} else {
@@ -104,7 +104,7 @@ jQuery( document ).ready( function( $ ) {
 			selectID = 'select#preferred-languages-inactive-locales > optgroup:eq(0)';
 
 			// Check if the Locale should be on the Installed languages group.
-			if ( ! ttools.available_languages.includes( value ) && '' !== value ) {
+			if ( ! translationTools.available_languages.includes( value ) && '' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID, value );
 			} else {
@@ -151,7 +151,7 @@ jQuery( document ).ready( function( $ ) {
 		var pluginFile = 'translation-stats/translation-stats.php';
 
 		// Translation Stats language.
-		var translationStatsLanguage = ttools.compatible_plugins[ pluginFile ].settings.translation_language;
+		var translationStatsLanguage = translationTools.compatible_plugins[ pluginFile ].settings.translation_language;
 
 		// Add all Locales to the available languages list.
 		ttoolsAddAllLocales( 'select#tstats_settings\\[settings\\]\\[translation_language\\]' );
@@ -162,7 +162,7 @@ jQuery( document ).ready( function( $ ) {
 			selectID = 'select#tstats_settings\\[settings\\]\\[translation_language\\] > optgroup:eq(0)';
 
 			// Check if the Locale should be on the Installed languages group.
-			if ( ! ttools.available_languages.includes( value ) && 'site-default' !== value && translationStatsLanguage !== value ) {
+			if ( ! translationTools.available_languages.includes( value ) && 'site-default' !== value && translationStatsLanguage !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID, value );
 			} else {
@@ -222,7 +222,7 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	function ttoolsRenameLocaleOption( selectID, value ) {
 		// Get language data.
-		var language = ttools.all_languages[ value ];
+		var language = translationTools.all_languages[ value ];
 
 		// Rename Locales except 'en_US' (with empty value) and 'site-default'.
 		if ( '' !== value && 'site-default' !== value ) {
@@ -242,7 +242,7 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	function ttoolsRenameLocaleListItem( selectID, value ) {
 		// Get language data.
-		var language = ttools.all_languages[ value ];
+		var language = translationTools.all_languages[ value ];
 
 		// Set option name and attributes.
 		$( selectID + ' > li#' + value ).text( language.name ).attr( 'lang', language.lang ).attr( 'data-has-lang-packs', language.lang_packs );
@@ -258,7 +258,7 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	function ttoolsAddAllLocales( selectID ) {
 		// Get all languages.
-		var languages = ttools.all_languages;
+		var languages = translationTools.all_languages;
 
 		// Create options.
 		var options = '';
@@ -272,6 +272,6 @@ jQuery( document ).ready( function( $ ) {
 
 		console.log( 'Add Locales to the available languages list.' );
 
-		console.log( 'Total Locales: ' + Object.keys( ttools.all_languages ).length );
+		console.log( 'Total Locales: ' + Object.keys( translationTools.all_languages ).length );
 	}
 } );
