@@ -1,4 +1,4 @@
-/* global document, ttools */
+/* global document, translationTools */
 
 jQuery( document ).ready( function( $ ) {
 	console.log( 'Loaded update-core.js' );
@@ -18,7 +18,7 @@ jQuery( document ).ready( function( $ ) {
 	function ttoolsUpdateTranslations( type ) {
 		$.ajax( {
 
-			url: ttools.ajaxurl,
+			url: translationTools.ajaxurl,
 			type: 'GET',
 			data: {
 				// Universal action with 'section' passed in $_GET.
