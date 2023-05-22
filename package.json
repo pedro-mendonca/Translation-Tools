@@ -21,7 +21,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.3.0",
-		"node-sass": "^8.0.0",
+		"node-sass": "^9.0.0",
 		"sass-lint": "^1.13.1",
 		"scss": "^0.2.4",
 		"uglify-js": "^3.17.4"
