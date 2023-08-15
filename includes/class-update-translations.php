@@ -28,7 +28,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		/**
 		 * Gettext.
 		 *
-		 * @var object
+		 * @var Gettext
 		 */
 		protected $gettext;
 
@@ -174,7 +174,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @param string $type      Type of translation project ( e.g.: 'wp', 'plugins', 'themes' ).
 		 * @param array  $project   Project array.
-		 * @param object $locale    Locale object.
+		 * @param Locale $locale    Locale object.
 		 *
 		 * @return array|WP_Error   Array on success, WP_Error on failure.
 		 */
@@ -294,7 +294,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
-		 * @param object $locale        Locale object.
+		 * @param Locale $locale        Locale object.
 		 * @param array  $response      HTTP response.
 		 *
 		 * @return array|WP_Error       Array on success, WP_Error on failure.
@@ -344,7 +344,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
-		 * @param object $locale        Locale object.
+		 * @param Locale $locale        Locale object.
 		 *
 		 * @return array|WP_Error       Array on success, WP_Error on failure.
 		 */
@@ -403,10 +403,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $destination    Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
-		 * @param array  $project        Project array.
-		 * @param object $locale         Locale object.
-		 * @param object $translations   Extracted translations to export.
+		 * @param string       $destination    Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
+		 * @param array        $project        Project array.
+		 * @param Locale       $locale         Locale object.
+		 * @param Translations $translations   Extracted translations to export.
 		 *
 		 * @return array|WP_Error        Array on success, WP_Error on failure.
 		 */

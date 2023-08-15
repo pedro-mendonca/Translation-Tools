@@ -300,7 +300,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$locale_name_format = self::locale_name_format();
 
 			// Highlighted Locales with no language packs in the language select fields if 'show_locale_colors' is set to true.
-			if ( $locale_name_format['show_locale_colors'] ) {
+			if ( isset( $locale_name_format['show_locale_colors'] ) && $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
 					/* Site Language */
@@ -384,7 +384,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 *
 		 * @since 1.2.3
 		 *
-		 * @param object $locale  Locale object. Defaults to null.
+		 * @param Locale $locale  Locale object. Defaults to null.
 		 *
 		 * @return string|array   Formated Locale name if $locale is passed. Array of Locale name format parameters if no $locale passed.
 		 */

@@ -177,14 +177,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			// Get WordPress core translation project transient data.
 			$translation_sub_projects = get_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
 
+			// Define variable.
+			$result = array();
+
 			// If there is no unexpired transient data or force_check is set to 'true', get translation projects from the API.
 			if ( false === $translation_sub_projects || true === $force_check ) {
 
 				// Get WordPress translation project API URL.
 				$source = self::translate_url( 'wp', true );
-
-				// Define variable.
-				$result = array();
 
 				// Report message.
 				$result['log'] = sprintf(
@@ -346,7 +346,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 *
 		 * @param string $type      Type of translation project ( e.g.: 'wp', 'plugins', 'themes' ).
 		 * @param array  $project   Project array.
-		 * @param object $locale    Locale object.
+		 * @param Locale $locale    Locale object.
 		 *
 		 * @return array            Array of file paths (primary and alternative) to get source.
 		 */
@@ -428,9 +428,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $wp_locale  Locale ( e.g. 'pt_PT' ).
+		 * @param string $wp_locale   WP_Locale ( e.g. 'pt_PT' ).
 		 *
-		 * @return object            Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
+		 * @return Locale   Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
 		 */
 		public static function locale( $wp_locale ) {
 

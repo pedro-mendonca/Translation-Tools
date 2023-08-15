@@ -15,3 +15,4 @@ parameters:
 			- assets/lib/locales/locales.php
 	# TODO Tell PHPStan what is inside arrays.
 	checkMissingIterableValueType: false
+	treatPhpDocTypesAsCertain: false

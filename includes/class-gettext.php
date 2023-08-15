@@ -54,11 +54,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $destination      Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
-		 * @param array  $project          Project array.
-		 * @param object $locale           Locale object.
-		 * @param object $translations     Extracted translations to export.
-		 * @param bool   $include_domain   Include the ${domain} in the file name. Set to true or false. Defaults to true.
+		 * @param string       $destination      Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
+		 * @param array        $project          Project array.
+		 * @param Locale       $locale           Locale object.
+		 * @param Translations $translations     Extracted Gettext Translations to export.
+		 * @param bool         $include_domain   Include the ${domain} in the file name. Set to true or false. Defaults to true.
 		 *
 		 * @return array                   List of created JSON files.
 		 */
