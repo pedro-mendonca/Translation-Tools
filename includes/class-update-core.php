@@ -626,7 +626,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 									'<em>' . esc_html( $project['Name'] ) . '</em>'
 								);
 								?>
-								<button type="button" class="hide-if-no-js button-link js-update-details-toggle" aria-expanded="false"><?php esc_attr_e( 'Show details.', 'translation-tools' ); ?></button>
+								<button type="button" class="hide-if-no-js button-link js-update-details-toggle" aria-expanded="false"><?php esc_attr_e( 'More details.', 'translation-tools' ); ?><span class="dashicons dashicons-arrow-down" aria-hidden="true"></span></button>
 							</p>
 						</div>
 
