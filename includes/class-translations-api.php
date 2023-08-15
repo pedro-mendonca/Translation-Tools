@@ -177,14 +177,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			// Get WordPress core translation project transient data.
 			$translation_sub_projects = get_transient( TRANSLATION_TOOLS_TRANSIENTS_PREFIX . $translation_project_transient );
 
+			// Define variable.
+			$result = array();
+
 			// If there is no unexpired transient data or force_check is set to 'true', get translation projects from the API.
 			if ( false === $translation_sub_projects || true === $force_check ) {
 
 				// Get WordPress translation project API URL.
 				$source = self::translate_url( 'wp', true );
-
-				// Define variable.
-				$result = array();
 
 				// Report message.
 				$result['log'] = sprintf(

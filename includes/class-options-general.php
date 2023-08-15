@@ -300,7 +300,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$locale_name_format = self::locale_name_format();
 
 			// Highlighted Locales with no language packs in the language select fields if 'show_locale_colors' is set to true.
-			if ( $locale_name_format['show_locale_colors'] ) {
+			if ( isset( $locale_name_format['show_locale_colors'] ) && $locale_name_format['show_locale_colors'] ) {
 				?>
 				<style>
 					/* Site Language */
