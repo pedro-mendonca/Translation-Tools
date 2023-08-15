@@ -384,7 +384,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 *
 		 * @since 1.2.3
 		 *
-		 * @param object $locale  Locale object. Defaults to null.
+		 * @param GP_Locale $locale   GP_Locale object. Defaults to null.
 		 *
 		 * @return string|array   Formated Locale name if $locale is passed. Array of Locale name format parameters if no $locale passed.
 		 */

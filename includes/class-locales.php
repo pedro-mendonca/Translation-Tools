@@ -29,7 +29,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 * Set custom 'translation_tools_locales' global variable.
 		 * This avoids conficts with other plugins that might use the 'gp_locales' global.
 		 *
-		 * @return object  Object with all the GP_Locales.
+		 * @return GP_Locales  Object with all the GP_Locales.
 		 */
 		public static function &instance() {
 
@@ -46,7 +46,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @return array  Array of Locales objects.
+		 * @return array  Array of GP_Locale objects.
 		 */
 		public static function locales() {
 
@@ -95,9 +95,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @param object $locale  Locale object.
+		 * @param GP_Locale $locale   GP_Locale object.
 		 *
-		 * @return string         Returns WordPress Locale Subdomain.
+		 * @return string   Returns WordPress Locale Subdomain.
 		 */
 		public static function wporg_subdomain( $locale ) {
 
@@ -165,9 +165,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @param object $locale  Locale object.
+		 * @param GP_Locale $locale   GP_Locale object.
 		 *
-		 * @return string         Returns locale complete slug.
+		 * @return string   Returns locale complete slug.
 		 */
 		public static function locale_slug( $locale ) {
 

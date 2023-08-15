@@ -428,9 +428,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 		 * @since 1.0.0
 		 * @since 1.2.0  Use Locale object.
 		 *
-		 * @param string $wp_locale  Locale ( e.g. 'pt_PT' ).
+		 * @param string $wp_locale   WP_Locale ( e.g. 'pt_PT' ).
 		 *
-		 * @return object            Return selected Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
+		 * @return object   Return selected GP_Locale object data from Translation Tools and wordpress.org (e.g. 'english_name', 'native_name', 'lang_code_iso_639_1', 'country_code', 'wp_locale', 'slug', etc. ).
 		 */
 		public static function locale( $wp_locale ) {
 
