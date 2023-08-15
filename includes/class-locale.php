@@ -28,14 +28,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 		/**
 		 * Locale slug. Eg.: 'pt/default'.
 		 *
-		 * @var string Locale slug. Eg.: 'pt/default'.
+		 * @var string
 		 */
 		public $locale_slug;
 
 		/**
 		 * Subdomain of the Locale team page on wp.org.
 		 *
-		 * @var string Subdomain of the Locale team page on wp.org.
+		 * @var string
 		 */
 		public $wporg_subdomain;
 
@@ -49,7 +49,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 		 */
 		public function __construct( $locale ) {
 
-			// Import parent object properties
+			// Import parent object properties.
 			foreach ( get_object_vars( $locale ) as $key => $value ) {
 				$this->$key = $value;
 			}

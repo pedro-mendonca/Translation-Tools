@@ -87,7 +87,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 					$locales[ $key ]->translations = $translations[ $locale->wp_locale ];
 
 				}
-
 			}
 
 			return $locales;
