@@ -60,6 +60,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 
 			foreach ( $locales as $key => $locale ) {
 
+				// Check if $locale is actually a GP_Locale object.
+				if ( ! is_a( $locale, 'Translation_Tools\GP_Locale' ) ) {
+					unset( $locales[ $key ] );
+					continue;
+				}
+
 				// If Locale don't have 'wp_locale', remove from the list.
 				if ( ! isset( $locale->wp_locale ) ) {
 					unset( $locales[ $key ] );
