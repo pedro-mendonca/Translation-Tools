@@ -1,0 +1,67 @@
+<?php
+/**
+ * Class file for the Translation Tools Locale.
+ *
+ * Extends GP_Locale from:
+ * https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/mu-plugins/pub/locales/locales.php
+ *
+ * @package Translation_Tools
+ *
+ * @since 1.6.1
+ */
+
+namespace Translation_Tools;
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
+
+	/**
+	 * Class Locale.
+	 */
+	class Locale extends GP_Locale {
+
+
+		/**
+		 * Locale slug. Eg.: 'pt/default'.
+		 *
+		 * @var string Locale slug. Eg.: 'pt/default'.
+		 */
+		public $locale_slug;
+
+		/**
+		 * Subdomain of the Locale team page on wp.org.
+		 *
+		 * @var string Subdomain of the Locale team page on wp.org.
+		 */
+		public $wporg_subdomain;
+
+
+		/**
+		 * Constructor.
+		 *
+		 * @param GP_Locale $locale  GP_Locale object.
+		 *
+		 * @return void
+		 */
+		public function __construct( $locale ) {
+
+			// Import parent object properties
+			foreach ( get_object_vars( $locale ) as $key => $value ) {
+				$this->$key = $value;
+			}
+
+			// Add 'wporg_subdomain' property.
+			$this->wporg_subdomain = Locales::wporg_subdomain( $locale );
+
+			// Add 'locale_slug' property.
+			$this->locale_slug = Locales::locale_slug( $locale );
+
+		}
+
+	}
+
+}
