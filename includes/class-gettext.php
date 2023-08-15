@@ -56,7 +56,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 		 *
 		 * @param string       $destination      Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array        $project          Project array.
-		 * @param GP_Locale    $locale           GP_Locale object.
+		 * @param Locale       $locale           Locale object.
 		 * @param Translations $translations     Extracted Gettext Translations to export.
 		 * @param bool         $include_domain   Include the ${domain} in the file name. Set to true or false. Defaults to true.
 		 *

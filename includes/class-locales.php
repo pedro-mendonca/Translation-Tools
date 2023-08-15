@@ -29,12 +29,20 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 * Set custom 'translation_tools_locales' global variable.
 		 * This avoids conficts with other plugins that might use the 'gp_locales' global.
 		 *
-		 * @return GP_Locales  Object with all the GP_Locales.
+		 * @return Locales  Object with all the Locales.
 		 */
 		public static function &instance() {
 
 			if ( ! isset( $GLOBALS['translation_tools_locales'] ) ) {
-				$GLOBALS['translation_tools_locales'] = new GP_Locales();
+
+				$locales = new Locales();
+
+				foreach ( $locales->locales as $key => $locale ) {
+					$locales->locales[ $key ] = new Locale( $locale );
+				}
+
+				$GLOBALS['translation_tools_locales'] = $locales;
+
 			}
 
 			return $GLOBALS['translation_tools_locales'];
@@ -46,7 +54,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 		 *
 		 * @since 1.2.0
 		 *
-		 * @return array  Array of GP_Locale objects.
+		 * @return array  Array of Locale objects.
 		 */
 		public static function locales() {
 
@@ -61,7 +69,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 			foreach ( $locales as $key => $locale ) {
 
 				// Check if $locale is actually a GP_Locale object.
-				if ( ! is_a( $locale, 'Translation_Tools\GP_Locale' ) ) {
+				if ( ! is_a( $locale, 'Translation_Tools\Locale' ) ) {
 					unset( $locales[ $key ] );
 					continue;
 				}
@@ -72,12 +80,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 					continue;
 				}
 
-				// Add 'wporg_subdomain' property.
-				$locales[ $key ]->wporg_subdomain = self::wporg_subdomain( $locale );
-
-				// Add 'locale_slug' property.
-				$locales[ $key ]->locale_slug = self::locale_slug( $locale );
-
 				// Check if 'wp_locale' exist in the Available Translations.
 				if ( array_key_exists( $locale->wp_locale, $translations ) ) {
 
@@ -85,6 +87,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 					$locales[ $key ]->translations = $translations[ $locale->wp_locale ];
 
 				}
+
 			}
 
 			return $locales;
