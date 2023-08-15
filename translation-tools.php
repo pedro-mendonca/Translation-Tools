@@ -15,7 +15,7 @@
  * Description:       Translation tools for your WordPress install.
  * Version:           1.6.0
  * Requires at least: 4.9
- * Tested up to:      6.2
+ * Tested up to:      6.3
  * Requires PHP:      7.4
  * Author:            Pedro Mendonça
  * Author URI:        https://profiles.wordpress.org/pedromendonca/
