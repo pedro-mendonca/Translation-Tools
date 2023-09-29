@@ -40,7 +40,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 
 			// Add some simple Polyglots styling to Translations tests.
 			add_action( 'admin_head-site-health.php', array( $this, 'add_site_health_style' ) );
-
 		}
 
 
@@ -108,9 +107,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 			}
 
 			return $locale;
-
 		}
-
 	}
 
 }

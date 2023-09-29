@@ -17,7 +17,7 @@
 namespace Translation_Tools;
 
 use Gettext\Translations;
-use Gettext\Generators\Jed as Jed;
+use Gettext\Generators\Jed;
 use WP_Error;
 
 // Exit if accessed directly.
@@ -93,7 +93,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 						// Return empty source.
 						return null;
-
 					},
 					// Get translation references.
 					$translation->getReferences()
@@ -123,7 +122,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			$result += $this->build_json_files( $mapping, $base_file_name, $destination );
 			return $result;
-
 		}
 
 
@@ -237,7 +235,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 
 			return $result;
 		}
-
 	}
 
 }

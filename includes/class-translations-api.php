@@ -109,7 +109,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			$plugins = apply_filters( 'translation_tools_update_plugins_list', $plugins );
 
 			return $plugins;
-
 		}
 
 
@@ -151,7 +150,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			$themes = apply_filters( 'translation_tools_update_themes_list', $themes );
 
 			return $themes;
-
 		}
 
 
@@ -262,7 +260,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			return $result;
-
 		}
 
 
@@ -331,7 +328,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			return $translate_url;
-
 		}
 
 
@@ -491,7 +487,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 			}
 
 			return $destination;
-
 		}
 
 
@@ -520,9 +515,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translations_API' ) ) {
 
 			// Return unknown error message.
 			return esc_html__( 'Unknown error.', 'translation-tools' );
-
 		}
-
 	}
-
 }

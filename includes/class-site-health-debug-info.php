@@ -29,7 +29,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Debug_Info' ) ) {
 
 			// Add Translation Tools debug informations.
 			add_filter( 'debug_information', array( $this, 'site_health_debug_info' ) );
-
 		}
 
 
@@ -109,7 +108,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Debug_Info' ) ) {
 
 			return $debug_info;
 		}
-
 	}
 
 }

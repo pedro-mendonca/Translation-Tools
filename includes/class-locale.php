@@ -59,9 +59,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 
 			// Add 'locale_slug' property.
 			$this->locale_slug = Locales::locale_slug( $locale );
-
 		}
-
 	}
 
 }

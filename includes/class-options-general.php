@@ -49,7 +49,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 			// Add Translation Stats Language css.
 			add_action( 'settings_page_translation-stats', array( $this, 'settings_site_language_css' ) );
-
 		}
 
 
@@ -77,7 +76,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$languages = array_unique( $languages );
 
 			return $languages;
-
 		}
 
 
@@ -112,7 +110,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			sort( $languages );
 
 			return $languages;
-
 		}
 
 
@@ -134,7 +131,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$languages = $this->available_languages();
 
 			return $languages;
-
 		}
 
 
@@ -159,7 +155,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			}
 
 			return $wp_locale;
-
 		}
 
 
@@ -323,7 +318,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				</style>
 				<?php
 			}
-
 		}
 
 
@@ -373,7 +367,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			}
 
 			return $languages;
-
 		}
 
 
@@ -432,9 +425,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			}
 
 			return $formated_name;
-
 		}
-
 	}
 
 }

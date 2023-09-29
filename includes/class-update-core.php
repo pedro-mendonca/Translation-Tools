@@ -49,7 +49,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			// Filter 'update_core' transient to prevent update of previous WordPress version language pack.
 			add_filter( 'pre_set_site_transient_update_core', array( $this, 'remove_previous_wp_translation' ) );
-
 		}
 
 
@@ -207,7 +206,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			<?php
 			// Load admin footer.
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-
 		}
 
 
@@ -352,7 +350,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			$count   = 0;
 			$message = '';
 			foreach ( $notice_messages as $notice_message ) {
-				$count++;
+				++$count;
 				$wrap_start = 1 === $count ? '' : '<p>';
 				$wrap_end   = count( $notice_messages ) !== $count ? '</p>' : '';
 				$message   .= $wrap_start . $notice_message . $wrap_end;
@@ -364,7 +362,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 				'message'     => $message,
 			);
 			Admin_Notice::message( $admin_notice );
-
 		}
 
 
@@ -532,7 +529,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			}
 			wp_die();
-
 		}
 
 
@@ -567,7 +563,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					// Check if custom 'Domain' is set, as for WordPress core. Defaults to project 'Slug'.
 					$project['Domain'] = isset( $project['Domain'] ) ? $project['Domain'] : $slug; // Project domain.
 
-					$project_count ++;
+					++$project_count;
 					?>
 
 					<h4>
@@ -634,7 +630,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					}
 				}
 			}
-
 		}
 
 
@@ -658,7 +653,5 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 			return $transient;
 		}
-
 	}
-
 }

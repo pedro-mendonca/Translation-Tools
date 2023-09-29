@@ -55,7 +55,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 			);
 
 			return apply_filters( 'translation_tools_compatible_plugins', $compatible_plugins );
-
 		}
 
 
@@ -130,9 +129,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible' ) ) {
 			}
 
 			return $plugins;
-
 		}
-
 	}
 
 }
