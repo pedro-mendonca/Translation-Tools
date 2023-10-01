@@ -52,7 +52,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 			// Initialize Class file for the Translation Tools Site Health.
 			new Site_Health();
-
 		}
 
 
@@ -140,7 +139,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 				);
 
 			}
-
 		}
 
 
@@ -157,9 +155,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 			// Check for Updates page, General Options page and Profile page.
 			return in_array( $hook, array( 'update-core.php', 'options-general.php', 'profile.php', 'user-edit.php', 'settings_page_translation-stats' ), true );
-
 		}
-
 	}
 
 }

@@ -91,7 +91,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 				?>
 			</div>
 			<?php
-
 		}
 
 
@@ -118,9 +117,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Admin_Notice' ) ) {
 			}
 
 			return false;
-
 		}
-
 	}
 
 }

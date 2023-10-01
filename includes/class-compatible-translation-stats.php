@@ -42,7 +42,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Translation_Stats' ) ) {
 				add_filter( 'translation_tools_compatible_plugins', array( $this, 'translation_stats_settings' ) );
 
 			}
-
 		}
 
 
@@ -76,9 +75,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Translation_Stats' ) ) {
 			$compatible_plugins[ $this->plugin_file ]['settings'] = $options['settings'];
 
 			return $compatible_plugins;
-
 		}
-
 	}
 
 }

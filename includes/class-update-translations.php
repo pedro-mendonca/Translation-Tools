@@ -40,7 +40,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 			// Instantiate Translation Tools Gettext.
 			$this->gettext = new Gettext();
-
 		}
 
 		// TODO: Message for when the downloaded .po has no strings.
@@ -159,7 +158,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			}
 
 			return $result;
-
 		}
 
 
@@ -279,7 +277,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$result['data'] = $response;
 
 			return $result;
-
 		}
 
 
@@ -332,7 +329,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$result['data'] = true;
 
 			return $result;
-
 		}
 
 
@@ -393,7 +389,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$result['data'] = $translations;
 
 			return $result;
-
 		}
 
 
@@ -443,9 +438,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$result['data'] = true;
 
 			return $result;
-
 		}
-
 	}
-
 }

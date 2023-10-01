@@ -131,7 +131,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
 
 			$this->wp_major_version = Translations_API::major_version( get_bloginfo( 'version' ) );
-
 		}
 
 
@@ -252,7 +251,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 				'label' => __( 'Translations', 'translation-tools' ),
 				'color' => 'wp-polyglots-pink',
 			);
-
 		}
 
 
@@ -310,9 +308,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test' ) ) {
 			}
 
 			return $this->required_test;
-
 		}
-
 	}
 
 }

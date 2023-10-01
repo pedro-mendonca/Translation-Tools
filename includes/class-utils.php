@@ -54,7 +54,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 			 * @param bool $development_mode   Set development mode to true or false.
 			 */
 			return apply_filters( 'translation_tools_development_mode', $development_mode );
-
 		}
 
 
@@ -90,7 +89,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 			$suffix = $minify && ! self::is_development_mode() && ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) ? '.min' : '';
 
 			return TRANSLATION_TOOLS_DIR_URL . 'assets/' . $path['dirname'] . '/' . $path['filename'] . $suffix . '.' . $path['extension'];
-
 		}
 
 
@@ -178,7 +176,5 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 
 			return $allowed_html;
 		}
-
 	}
-
 }

@@ -71,8 +71,8 @@ function translation_tools_uninstall_delete_transients( $search ) {
 		)
 	);
 	$transients = array_map(
-		function( $object ) {
-			return $object->name;
+		function ( $transient_object ) {
+			return $transient_object->name;
 		},
 		$transients
 	);

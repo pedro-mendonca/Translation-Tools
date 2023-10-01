@@ -29,7 +29,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Tests' ) ) {
 
 			// Test WordPress translations for every available language.
 			add_action( 'admin_init', array( $this, 'add_site_health_tests' ) );
-
 		}
 
 
@@ -69,9 +68,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Tests' ) ) {
 				new Site_Health_Test_WordPress_Translations_Locale( $wp_locale );
 
 			}
-
 		}
-
 	}
 
 }

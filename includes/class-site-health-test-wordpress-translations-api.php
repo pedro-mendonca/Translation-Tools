@@ -87,9 +87,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_A
 					)
 				)
 			);
-
 		}
-
 	}
 
 }

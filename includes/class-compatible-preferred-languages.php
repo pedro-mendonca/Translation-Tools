@@ -46,7 +46,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 
 			// Format Preferred Languages list of languages.
 			add_filter( 'preferred_languages_all_languages', array( $this, 'preferred_languages_all_languages' ) );
-
 		}
 
 
@@ -212,9 +211,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Compatible_Preferred_Languages' ) ) {
 			}
 
 			return $all_languages;
-
 		}
-
 	}
 
 }

@@ -69,7 +69,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				// Add Locale sufix to test ID.
 				$this->test_id = $this->test_id . '_' . $wp_locale;
 			}
-
 		}
 
 
@@ -193,9 +192,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				'<a href="' . esc_url( wp_nonce_url( admin_url( 'update-core.php?action=force-translation-upgrade' ), 'translation-tools-update', 'translation_tools_nonce' ) ) . '">',
 				'</a>'
 			);
-
 		}
-
 	}
 
 }
