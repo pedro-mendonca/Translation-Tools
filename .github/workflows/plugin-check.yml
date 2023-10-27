@@ -1,0 +1,48 @@
+name: Plugin Check
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+    paths:
+      # Any change to a PHP, JavaScript, CSS/SCSS or Markdown file should run checks.
+      - '**.js'
+      - '**.php'
+      - '**.*css'
+      - '**.md'
+      # These files configure NPM. Changes could affect the outcome.
+      - 'package*.json'
+      # These files configure Composer. Changes could affect the outcome.
+      - 'composer.*'
+      # This file configures ESLint. Changes could affect the outcome.
+      - '.eslintrc.json'
+      # This file configures Stylelint. Changes could affect the outcome.
+      - '.stylelintrc.json'
+      # This file configures Markdownlint. Changes could affect the outcome.
+      - '.markdownlint.json'
+      # This file configures PHPCS. Changes could affect the outcome.
+      - 'phpcs.xml.dist'
+      # Changes to workflow files should always verify all workflows are successful.
+      - '.github/workflows/*.yml'
+  # Allows you to run this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+
+  # Runs Plugin Check.
+  #
+  # Checks from the Plugin Review Team.
+  #
+  # For the detailed list of checks:
+  # - https://wordpress.org/plugins/plugin-check/
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run plugin check
+        uses: swissspidy/wp-plugin-check-action@main
