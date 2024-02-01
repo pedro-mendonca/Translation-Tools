@@ -68,5 +68,17 @@ jobs:
       - name: Make Composer packages available globally
         run: echo "${PWD}/vendor/bin" >> $GITHUB_PATH
 
+      - name: WordPress.org Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@2.2.2
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: translation-tools
+        with:
+          dry-run: true
+
+      - name: Move the dry-run deploy to the
+        run: mv trunk translation-tools
+
       - name: Run plugin check
-        uses: swissspidy/wp-plugin-check-action@main
+        uses: swissspidy/wp-plugin-check-action@v1.0.3
