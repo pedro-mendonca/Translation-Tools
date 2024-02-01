@@ -13,6 +13,7 @@ Translation tools for your WordPress install.
 
 [![Coding Standards](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/coding-standards.yml/badge.svg)](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/coding-standards.yml)
 [![Static Analysis](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/static-analysis.yml)
+[![WP Plugin Check](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/plugin-check.yml/badge.svg)](https://github.com/pedro-mendonca/Translation-Tools/actions/workflows/plugin-check.yml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/534909194f4446c3a865f66536ac4e03)](https://app.codacy.com/manual/pedro-mendonca/Translation-Tools?utm_source=github.com&utm_medium=referral&utm_content=pedro-mendonca/Translation-Tools&utm_campaign=Badge_Grade_Settings)
 
 ## Description
