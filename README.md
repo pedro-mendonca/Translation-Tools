@@ -149,6 +149,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog
 
+### Unreleased
+
+* Tested up to WP 6.5
+
 ### 1.6.0
 
 * Tested up to WP 6.2
