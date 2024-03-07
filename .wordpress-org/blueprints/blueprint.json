@@ -22,6 +22,18 @@
       "consts": {
         "WPLANG": "en_GB"
       }
+    },
+    {
+      "step": "mkdir",
+      "path": "/wordpress/wp-content/languages/"
+    },
+    {
+      "step": "mkdir",
+      "path": "/wordpress/wp-content/languages/plugins/"
+    },
+    {
+      "step": "mkdir",
+      "path": "/wordpress/wp-content/languages/themes/"
     }
   ]
 }
