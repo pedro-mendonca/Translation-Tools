@@ -115,7 +115,7 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 = Unreleased =
 *   Tested up to WP 6.5
-*   Generate .l10n.php for WordPress 6.5
+*   Generate .l10n.php performant translation files for WordPress 6.5
 
 = 1.6.0 =
 *   Tested up to WP 6.2
