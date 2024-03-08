@@ -50,8 +50,8 @@ Go to "Translations" on the Updates screen and choose what you want to update.
 
 *   .po (editable translation files)
 *   .mo (binary translation files)
-*   .json (JavaScript translation files)
 *   .l10n.php (PHP performant translation files)
+*   .json (JavaScript translation files)
 
 ### WordPress Translations tests and info in Site Health ###
 
@@ -83,6 +83,10 @@ If your Locale doesn't exist and you would like to request it, please [click her
 Yes, you can, since version 1.5.0.
 On the Updates page you can choose to update translations for WordPress, Plugins, Themes, or all at once.
 It will update the .po and .mo files, and also generate the needed .json files for JavaScript translations.
+
+= This plugin generates the new .l10n.php file format of performant translations for WordPress 6.5? =
+Yes, since version 1.7.0.
+If you're on WordPress 6.5, this plugin will also generate the .l10n.php language files for you.
 
 = Is this plugin compatible with the plugin Preferred Languages? =
 Short anwser: yes!
