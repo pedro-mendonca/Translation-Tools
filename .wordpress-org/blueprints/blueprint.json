@@ -24,6 +24,16 @@
       }
     },
     {
+      "step": "installPlugin",
+      "pluginZipFile": {
+        "resource": "wordpress.org/plugins",
+        "slug": "translation-tools"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
       "step": "mkdir",
       "path": "/wordpress/wp-content/languages/"
     },
