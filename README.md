@@ -56,6 +56,7 @@ Go to "Translations" on the Updates screen and choose what you want to update.
 * .po (editable translation files)
 * .mo (binary translation files)
 * .json (JavaScript translation files)
+* .l10n.php (PHP performant translation files)
 
 ### WordPress Translations tests and info in Site Health
 
@@ -152,6 +153,7 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 ### Unreleased
 
 * Tested up to WP 6.5
+* Generate .l10n.php performant translation files for WordPress 6.5
 
 ### 1.6.0
 
