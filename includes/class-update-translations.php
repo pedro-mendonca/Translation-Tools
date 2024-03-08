@@ -130,8 +130,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 				// Generate .l10n.php from .mo file on WordPress 6.5.
 				if ( class_exists( 'WP_Translation_File' ) && ! is_wp_error( $generate_mo ) ) {
-					$generate_php = $this->generate_php( $destination, $project, $locale );
-					array_push( $result['log'], $generate_php['log'] );
+					$generate_php   = $this->generate_php( $destination, $project, $locale );
+					$result['log']  = array_merge( $result['log'], $generate_php['log'] );
 					$result['data'] = $generate_php['data'];
 					if ( is_wp_error( $result['data'] ) ) {
 						return $result;
@@ -309,6 +309,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 */
 		public function generate_po( $destination, $project, $locale, $response ) {
 
+			global $wp_filesystem;
+
 			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
 			$domain    = $project['Domain'] ? $project['Domain'] . '-' : '';
 			$file_name = $domain . $locale->wp_locale . '.po';
@@ -324,9 +326,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			);
 
 			// Generate .po file.
-			$success = file_put_contents( $destination . $file_name, $response['body'] ); // phpcs:ignore
+			$generate = $wp_filesystem->put_contents( $destination . $file_name, $response['body'], FS_CHMOD_FILE );
 
-			if ( ! $success ) {
+			if ( ! $generate ) {
 
 				// Report message.
 				$result['data'] = new WP_Error(
@@ -455,7 +457,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		/**
 		 * Generate .l10n.php file from .mo file.
 		 *
-		 * @since 1.6.1
+		 * @since 1.7.0
 		 *
 		 * @param string $destination   Local destination of the language file. ( e.g: local/site/wp-content/languages/ ).
 		 * @param array  $project       Project array.
@@ -465,7 +467,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 */
 		public function generate_php( $destination, $project, $locale ) {
 
-			// Set the file naming convention. ( e.g.: {domain}-{locale}.po ).
+			global $wp_filesystem;
+
+			// Set the file naming convention. ( e.g.: {domain}-{locale}.mo ).
 			$domain        = $project['Domain'] ? $project['Domain'] . '-' : '';
 			$mo_file_name  = $domain . $locale->wp_locale . '.mo';
 			$php_file_name = $domain . $locale->wp_locale . '.l10n.php';
@@ -473,7 +477,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			// Define variable.
 			$result = array();
 
-			// Check if .po file exist.
+			// Check if .mo file exist.
 			if ( ! is_file( $destination . $mo_file_name ) ) {
 
 				// Report message.
@@ -486,19 +490,35 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			}
 
 			// Report message.
-			$result['log'] = sprintf(
+			$result['log'][] = sprintf(
+				/* translators: %s: File name. */
+				esc_html__( 'Extracting translations from file %s…', 'translation-tools' ),
+				'<code>' . esc_html( $mo_file_name ) . '</code>'
+			);
+
+			// Get translation content from .mo file.
+			$contents = WP_Translation_File::transform( $destination . $mo_file_name, 'php' ); // @phpstan-ignore-line until the WP 6.5 Stubs are released.
+
+			if ( ! $contents ) {
+
+				// Report message.
+				$result['data'] = new WP_Error(
+					'transform-mo-php',
+					esc_html__( 'Could not extract translations from file.', 'translation-tools' )
+				);
+				return $result;
+
+			}
+
+			// Report message.
+			$result['log'][] = sprintf(
 				/* translators: %s: File name. */
 				esc_html__( 'Saving file %s…', 'translation-tools' ),
 				'<code>' . $php_file_name . '</code>'
 			);
 
 			// Generate .l10n.php file.
-			$generate = false;
-
-			$contents = WP_Translation_File::transform( $destination . $mo_file_name, 'php' );
-			if ( $contents ) {
-				$generate = file_put_contents( $destination . $php_file_name, $contents );
-			}
+			$generate = $wp_filesystem->put_contents( $destination . $php_file_name, $contents, FS_CHMOD_FILE );
 
 			if ( ! $generate ) {
 
