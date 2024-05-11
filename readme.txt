@@ -89,7 +89,7 @@ Yes, since version 1.7.0.
 If you're on WordPress 6.5, this plugin will also generate the .l10n.php language files for you.
 
 = Is this plugin compatible with the plugin Preferred Languages? =
-Short anwser: yes!
+Short answer: yes!
 
 The plugin [Preferred Languages](https://wordpress.org/plugins/preferred-languages/) overrides the standard languages field for site and user languages.
 

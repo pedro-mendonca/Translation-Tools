@@ -142,13 +142,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					// Get Locale data.
 					$locale = Translations_API::locale( $wordpress_locale );
 
-					// Get the formated Locale name.
-					$formated_name = Options_General::locale_name_format( $locale );
+					// Get the formatted Locale name.
+					$formatted_name = Options_General::locale_name_format( $locale );
 
-					$update_locales[] = $formated_name;
+					$update_locales[] = $formatted_name;
 				}
 
-				// Check for wich translation to update on POST data. Defaults to WordPress translations for update links on General Settings and User Settings.
+				// Check for which translation to update on POST data. Defaults to WordPress translations for update links on General Settings and User Settings.
 				if ( ! isset( $_POST['update-translations'] ) ) { // phpcs:ignore
 					$update_translations = 'wp';
 				} else {
@@ -276,7 +276,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					}
 
 					// Set language name to 'native_name'.
-					$formated_name = Options_General::locale_name_format( $locale );
+					$formatted_name = Options_General::locale_name_format( $locale );
 
 					// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
 					if ( isset( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
@@ -287,7 +287,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 								__( 'The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s.', 'translation-tools' )
 							),
 							'<strong>' . esc_html( $translation_project_version ) . '</strong>',
-							'<strong>' . esc_html( $formated_name ) . '</strong>',
+							'<strong>' . esc_html( $formatted_name ) . '</strong>',
 							'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 						);
 
@@ -301,7 +301,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 									__( 'The translation of WordPress %1$s for %2$s has no Language Pack yet.', 'translation-tools' )
 								),
 								'<strong>' . esc_html( $translation_project_version ) . '</strong>',
-								'<strong>' . esc_html( $formated_name ) . '</strong>'
+								'<strong>' . esc_html( $formatted_name ) . '</strong>'
 							),
 							sprintf(
 								wp_kses_post(
@@ -315,7 +315,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 									esc_html__( '(opens in a new tab)', 'translation-tools' )
 								),
 								'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
-								'<strong>' . esc_html( $formated_name ) . '</strong>'
+								'<strong>' . esc_html( $formatted_name ) . '</strong>'
 							)
 						);
 

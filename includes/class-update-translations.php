@@ -224,7 +224,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				// Get the translation project data.
 				$response = wp_remote_get( $source, $args );
 
-				// Code 200: Tranlation project found successfully. End loop.
+				// Code 200: Translation project found successfully. End loop.
 				if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 
 					// Log download success message.
@@ -251,19 +251,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 				}
 
-				// Unkown WP_Error.
+				// Unknown WP_Error.
 				if ( is_wp_error( $response ) ) {
 
 					// Get errors.
 					$errors = $response->errors['http_request_failed'];
 
-					// Log every possible unkown error message.
+					// Log every possible unknown error message.
 					foreach ( $errors as $error ) {
 						// Print the WP_Error message.
 						$result['log'][] = $error;
 					}
 
-					// Unkown error, continue to next one.
+					// Unknown error, continue to next one.
 					continue;
 
 				}

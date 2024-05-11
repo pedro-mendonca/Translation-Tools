@@ -35,7 +35,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 			// Add Translation Tools Site Health tests.
 			new Site_Health_Tests();
 
-			// Add Translation Tools Site Health debug informations.
+			// Add Translation Tools Site Health debug information.
 			new Site_Health_Debug_Info();
 
 			// Add some simple Polyglots styling to Translations tests.
@@ -68,21 +68,21 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 
 
 		/**
-		 * Get Locale data for Site Health debug info with Locale formated name and Language Pack current status.
+		 * Get Locale data for Site Health debug info with Locale formatted name and Language Pack current status.
 		 *
 		 * @since 1.3.0
 		 *
 		 * @param string $wp_locale  Core WP Locale.
 		 *
-		 * @return string  Locale formated data with Language Packs current status.
+		 * @return string  Locale formatted data with Language Packs current status.
 		 */
 		public static function locale_lang_pack_status( $wp_locale ) {
 
 			// Get Locale data.
 			$locale = Translations_API::locale( $wp_locale );
 
-			// Get the formated Locale name.
-			$formated_name = Options_General::locale_name_format( $locale );
+			// Get the formatted Locale name.
+			$formatted_name = Options_General::locale_name_format( $locale );
 
 			if ( 'en_US' === $wp_locale ) {
 
@@ -93,7 +93,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has Language Packs.', 'translation-tools' ),
-					$formated_name
+					$formatted_name
 				);
 
 			} else {
@@ -101,7 +101,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 				$locale = sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has no Language Packs.', 'translation-tools' ),
-					$formated_name
+					$formatted_name
 				);
 
 			}

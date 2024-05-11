@@ -27,7 +27,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 
 		/**
 		 * Set custom 'translation_tools_locales' global variable.
-		 * This avoids conficts with other plugins that might use the 'gp_locales' global.
+		 * This avoids conflicts with other plugins that might use the 'gp_locales' global.
 		 *
 		 * @return Locales  Object with all the Locales.
 		 */
@@ -50,7 +50,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locales' ) ) {
 
 
 		/**
-		 * Locales from WordPress.org extended with Transaltion Tools data.
+		 * Locales from WordPress.org extended with Translation Tools data.
 		 *
 		 * @since 1.2.0
 		 *
