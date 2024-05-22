@@ -78,7 +78,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 		 */
 		public function has_translations() {
 
-			return is_array( $this->translations ) && $this->translations != array();
+			return is_array( $this->translations ) && $this->translations !== array();
 		}
 	}
 
