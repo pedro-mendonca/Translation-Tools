@@ -67,6 +67,21 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 			// Add 'locale_slug' property.
 			$this->locale_slug = Locales::locale_slug( $locale );
 		}
+
+
+		/**
+		 * Check if Locale has translations, and Language Packs.
+		 *
+		 * @return bool
+		 */
+		public function has_translations() {
+
+			if ( is_null( $this->translations ) ) {
+				return false;
+			} else {
+				return true;
+			}
+		}
 	}
 
 }

@@ -90,7 +90,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 			$translation_project_version = Translations_API::major_version( $translation_project['data']->name );
 
 			// Get translation project major version.
-			if ( ! is_null( $locale->translations ) ) {
+			if ( $locale->has_translations() ) {
 				$locale_translations_version = Translations_API::major_version( $locale->translations['version'] );
 			}
 
@@ -98,7 +98,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 			$formatted_name = Options_General::locale_name_format( $locale );
 
 			// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
-			if ( ! is_null( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
+			if ( $locale->has_translations() && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
 
 				$this->test_status = self::TRANSLATION_TOOLS_SITE_HEALTH_STATUS_GOOD;
 				$this->test_label  = sprintf(

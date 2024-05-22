@@ -88,7 +88,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 
 				return esc_html__( 'WordPress default language, has no translation.', 'translation-tools' );
 
-			} elseif ( ! is_null( $locale->translations ) ) {
+			} elseif ( $locale->has_translations() ) {
 
 				return sprintf(
 					/* translators: %s: Locale name. */
