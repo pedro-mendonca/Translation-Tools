@@ -117,6 +117,11 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 == Changelog ==
 
+= 1.7.1 =
+*   Update Gettext to v4.8.12
+*   Fix deprecation notices with PHP 8.2 or later
+*   Fix typos
+
 = 1.7.0 =
 *   Tested up to WP 6.5
 *   Generate .l10n.php performant translation files for WordPress 6.5
