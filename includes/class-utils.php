@@ -65,7 +65,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Utils' ) ) {
 		 * @param string $asset    Name of asset excluding the extension.
 		 * @param bool   $minify   Determine if the asset has a minified version.
 		 *
-		 * @return string|false   Complete URL for the asset. Return false if extension is not suported.
+		 * @return string|false   Complete URL for the asset. Return false if extension is not supported.
 		 */
 		public static function get_asset_url( $asset, $minify ) {
 

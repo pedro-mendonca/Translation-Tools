@@ -190,15 +190,15 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Get Locale data.
 				$locale = Translations_API::locale( $wp_locale );
 
-				// Get the formated Locale name.
-				$formated_name = self::locale_name_format( $locale );
+				// Get the formatted Locale name.
+				$formatted_name = self::locale_name_format( $locale );
 
 				if ( ! is_null( $locale->translations ) ) {
 					// Format Locale name.
-					$locales_with_lang_packs[] = $formated_name;
+					$locales_with_lang_packs[] = $formatted_name;
 				} else {
 					// Format Locale name.
-					$locales_with_no_lang_packs[] = $formated_name;
+					$locales_with_no_lang_packs[] = $formatted_name;
 				}
 			}
 			?>
@@ -304,7 +304,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					select#locale option[data-has-lang-packs="false"],
 					/* Language Setting description */
 					#ttools_language_select_description .has-no-lang-packs strong {
-						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+						background-color: rgba(195, 34, 131, .1); /* Translation Tools secondary color 10% */
 					}
 
 					/* Preferred Languages CSS. */
@@ -313,7 +313,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 					}
 					ul li[data-has-lang-packs="false"], /* Preferred Languages selected list items. */
 					#preferred-languages-root div.preferred-languages div.inactive-locales select optgroup option[data-has-lang-packs="false"] {
-						background-color: rgba(195, 34, 131, .1); /* Traslation Tools secondary color 10% */
+						background-color: rgba(195, 34, 131, .1); /* Translation Tools secondary color 10% */
 					}
 				</style>
 				<?php
@@ -352,14 +352,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Check if Language Packs are available.
 				$lang_packs = isset( $locale->translations ) ? true : false;
 
-				// Get the formated Locale name.
-				$formated_name = self::locale_name_format( $locale );
+				// Get the formatted Locale name.
+				$formatted_name = self::locale_name_format( $locale );
 
 				$language = array(
 					'value'      => $locale->wp_locale, // Option 'value'.
 					'lang'       => $lang,              // Option 'lang' attrib.
 					'lang_packs' => $lang_packs,        // Option 'data-has-lang-packs' attrib.
-					'name'       => $formated_name,     // Option text.
+					'name'       => $formatted_name,     // Option text.
 				);
 				// Set language with 'wp_locale' as key, as used in the 'available_translations' data.
 				$languages[ $locale->wp_locale ] = $language;
@@ -372,14 +372,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 
 		/**
 		 * Format how Locale names are shown in the the languages dropdown and admin notices.
-		 * Returns Locale formated name if $locale is passed.
+		 * Returns Locale formatted name if $locale is passed.
 		 * Returns Locale format settings if no $locale is passed.
 		 *
 		 * @since 1.2.3
 		 *
 		 * @param Locale $locale  Locale object. Defaults to null.
 		 *
-		 * @return string|array   Formated Locale name if $locale is passed. Array of Locale name format parameters if no $locale passed.
+		 * @return string|array   Formatted Locale name if $locale is passed. Array of Locale name format parameters if no $locale passed.
 		 */
 		public static function locale_name_format( $locale = null ) {
 
@@ -417,14 +417,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			}
 
 			// Set language name to 'native_name'.
-			$formated_name = $locale->native_name;
+			$formatted_name = $locale->native_name;
 
 			// Append 'wp_locale' if 'show_locale_codes' is true.
 			if ( $name_format['show_locale_codes'] ) {
-				$formated_name .= ' [' . $locale->wp_locale . ']';
+				$formatted_name .= ' [' . $locale->wp_locale . ']';
 			}
 
-			return $formated_name;
+			return $formatted_name;
 		}
 	}
 

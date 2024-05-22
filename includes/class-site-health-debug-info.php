@@ -27,13 +27,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Debug_Info' ) ) {
 		 */
 		public function __construct() {
 
-			// Add Translation Tools debug informations.
+			// Add Translation Tools debug information.
 			add_filter( 'debug_information', array( $this, 'site_health_debug_info' ) );
 		}
 
 
 		/**
-		 * Translation Tools Site Health debug informations.
+		 * Translation Tools Site Health debug information.
 		 * Inspired by:
 		 *  - https://core.trac.wordpress.org/ticket/51039#comment:14
 		 *

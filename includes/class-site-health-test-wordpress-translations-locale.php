@@ -95,7 +95,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 			}
 
 			// Set language name to 'native_name'.
-			$formated_name = Options_General::locale_name_format( $locale );
+			$formatted_name = Options_General::locale_name_format( $locale );
 
 			// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
 			if ( ! is_null( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
@@ -107,7 +107,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 						__( 'The translation of WordPress %1$s for %2$s has Language Packs.', 'translation-tools' )
 					),
 					esc_html( $translation_project_version ),
-					esc_html( $formated_name )
+					esc_html( $formatted_name )
 				);
 				$this->test_description = sprintf(
 					'<p>%s</p>',
@@ -117,7 +117,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 							__( 'The translation of WordPress %1$s for %2$s has Language Pack updated on %3$s.', 'translation-tools' )
 						),
 						'<strong>' . esc_html( $translation_project_version ) . '</strong>',
-						'<strong>' . esc_html( $formated_name ) . '</strong>',
+						'<strong>' . esc_html( $formatted_name ) . '</strong>',
 						'<code>' . esc_html( $locale->translations['updated'] ) . '</code>'
 					)
 				);
@@ -140,14 +140,14 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					__( 'The translation of WordPress %1$s for %2$s has no Language Pack yet.', 'translation-tools' )
 				),
 				esc_html( $translation_project_version ),
-				esc_html( $formated_name )
+				esc_html( $formatted_name )
 			);
 			$this->test_description = sprintf(
 				'<p><strong>%s</strong></p>',
 				sprintf(
 					/* translators: %s: Locale name. */
 					__( 'Translate WordPress to %s!', 'translation-tools' ),
-					esc_html( $formated_name )
+					esc_html( $formatted_name )
 				)
 			);
 			$this->test_description .= sprintf(
@@ -155,7 +155,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				sprintf(
 					/* translators: %s: Locale name. */
 					__( 'It looks like you understand %s. You can help translate WordPress and its plugins/themes in your language.', 'translation-tools' ),
-					'<strong>' . esc_html( $formated_name ) . '</strong>'
+					'<strong>' . esc_html( $formatted_name ) . '</strong>'
 				),
 				sprintf(
 					wp_kses_post(
@@ -183,7 +183,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 					esc_html__( '(opens in a new tab)', 'translation-tools' )
 				),
 				'<a href="https://make.wordpress.org/polyglots/teams/?locale=' . esc_attr( $locale->wp_locale ) . '" target="_blank">',
-				'<strong>' . esc_html( $formated_name ) . '</strong>'
+				'<strong>' . esc_html( $formatted_name ) . '</strong>'
 			);
 
 			$this->test_actions .= '<br><br>' . sprintf(
