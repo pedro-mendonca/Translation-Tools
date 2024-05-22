@@ -106,8 +106,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 
 				// Generate .po from WordPress.org response.
 				$generate_po = $this->generate_po( $destination, $project, $locale, $download['data'] );
+				\PHPStan\dumpType($generate_po);
 				array_push( $result['log'], $generate_po['log'] );
 				$result['data'] = $generate_po['data'];
+				\PHPStan\dumpType($generate_po['data']);
+				\PHPStan\dumpType($result['data']);
 				if ( is_wp_error( $result['data'] ) ) {
 					return $result;
 				}
