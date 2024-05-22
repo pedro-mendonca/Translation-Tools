@@ -105,9 +105,9 @@ if ( ! class_exists( __NAMESPACE__ . '\Gettext' ) ) {
 					if ( ! isset( $mapping[ $source ] ) ) {
 						$mapping[ $source ] = new Translations();
 
-						$mapping[ $source ]->setDomain( $translations->getDomain() );
-						$mapping[ $source ]->setHeader( 'Language', $translations->getLanguage() );
-						$mapping[ $source ]->setHeader( 'PO-Revision-Date', $translations->getHeader( 'PO-Revision-Date' ) );
+						$mapping[ $source ]->setDomain( strval( $translations->getDomain() ) );
+						$mapping[ $source ]->setHeader( 'Language', strval( $translations->getLanguage() ) );
+						$mapping[ $source ]->setHeader( 'PO-Revision-Date', strval( $translations->getHeader( 'PO-Revision-Date' ) ) );
 						$plural_forms = $translations->getPluralForms();
 
 						if ( $plural_forms ) {
