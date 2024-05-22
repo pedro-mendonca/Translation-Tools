@@ -26,6 +26,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 
 
 		/**
+		 * Array of available translations data obtained with wp_get_available_translations() for the locale.
+		 *
+		 * @var array
+		 */
+		public $translations;
+
+		/**
 		 * Locale slug. Eg.: 'pt/default'.
 		 *
 		 * @var string
