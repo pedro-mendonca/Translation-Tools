@@ -150,7 +150,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$locale = Translations_API::locale( $wp_locale );
 
 			// If the current locale has no Language Packs, set the core update to default 'en_US'.
-			if ( ! isset( $locale->translations ) ) {
+			if ( is_null( $locale->translations ) ) {
 				$wp_locale = 'en_US';
 			}
 
@@ -193,7 +193,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				// Get the formated Locale name.
 				$formated_name = self::locale_name_format( $locale );
 
-				if ( isset( $locale->translations ) ) {
+				if ( ! is_null( $locale->translations ) ) {
 					// Format Locale name.
 					$locales_with_lang_packs[] = $formated_name;
 				} else {

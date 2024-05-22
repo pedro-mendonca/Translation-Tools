@@ -271,7 +271,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 
 				foreach ( $locales as $locale ) {
 
-					if ( isset( $locale->translations ) ) {
+					if ( ! is_null( $locale->translations ) ) {
 						$locale_translations_version = Translations_API::major_version( $locale->translations['version'] );
 					}
 
@@ -279,7 +279,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 					$formated_name = Options_General::locale_name_format( $locale );
 
 					// Check if Language Packs exist for the Locale and if the Language Pack major version is the same as the WordPress installed major version.
-					if ( isset( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
+					if ( ! is_null( $locale->translations ) && isset( $locale_translations_version ) && $translation_project_version === $locale_translations_version ) {
 
 						$notice_messages[] = sprintf(
 							wp_kses_post(

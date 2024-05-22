@@ -86,11 +86,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 
 			if ( 'en_US' === $wp_locale ) {
 
-				$locale = esc_html__( 'WordPress default language, has no translation.', 'translation-tools' );
+				return esc_html__( 'WordPress default language, has no translation.', 'translation-tools' );
 
-			} elseif ( isset( $locale->translations ) ) {
+			} elseif ( ! is_null( $locale->translations ) ) {
 
-				$locale = sprintf(
+				return sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has Language Packs.', 'translation-tools' ),
 					$formated_name
@@ -98,15 +98,13 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health' ) ) {
 
 			} else {
 
-				$locale = sprintf(
+				return sprintf(
 					/* translators: %s: Locale name. */
 					esc_html__( '%s has no Language Packs.', 'translation-tools' ),
 					$formated_name
 				);
 
 			}
-
-			return $locale;
 		}
 	}
 
