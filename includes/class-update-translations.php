@@ -80,7 +80,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			$generate_json = apply_filters( 'translation_tools_update_generate_json', $generate_json ) ? true : false;
 
 			// Define variable.
-			/** @var array{log: array, data: true|WP_Error} $result */
 			$result = array();
 
 			// Destination of translation files.
@@ -109,6 +108,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				$generate_po = $this->generate_po( $destination, $project, $locale, $download['data'] );
 				array_push( $result['log'], $generate_po['log'] );
 				$result['data'] = $generate_po['data'];
+				/** @var array{log: array, data: true|WP_Error} $result Results. */
 				\PHPStan\dumpType( $result['data'] );
 				if ( is_wp_error( $result['data'] ) ) {
 					return $result;
