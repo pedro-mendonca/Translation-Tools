@@ -38,7 +38,9 @@
 	<config name="minimum_supported_wp_version" value="4.9"/>
 
 	<!-- Include the WordPress Coding Standards. -->
-	<rule ref="WordPress"/>
+	<rule ref="WordPress">
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+	</rule>
 
 	<!--
 	To get the optimal benefits of using WPCS, we should add a couple of custom properties.
