@@ -308,7 +308,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 * @param Locale $locale        Locale object.
 		 * @param array  $response      HTTP response.
 		 *
-		 * @return array|array{data:WP_Error} Array on success, WP_Error on failure.
+		 * @return array{log:string, data:true}|array{data:WP_Error} Array on success, WP_Error on failure.
 		 */
 		public function generate_po( $destination, $project, $locale, $response ) {
 
