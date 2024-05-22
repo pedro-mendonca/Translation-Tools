@@ -72,6 +72,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Locale' ) ) {
 		/**
 		 * Check if Locale has translations, and Language Packs.
 		 *
+		 * @since 1.7.1
+		 *
 		 * @return bool
 		 */
 		public function has_translations() {
