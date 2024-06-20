@@ -108,6 +108,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 				$generate_po = $this->generate_po( $destination, $project, $locale, $download['data'] );
 				array_push( $result['log'], $generate_po['log'] );
 				$result['data'] = $generate_po['data'];
+				/** @var array{log: array, data: true|WP_Error} $result Results. */
+				\PHPStan\dumpType( $result['data'] );
 				if ( is_wp_error( $result['data'] ) ) {
 					return $result;
 				}
@@ -305,7 +307,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 		 * @param Locale $locale        Locale object.
 		 * @param array  $response      HTTP response.
 		 *
-		 * @return array|WP_Error       Array on success, WP_Error on failure.
+		 * @return array{log:string, data:true}|array{data:WP_Error} Array on success, WP_Error on failure.
 		 */
 		public function generate_po( $destination, $project, $locale, $response ) {
 
