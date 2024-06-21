@@ -42,6 +42,9 @@
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	</rule>
 
+	<!-- Disallow Yoda conditions in the codebase. -->
+	<rule ref="Generic.ControlStructures.DisallowYodaConditions"/>
+
 	<!--
 	To get the optimal benefits of using WPCS, we should add a couple of custom properties.
 	For information on additional custom properties available, check out
