@@ -497,7 +497,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Translations' ) ) {
 			);
 
 			// Get translation content from .mo file.
-			$contents = WP_Translation_File::transform( $destination . $mo_file_name, 'php' ); // @phpstan-ignore-line until the WP 6.5 Stubs are released.
+			$contents = WP_Translation_File::transform( $destination . $mo_file_name, 'php' );
 
 			if ( ! $contents ) {
 
