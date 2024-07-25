@@ -59,7 +59,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 		 *
 		 * @return array  Array of the available languages.
 		 */
-		public function available_languages() {
+		public static function available_languages() {
 
 			// Get list of installed languages.
 			$languages = get_available_languages();

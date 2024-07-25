@@ -115,7 +115,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 
 				// Get the standard available Locales list.
 				remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
-				$available_languages = $this->options_general->available_languages();
+				$available_languages = Options_General::available_languages();
 				add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
 
 				// Get all languages.
