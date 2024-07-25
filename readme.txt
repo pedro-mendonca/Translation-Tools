@@ -5,7 +5,7 @@ Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,10 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 9. Site Health debug info for site and user WordPress translations, compatible with Preferred Languages
 
 == Changelog ==
+
+= 1.7.2 =
+*   Tested up to WP 6.6
+*   Fix PHP errors
 
 = 1.7.1 =
 *   Update Gettext to v4.8.12

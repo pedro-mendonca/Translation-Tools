@@ -155,6 +155,11 @@ Sure! You are welcome to report any issues or add feature suggestions on the [Gi
 
 ## Changelog
 
+### 1.7.2
+
+* Tested up to WP 6.6
+* Fix PHP errors
+
 ### 1.7.1
 
 * Update Gettext to v4.8.12
