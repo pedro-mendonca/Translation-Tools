@@ -153,8 +153,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 		 */
 		public function allowed_pages( $hook ) {
 
-			// Check for Updates page, General Options page and Profile page.
-			return in_array( $hook, array( 'update-core.php', 'options-general.php', 'profile.php', 'user-edit.php', 'settings_page_translation-stats' ), true );
+			// Check for pages Updates, General Options, Profile and User edit page. Both on single and multisite network.
+			return in_array(
+				$hook,
+				array(
+					'update-core.php',                 // Updates page on single site, or multisite network.
+					'options-general.php',             // General Options page on single site.
+					'settings.php',                    // Network Options page on multisite network.
+					'profile.php',                     // Profile page on single site, or multisite network.
+					'user-edit.php',                   // Edit user page on single site, or multisite network.
+					'settings_page_translation-stats', // Compatible plugin: Translation Stats.
+				),
+				true
+			);
 		}
 	}
 
