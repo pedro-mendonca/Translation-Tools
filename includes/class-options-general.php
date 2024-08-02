@@ -42,6 +42,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			// Add Site Language css.
 			add_action( 'admin_head-options-general.php', array( $this, 'settings_site_language_css' ) );
 
+			// Add Network settings Language description.
+			add_action( 'admin_head-settings.php', array( $this, 'settings_language_field_description' ) );
+			// Add Network settings Language css.
+			add_action( 'admin_head-settings.php', array( $this, 'settings_site_language_css' ) );
+
 			// Add Profile and User Edit Language description.
 			add_action( 'admin_head-profile.php', array( $this, 'settings_language_field_description' ) );
 			// Add Profile and User Edit Language css.
@@ -76,6 +81,134 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 			$languages = array_unique( $languages );
 
 			return $languages;
+		}
+
+		/**
+		 * Get the install configured and installed languages.
+		 */
+		public static function configured_languages() {
+
+			// TODO: Separate single from multisite code.
+
+			if ( is_multisite() ) {
+
+				$configured_languages = array(
+	 				'network' => 'null',
+	 				'sites'   => array(),
+	 				'users'   => array(),
+	 			);
+
+				$network_default_language = get_site_option( 'WPLANG' );
+				if ( $network_default_language !== '' ) {
+					// $network_default_language = 'en_US'; // Fallback to 'en_US' if not set
+					$configured_languages['network'] = $network_default_language;
+					$needed_translations[] = $network_default_language;
+				}
+
+				// Get all sites in the network.
+				$sites = get_sites();
+
+				foreach ( $sites as $site ) {
+					switch_to_blog( $site->blog_id );
+
+					// Get the site language
+					$site_language = get_option( 'WPLANG' );
+					// var_dump( $site_language );
+
+					if ( $site_language ) {
+						$configured_languages['sites'][ $site->blog_id ] = $site_language;
+						$needed_translations[] = $site_language;
+					}
+
+					// Restore the current site
+					restore_current_blog();
+				}
+
+			} else {
+
+				$configured_languages = array(
+	 				'site'  => array(),
+	 				'users' => array(),
+	 			);
+
+				$site_language = get_option( 'WPLANG' );
+				if ( $site_language ) {
+					$configured_languages['site'] = $site_language;
+					$needed_translations[] = $site_language;
+				}
+			}
+
+			$users = get_users();
+
+			foreach ( $users as $user ) {
+
+				$user_language = get_user_meta( $user->ID, 'locale', true );
+				if ( $user_language ) {
+					//$user_language = 'en_US'; // Fallback to 'en_US' if not set
+					$configured_languages['users'][ $user->ID ] = $user_language;
+					$needed_translations[] = $user_language;
+				}
+			}
+
+			return $configured_languages;
+		}
+
+
+		/**
+		 * Get the install configured and installed languages.
+		 */
+		public static function installed_translations() {
+			// Get the standard available Locales list.
+			remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+			$installed_translations = Options_General::available_languages();
+			add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+
+			// Report installed languages.
+			echo '<h4>' . esc_html__( 'Installed Translations', 'translation-tools' ) . '</h4>';
+			if ( $installed_translations ) {
+				?>
+				<ul>
+					<?php
+					foreach ( $installed_translations as $installed_translation ) {
+						echo '<li>' . $installed_translation . '</li>';
+					}
+					?>
+				</ul>
+				<?php
+			} else {
+				esc_html_e( 'No installed translations found.', 'translation-tools' );
+			}
+
+			return $installed_translations;
+
+		}
+
+
+		/**
+		 * Get the unused installed translations.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @return array   Array of WP_Locale codes of unused installed translations.
+		 */
+		public static function unused_translations() {
+
+			// Find the unused translations.
+			return array_diff( self::installed_translations(), self::needed_translations() );
+		}
+
+
+		/**
+		 * Get the missing translations.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @return array   Array of WP_Locale codes of missing translations.
+		 */
+		public static function missing_translations() {
+
+			// Find missing translations.
+			return array_diff( self::needed_translations(), self::installed_translations() );
 		}
 
 

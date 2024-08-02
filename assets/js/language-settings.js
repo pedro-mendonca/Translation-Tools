@@ -40,7 +40,7 @@ jQuery( document ).ready( function( $ ) {
 		// Select groups of Installed and Available options. Used always on Site Language, and since WP 6.2 on User Language.
 		var selectInstalledGroup = '';
 		var selectAvailableGroup = '';
-		if ( translationTools.current_screen === 'options-general' || translationTools.wp_version >= '6.2' ) {
+		if ( translationTools.current_screen === 'options-general' || translationTools.current_screen === 'settings-network' || translationTools.wp_version >= '6.2' ) {
 			selectInstalledGroup = ' > optgroup:eq(0)';
 			selectAvailableGroup = ' > optgroup:eq(1)';
 		}
@@ -50,7 +50,15 @@ jQuery( document ).ready( function( $ ) {
 				selectID = '.options-general-php select#WPLANG';
 				break;
 
+			case 'settings-network':
+				selectID = '.settings-php select#WPLANG';
+				break;
+
 			case 'profile':
+				selectID = '.profile-php select#locale';
+				break;
+
+			case 'profile-network':
 				selectID = '.profile-php select#locale';
 				break;
 
@@ -69,7 +77,7 @@ jQuery( document ).ready( function( $ ) {
 			if ( ! translationTools.available_languages.includes( value ) && '' !== value && 'site-default' !== value ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID + selectInstalledGroup, value );
-			} else if ( translationTools.current_screen === 'options-general' || translationTools.wp_version >= '6.2' ) {
+			} else if ( translationTools.current_screen === 'options-general' || translationTools.current_screen === 'settings-network' || translationTools.wp_version >= '6.2' ) {
 				// Remove Locales that are not installed.
 				ttoolsRemoveLocaleOption( selectID + selectAvailableGroup, value );
 			}

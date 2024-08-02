@@ -29,11 +29,21 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 		 */
 		protected $update_translations;
 
+		/**
+		 * Options General.
+		 *
+		 * @var object
+		 */
+		protected $options_general;
+
 
 		/**
 		 * Constructor.
 		 */
 		public function __construct() {
+
+			// Instantiate Translation Tools Options General.
+			$this->options_general = new Options_General();
 
 			// Instantiate Translation Tools Update Translations.
 			$this->update_translations = new Update_Translations();
@@ -96,6 +106,117 @@ if ( ! class_exists( __NAMESPACE__ . '\Update_Core' ) ) {
 			</div>
 
 			<?php
+
+			// Get the standard available Locales list.
+			remove_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+			$installed_translations = Options_General::available_languages();
+			add_filter( 'get_available_languages', array( $this->options_general, 'update_available_languages' ) );
+
+			// Report installed languages.
+			echo '<h4>' . esc_html__( 'Installed Translations', 'translation-tools' ) . '</h4>';
+			if ( $installed_translations ) {
+				?>
+				<ul>
+					<?php
+					foreach ( $installed_translations as $installed_translation ) {
+						echo '<li>' . $installed_translation . '</li>';
+					}
+					?>
+				</ul>
+				<?php
+			} else {
+				esc_html_e( 'No installed translations found.', 'translation-tools' );
+			}
+
+
+
+			$needed_translations = array();
+
+			if ( is_multisite() ) {
+
+				$configured_languages = array(
+	 				'network' => 'null',
+	 				'sites'   => array(),
+	 				'users'   => array(),
+	 			);
+
+				$network_default_language = get_site_option( 'WPLANG' );
+				if ( $network_default_language !== '' ) {
+					// $network_default_language = 'en_US'; // Fallback to 'en_US' if not set
+					$configured_languages['network'] = $network_default_language;
+					$needed_translations[] = $network_default_language;
+				}
+
+				// Get all sites in the network.
+				$sites = get_sites();
+
+				foreach ( $sites as $site ) {
+					switch_to_blog( $site->blog_id );
+
+					// Get the site language
+					$site_language = get_option( 'WPLANG' );
+					// var_dump( $site_language );
+
+					if ( $site_language ) {
+						$configured_languages['sites'][ $site->blog_id ] = $site_language;
+						$needed_translations[] = $site_language;
+					}
+
+					// Restore the current site
+					restore_current_blog();
+				}
+
+			} else {
+
+				$configured_languages = array(
+	 				'site'  => array(),
+	 				'users' => array(),
+	 			);
+
+				$site_language = get_option( 'WPLANG' );
+				if ( $site_language ) {
+					$configured_languages['site'] = $site_language;
+					$needed_translations[] = $site_language;
+				}
+			}
+
+			$users = get_users();
+
+			foreach ( $users as $user ) {
+
+				$user_language = get_user_meta( $user->ID, 'locale', true );
+				if ( $user_language ) {
+					//$user_language = 'en_US'; // Fallback to 'en_US' if not set
+					$configured_languages['users'][ $user->ID ] = $user_language;
+					$needed_translations[] = $user_language;
+				}
+			}
+
+			var_dump( $configured_languages );
+
+			// Remove duplicates.
+			$needed_translations = array_unique( $needed_translations );
+
+			// Sort ascending by wp_locale.
+			sort( $needed_translations );
+
+			//var_dump( $needed_translations );
+
+			// $unused_translations = array();
+
+			/**
+			 * Compare installed languages with configured languages.
+			 * Check if are there any missing installed or if there are any unused languages.
+			 */
+
+			// Find the unused translations
+			$unused_translations = array_diff( $installed_translations, $needed_translations );
+			echo '<strong>' . esc_html__( 'Unused Translations:', 'translation-tools' ) . '</strong> ' . implode( ', ', $unused_translations ) . '<br>';
+			// var_dump( $unused_translations );
+
+			$missing_translatins = array_diff( $needed_translations, $installed_translations );
+			echo '<strong>' . esc_html__( 'Missing Translations:', 'translation-tools' ) . '</strong> ' . implode( ', ', $missing_translatins ) . '<br>';
+			// var_dump( $missing_translatins );
 		}
 
 

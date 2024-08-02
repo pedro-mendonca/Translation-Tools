@@ -66,8 +66,32 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 		 */
 		public function register_plugin_scripts( $hook ) {
 
+			// Only load scripts and CSS on allowed pages.
 			if ( ! $this->allowed_pages( $hook ) ) {
 				return;
+			}
+
+			// Check if current user can install languages.
+			if ( ! current_user_can( 'install_languages' ) ) {
+				return;
+			}
+
+
+			//var_dump( $hook );
+			// /var_dump( get_current_screen() );
+			$current_screen = get_current_screen();
+			if ( $current_screen->in_admin( 'network' ) ) {
+
+				//var_dump( $current_screen->id );
+			}
+/*
+			var_dump( is_multisite() );
+			var_dump( $current_screen->in_admin( 'network' ) );
+			var_dump( $current_screen->id === 'settings-network' );
+			*/
+
+			if ( is_multisite() && $current_screen->in_admin( 'network' ) && $current_screen->id === 'settings-network' ) {
+
 			}
 
 			// Variables to send to JavaScript.
@@ -99,7 +123,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Translation_Tools' ) ) {
 			}
 
 			// Check for General Settings page, Profile page, User Edit page and Translation Stats plugin settings.
-			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook ) {
+			if ( 'options-general.php' === $hook || 'profile.php' === $hook || 'user-edit.php' === $hook || 'settings_page_translation-stats' === $hook || ( is_multisite() && $current_screen->in_admin( 'network' ) && $current_screen->id === 'settings-network' ) ) {
 
 				wp_register_script(
 					'translation-tools-language-settings',
