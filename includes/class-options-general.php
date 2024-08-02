@@ -221,6 +221,12 @@ if ( ! class_exists( __NAMESPACE__ . '\Options_General' ) ) {
 				}
 			}
 
+			// Remove duplicates.
+			$needed_translations = array_unique( $needed_translations );
+
+			// Sort ascending by wp_locale.
+			sort( $needed_translations );
+
 			return $needed_translations;
 		}
 
