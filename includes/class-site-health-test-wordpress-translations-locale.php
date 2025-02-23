@@ -66,7 +66,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Site_Health_Test_WordPress_Translations_L
 				// Set $wp_locale.
 				$this->wp_locale = $wp_locale;
 
-				// Add Locale sufix to test ID.
+				// Add Locale suffix to test ID.
 				$this->test_id = $this->test_id . '_' . $wp_locale;
 			}
 		}
