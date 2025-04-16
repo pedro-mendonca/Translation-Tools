@@ -3,7 +3,7 @@ Contributors: pedromendonca
 Donate link: https://github.com/sponsors/pedro-mendonca
 Tags: internationalization, localization, translation, core, language packs
 Requires at least: 4.9
-Tested up to: 6.6
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 1.7.2
 License: GPLv2
