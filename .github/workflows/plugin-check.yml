@@ -69,4 +69,4 @@ jobs:
       uses: wordpress/plugin-check-action@v1
       with:
         build-dir: 'translation-tools'
-        exclude-directories: 'lib'
+        exclude-directories: 'translation-tools/assets/lib'
