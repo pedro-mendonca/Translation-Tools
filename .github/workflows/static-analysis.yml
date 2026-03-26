@@ -58,7 +58,7 @@ jobs:
         run: composer validate --strict
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Run PHPStan static analysis (PHP ${{ matrix.php-versions }})
         run: composer lint:phpstan
